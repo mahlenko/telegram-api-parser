@@ -2,6 +2,7 @@
 
 namespace TelegramApiParser\Generator\PHP;
 
+use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Property as PhpProperty;
 use TelegramApiParser\Helpers;
 
@@ -26,6 +27,13 @@ class Property
 
     private PhpProperty $property;
 
+    private PhpNamespace $namespace;
+
+    public function __construct(PhpNamespace $namespace)
+    {
+        $this->namespace = $namespace;
+    }
+
     /**
      * @param string $key
      * @param string $type
@@ -38,16 +46,16 @@ class Property
         $this->property = new PhpProperty($key);
         $this->property->setPublic();
 
-        $this->setType($type);
-
         if (!empty($comment)) {
-            $this->property->setComment(Helpers::wordwrap($comment));
+            $this->property->addComment(Helpers::wordwrap($comment));
             if (is_null($required)) {
                 $this->property->setNullable(str_contains($comment, 'Optional'));
             } else {
                 $this->property->setNullable(!$required);
             }
         }
+
+        $this->setType($type);
 
         return $this->property;
     }
@@ -62,7 +70,15 @@ class Property
         if (preg_match('/( of )/', $type)) {
             list($type, $dataType) = explode(' of ', $type);
             $this->property->setType(strtolower($type));
-            $this->property->addComment('@return array<'.$dataType.'>');
+
+            if (str_contains($dataType, 'InputMedia')) {
+                $dataType = 'InputMedia';
+            }
+
+            $dataTypeNamespace = Helpers::pathFromBaseNamespace('Types/'.$dataType);
+            $this->namespace->addUse($dataTypeNamespace);
+
+            $this->property->addComment(PHP_EOL .'@var array<'.$dataType.'>');
 
             return;
         }

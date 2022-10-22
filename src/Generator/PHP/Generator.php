@@ -131,7 +131,7 @@ class Generator implements GeneratorLibraryInterface
             $class->addComment($comment);
         }
 
-        $propertyBuilder = new Property;
+        $propertyBuilder = new Property($namespace);
         $properties = [];
         foreach ($type->data as $item) {
             /* Add property */
@@ -175,7 +175,7 @@ class Generator implements GeneratorLibraryInterface
         $namespace->addUse($interface);
         $class->addImplement($interface);
 
-        $propertyBuilder = new Property;
+        $propertyBuilder = new Property($namespace);
         $properties = [];
         $required_properties = [];
         foreach ($method->data as $item) {
