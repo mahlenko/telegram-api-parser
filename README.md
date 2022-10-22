@@ -4,7 +4,7 @@
 
 **⚠️ This project is provided as is and may require significant improvements and code refactoring.**
 
-Example of a generated PHP project: [mahlenko/telegram-bot-objects](https://github.com/mahlenko/telegram-bot-objects)
+Example of a generated PHP project: [mahlenko/telegram-bot-casts](https://github.com/mahlenko/telegram-bot-casts)
 
 The ability to instantly create and update objects from the [Telegram Bot Api](https://core.telegram.org/bots/api#available-types). documentation. You can implement your own object generation after the received JSON object.
 
