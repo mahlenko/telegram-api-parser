@@ -1,8 +1,10 @@
 # API Objects Generator (Telegram)
 
-[![wakatime](https://wakatime.com/badge/user/508ba676-28fa-4f31-8af8-1dbd84610dad/project/1b24170d-621c-498d-b3d9-50719a9cc7d0.svg)](https://wakatime.com/badge/user/508ba676-28fa-4f31-8af8-1dbd84610dad/project/1b24170d-621c-498d-b3d9-50719a9cc7d0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **⚠️ This project is provided as is and may require significant improvements and code refactoring.**
+
+Example of a generated PHP project: [mahlenko/telegram-bot-objects](https://github.com/mahlenko/telegram-bot-objects)
 
 The ability to instantly create and update objects from the [Telegram Bot Api](https://core.telegram.org/bots/api#available-types). documentation. You can implement your own object generation after the received JSON object.
 
