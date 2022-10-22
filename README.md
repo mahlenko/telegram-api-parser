@@ -6,12 +6,6 @@
 
 The ability to instantly create and update objects from the [Telegram Bot Api](https://core.telegram.org/bots/api#available-types). documentation. You can implement your own object generation after the received JSON object.
 
-## Installation
-
-```shell
-composer require mahlenko/telegram-api-parser
-```
-
 Documentation parsing and JSON generation
 
 ```shell
