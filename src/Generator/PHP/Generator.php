@@ -182,7 +182,7 @@ class Generator implements GeneratorLibraryInterface
 
         $propertyBuilder = new Property($namespace);
         foreach ($method->data as $item) {
-                $required = $item->required !== 'Optional';
+            $required = $item->required !== 'Optional';
             if ($required) $required_properties[] = $item->parameter;
 
             /* Add property */

@@ -55,7 +55,6 @@ class Property
             $this->setType($type);
         }
 
-
         return $this->property;
     }
 
