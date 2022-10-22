@@ -38,10 +38,10 @@ class Property
      * @param string $key
      * @param string $type
      * @param string|null $comment
-     * @param bool|null $required
+     * @param bool $required
      * @return PhpProperty
      */
-    public function handle(string $key, string $type, string $comment = null, bool $required = null): PhpProperty
+    public function handle(string $key, string $type, string $comment = null, bool $required = false): PhpProperty
     {
         $this->property = new PhpProperty($key);
         $this->property->setPublic();
@@ -50,11 +50,7 @@ class Property
             $this->property->addComment(Helpers::wordwrap($comment));
             $this->setType($type);
 
-            if (is_null($required)) {
-                $this->property->setNullable(str_contains($comment, 'Optional'));
-            } else {
-                $this->property->setNullable(!$required);
-            }
+            $this->property->setNullable(!$required);
         } else {
             $this->setType($type);
         }

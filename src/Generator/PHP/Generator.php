@@ -138,7 +138,9 @@ class Generator implements GeneratorLibraryInterface
             $properties[] = $propertyBuilder->handle(
                 $item->field,
                 $item->type,
-                $item->description);
+                $item->description,
+                !str_contains($item->description, 'Optional')
+            );
         }
 
         $class->setProperties($properties);
@@ -180,7 +182,7 @@ class Generator implements GeneratorLibraryInterface
 
         $propertyBuilder = new Property($namespace);
         foreach ($method->data as $item) {
-            $required = $item->required !== 'Optional';
+                $required = $item->required !== 'Optional';
             if ($required) $required_properties[] = $item->parameter;
 
             /* Add property */
@@ -206,6 +208,7 @@ class Generator implements GeneratorLibraryInterface
             'required_properties',
             'array',
             'A list of necessary properties that should be checked before sending requests to the Telegram Bot API',
+            true
         )->setValue($required_properties);
 
         $class->setProperties($properties);
