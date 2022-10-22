@@ -26,7 +26,7 @@ class Generator implements GeneratorLibraryInterface
             throw new GeneratorException('Parse JSON: '. json_last_error_msg());
         }
 
-        self::abstracts();
+        self::placeholders();
 
         foreach ($json->items as $item) {
             self::create($item, [
@@ -93,7 +93,7 @@ class Generator implements GeneratorLibraryInterface
     /**
      * @return void
      */
-    private static function abstracts(): void
+    private static function placeholders(): void
     {
         $namespace = Helpers::namespace();
         $namespace->add(new ClassType('BaseMethod'));
