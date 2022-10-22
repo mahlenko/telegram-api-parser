@@ -78,10 +78,14 @@ class Property
                 $dataType = 'InputMedia';
             }
 
-            $dataTypeNamespace = Helpers::pathFromBaseNamespace('Types/'.$dataType);
-            $this->namespace->addUse($dataTypeNamespace);
+            $simpleType = $this->simpleType($dataType);
+            if (!$simpleType) {
+                $simpleType = $dataType;
+                $dataTypeNamespace = Helpers::pathFromBaseNamespace('Types/' . $dataType);
+                $this->namespace->addUse($dataTypeNamespace);
+            }
 
-            $this->property->addComment(PHP_EOL .'@var array<'.$dataType.'>');
+            $this->property->addComment(PHP_EOL .'@var array<'.$simpleType.'>');
 
             return;
         }
@@ -89,8 +93,13 @@ class Property
         if (preg_match('/( or )/', $type)) {
             $types = explode(' or ', $type);
             foreach ($types as $index => $value) {
-                $value = $this->simpleType($value) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $value);
-                $types[$index] = $value;
+                $simpleType = $this->simpleType($value);
+                $typeNamespace = Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $value);
+                $types[$index] = $simpleType ?? $typeNamespace;
+
+                if (!$simpleType) {
+                    $this->namespace->addUse($typeNamespace);
+                }
             }
 
             $this->property->setType(implode('|', $types));
