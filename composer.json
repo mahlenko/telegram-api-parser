@@ -1,5 +1,7 @@
 {
     "name": "mahlenko/telegram-api-parser",
+    "description": "Parsing to JSON telegram API documentation.",
+    "version": "1.0.0",
     "autoload": {
         "psr-4": {
             "TelegramApiParser\\": "src/"
@@ -8,7 +10,9 @@
     "authors": [
         {
             "name": "Makhlenko Sergey",
-            "email": "mahlenko-weblive@yandex.ru"
+            "email": "mahlenko-weblive@yandex.ru",
+            "homepage": "https://t.me/SergeyMakhlenko",
+            "role": "Developer"
         }
     ],
     "require-dev": {
@@ -21,5 +25,6 @@
         "nette/php-generator": "^4.0",
         "symfony/console": "^6.1",
         "vlucas/phpdotenv": "^5.5"
-    }
+    },
+    "license": "MIT"
 }
