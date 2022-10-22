@@ -66,16 +66,15 @@ class Helpers
      */
     public static function save(PhpNamespace $namespace, string $name): string
     {
-        $file = new PhpFile;
-        $file->setStrictTypes();
+        $printer = new Printer;
 
-        $file->addNamespace($namespace);
+        $file = new PhpFile;
+        $file->setStrictTypes()
+            ->addNamespace($namespace);
 
         $filename = Helpers::createFolderRecursive($namespace->resolveName($name).'.php');
 
-        $content = (string) $file;
-
-        file_put_contents($filename, $content);
+        file_put_contents($filename, $printer->printFile($file));
 
         return $filename;
     }
