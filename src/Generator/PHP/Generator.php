@@ -117,24 +117,24 @@ class Generator implements GeneratorLibraryInterface
 
         $interface = Helpers::pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
 
-        $namespace = Helpers::namespace(PhpPaths::Types->name);
-        $namespace->addUse(Helpers::pathFromBaseNamespace('BaseType'));
-        $namespace->addUse($interface);
-
+        /* Create class */
         $class = new ClassType(ucfirst($type->name));
-
-        $class->addImplement($interface);
-
         $class->addComment(Helpers::wordwrap($type->description));
-
+        $class->setExtends(Helpers::pathFromBaseNamespace('BaseType'));
+        $class->addImplement($interface);
         foreach ($comments as $comment) {
             $class->addComment($comment);
         }
 
+        /* Create namespace */
+        $namespace = Helpers::namespace(PhpPaths::Types->name);
+        $namespace->addUse($interface);
+        $namespace->addUse(Helpers::pathFromBaseNamespace('BaseType'));
+
+        /* Add properties */
         $propertyBuilder = new Property($namespace);
         $properties = [];
         foreach ($type->data as $item) {
-            /* Add property */
             $properties[] = $propertyBuilder->handle(
                 $item->field,
                 $item->type,
@@ -143,9 +143,8 @@ class Generator implements GeneratorLibraryInterface
 
         $class->setProperties($properties);
 
-        $class->setExtends(Helpers::pathFromBaseNamespace('BaseType'));
-
         $namespace->add($class);
+
         Helpers::save($namespace, $class->getName());
     }
 
@@ -159,27 +158,30 @@ class Generator implements GeneratorLibraryInterface
     {
         if (str_contains($method->name, ' ')) return;
 
-        $namespace = Helpers::namespace(PhpPaths::Methods->name);
+        $interface = Helpers::pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
 
+        /* Create class */
         $class = new ClassType(ucfirst($method->name));
         $class->setComment(Helpers::wordwrap($method->description));
-
+        $class->setExtends(Helpers::pathFromBaseNamespace('BaseMethod'));
+        $class->addImplement($interface);
         foreach ($comments as $comment) {
             $class->addComment($comment);
         }
 
+        /* Create namespace */
+        $namespace = Helpers::namespace(PhpPaths::Methods->name);
         $namespace->addUse(Helpers::pathFromBaseNamespace('BaseMethod'));
-        $class->setExtends(Helpers::pathFromBaseNamespace('BaseMethod'));
-
-        $interface = Helpers::pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
         $namespace->addUse($interface);
-        $class->addImplement($interface);
 
-        $propertyBuilder = new Property($namespace);
+        /* Add properties */
         $properties = [];
         $required_properties = [];
+
+        $propertyBuilder = new Property($namespace);
         foreach ($method->data as $item) {
             $required = $item->required !== 'Optional';
+            if ($required) $required_properties[] = $item->parameter;
 
             /* Add property */
             $property = $propertyBuilder->handle(
@@ -189,11 +191,7 @@ class Generator implements GeneratorLibraryInterface
                 $required
             );
 
-            if ($required) {
-                $required_properties[] = $item->parameter;
-            }
-
-            // add use for user type
+            // add user type
             foreach ($property->getType(true)->getTypes() as $type) {
                 if (str_contains($type, $_ENV['BASE_NAMESPACE'])) {
                     $namespace->addUse($type);
@@ -203,14 +201,12 @@ class Generator implements GeneratorLibraryInterface
             $properties[] = $property;
         }
 
-        /* Add property required */
-        $property_required = $propertyBuilder->handle(
+        /* Create list required properties */
+        $properties[] = $propertyBuilder->handle(
             'required_properties',
             'array',
             'A list of necessary properties that should be checked before sending requests to the Telegram Bot API',
-        );
-        $property_required->setValue($required_properties);
-        $properties[] = $property_required;
+        )->setValue($required_properties);
 
         $class->setProperties($properties);
 
