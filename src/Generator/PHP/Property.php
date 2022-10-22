@@ -84,12 +84,16 @@ class Property
         }
 
         if (preg_match('/( or )/', $type)) {
-            list($first, $second) = explode(' or ', $type);
+            $types = explode(' or ', $type);
+            foreach ($types as $index => $value) {
+                $value = $this->simpleType($value) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $value);
+                $types[$index] = $value;
+            }
 
-            $firstType = $this->simpleType($first) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $first);
-            $secondType = $this->simpleType($second) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $second);
+//            $firstType = $this->simpleType($first) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $first);
+//            $secondType = $this->simpleType($second) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $second);
 
-            $this->property->setType($firstType . '|' . $secondType);
+            $this->property->setType(implode('|', $types));
 
             return;
         }
