@@ -48,14 +48,17 @@ class Property
 
         if (!empty($comment)) {
             $this->property->addComment(Helpers::wordwrap($comment));
+            $this->setType($type);
+
             if (is_null($required)) {
                 $this->property->setNullable(str_contains($comment, 'Optional'));
             } else {
                 $this->property->setNullable(!$required);
             }
+        } else {
+            $this->setType($type);
         }
 
-        $this->setType($type);
 
         return $this->property;
     }
@@ -89,9 +92,6 @@ class Property
                 $value = $this->simpleType($value) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $value);
                 $types[$index] = $value;
             }
-
-//            $firstType = $this->simpleType($first) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $first);
-//            $secondType = $this->simpleType($second) ?? Helpers::pathFromBaseNamespace(PhpPaths::Types->name .'/'. $second);
 
             $this->property->setType(implode('|', $types));
 
