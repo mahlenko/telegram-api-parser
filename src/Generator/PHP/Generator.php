@@ -177,16 +177,23 @@ class Generator implements GeneratorLibraryInterface
 
         $propertyBuilder = new Property;
         $properties = [];
+        $required_properties = [];
         foreach ($method->data as $item) {
+            $required = $item->required !== 'Optional';
+
             /* Add property */
             $property = $propertyBuilder->handle(
                 $item->parameter,
                 $item->type,
                 $item->description,
-                $item->required !== 'Optional'
+                $required
             );
 
-            // add use
+            if ($required) {
+                $required_properties[] = $item->parameter;
+            }
+
+            // add use for user type
             foreach ($property->getType(true)->getTypes() as $type) {
                 if (str_contains($type, $_ENV['BASE_NAMESPACE'])) {
                     $namespace->addUse($type);
@@ -195,6 +202,15 @@ class Generator implements GeneratorLibraryInterface
 
             $properties[] = $property;
         }
+
+        /* Add property required */
+        $property_required = $propertyBuilder->handle(
+            'required_properties',
+            'array',
+            'A list of necessary properties that should be checked before sending requests to the Telegram Bot API',
+        );
+        $property_required->setValue($required_properties);
+        $properties[] = $property_required;
 
         $class->setProperties($properties);
 
