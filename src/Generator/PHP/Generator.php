@@ -30,8 +30,9 @@ class Generator implements GeneratorLibraryInterface
 
         foreach ($json->items as $item) {
             self::create($item, [
-                'version' => $json->version,
-                'author' => 'Sergey Makhlenko <https://github.com/mahlenko>',
+                '' => '',
+                '@version' => $json->version,
+                '@author' => 'Sergey Makhlenko <https://github.com/mahlenko>',
             ]);
         }
     }
@@ -50,12 +51,12 @@ class Generator implements GeneratorLibraryInterface
         foreach($item->data as $method) {
             /* Telegram type */
             if (isset($method->data[0]->field) || in_array($item->name, ['Available types'])) {
-                self::typesBuild($method, $interface);
+                self::typesBuild($method, $interface, $comments);
             } elseif (isset($method->data[0]->parameter) || in_array($item->name, ['Getting updates', 'Available methods'])) {
                 /* Telegram method */
-                self::methodsBuild($method, $interface);
+                self::methodsBuild($method, $interface, $comments);
             } else {
-                self::typesBuild($method, $interface);
+                self::typesBuild($method, $interface, $comments);
             }
         }
     }
@@ -76,7 +77,7 @@ class Generator implements GeneratorLibraryInterface
 
         if ($comments) {
             foreach ($comments as $key => $value) {
-                $interface->addComment('@'. $key .' '. $value);
+                $interface->addComment($key .' '. $value);
             }
 
             $interface->addComment('');
@@ -107,9 +108,10 @@ class Generator implements GeneratorLibraryInterface
     /**
      * @param object $type
      * @param string $interface
+     * @param array $comments
      * @return void
      */
-    private static function typesBuild(object $type, string $interface): void
+    private static function typesBuild(object $type, string $interface, array $comments = []): void
     {
         if (str_contains($type->name, ' ')) return;
 
@@ -124,6 +126,10 @@ class Generator implements GeneratorLibraryInterface
         $class->addImplement($interface);
 
         $class->addComment(Helpers::wordwrap($type->description));
+
+        foreach ($comments as $comment) {
+            $class->addComment($comment);
+        }
 
         $propertyBuilder = new Property;
         $properties = [];
@@ -146,9 +152,10 @@ class Generator implements GeneratorLibraryInterface
     /**
      * @param object $method
      * @param string $interface
+     * @param array $comments
      * @return void
      */
-    private static function methodsBuild(object $method, string $interface): void
+    private static function methodsBuild(object $method, string $interface, array $comments = []): void
     {
         if (str_contains($method->name, ' ')) return;
 
@@ -156,6 +163,10 @@ class Generator implements GeneratorLibraryInterface
 
         $class = new ClassType(ucfirst($method->name));
         $class->setComment(Helpers::wordwrap($method->description));
+
+        foreach ($comments as $comment) {
+            $class->addComment($comment);
+        }
 
         $namespace->addUse(Helpers::pathFromBaseNamespace('BaseMethod'));
         $class->setExtends(Helpers::pathFromBaseNamespace('BaseMethod'));
