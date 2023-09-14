@@ -96,13 +96,13 @@ class Generator implements GeneratorLibraryInterface
     private static function placeholders(): void
     {
         $namespace = Helpers::namespace();
-        $namespace->add(new ClassType('BaseMethod'));
+        $namespace->add(new ClassType('TelegramMethod'));
 
-        Helpers::save($namespace, 'BaseMethod');
-        $namespace->removeClass('BaseMethod');
+        Helpers::save($namespace, 'TelegramMethod');
+        $namespace->removeClass('TelegramMethod');
 
-        $namespace->add(new ClassType('BaseType'));
-        Helpers::save($namespace, 'BaseType');
+        $namespace->add(new ClassType('TelegramType'));
+        Helpers::save($namespace, 'TelegramType');
     }
 
     /**
@@ -120,7 +120,7 @@ class Generator implements GeneratorLibraryInterface
         /* Create class */
         $class = new ClassType(ucfirst($type->name));
         $class->addComment(Helpers::wordwrap($type->description));
-        $class->setExtends(Helpers::pathFromBaseNamespace('BaseType'));
+        $class->setExtends(Helpers::pathFromBaseNamespace('TelegramType'));
         $class->addImplement($interface);
         foreach ($comments as $comment) {
             $class->addComment($comment);
@@ -129,7 +129,7 @@ class Generator implements GeneratorLibraryInterface
         /* Create namespace */
         $namespace = Helpers::namespace(PhpPaths::Types->name);
         $namespace->addUse($interface);
-        $namespace->addUse(Helpers::pathFromBaseNamespace('BaseType'));
+        $namespace->addUse(Helpers::pathFromBaseNamespace('TelegramType'));
 
         /* Add properties */
         $propertyBuilder = new Property($namespace);
@@ -165,7 +165,7 @@ class Generator implements GeneratorLibraryInterface
         /* Create class */
         $class = new ClassType(ucfirst($method->name));
         $class->setComment(Helpers::wordwrap($method->description));
-        $class->setExtends(Helpers::pathFromBaseNamespace('BaseMethod'));
+        $class->setExtends(Helpers::pathFromBaseNamespace('TelegramMethod'));
         $class->addImplement($interface);
         foreach ($comments as $comment) {
             $class->addComment($comment);
@@ -173,7 +173,7 @@ class Generator implements GeneratorLibraryInterface
 
         /* Create namespace */
         $namespace = Helpers::namespace(PhpPaths::Methods->name);
-        $namespace->addUse(Helpers::pathFromBaseNamespace('BaseMethod'));
+        $namespace->addUse(Helpers::pathFromBaseNamespace('TelegramMethod'));
         $namespace->addUse($interface);
 
         /* Add properties */
