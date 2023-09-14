@@ -27,11 +27,11 @@ php console telegram:make
 TELEGRAM_DOCUMENTATION_URL=https://core.telegram.org/bots/api
 
 # Path to JSON Documentation
-SOURCE_PATH=source/telegram-api.json
+SOURCE_PATH=versions
 
 # Make a Telegramm PHP library of types and methods
 BUILD_PATH=build
-BASE_NAMESPACE=mahlenko\TelegramBot\Objects\
+BASE_NAMESPACE=TelegramBot\
 ```
 
 ## Dependencies
