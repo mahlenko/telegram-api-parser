@@ -23,7 +23,7 @@ class Generator implements GeneratorLibraryInterface
         }
 
         $version = preg_replace(
-            '/[^0-9\.]/',
+            '/[^0-9.]/',
             '',
             str_replace('.json', '', basename($filename))
         );

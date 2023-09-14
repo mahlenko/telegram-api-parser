@@ -27,7 +27,7 @@ class JsonCommand extends Command
         $parser = new TelegramParser($_ENV['TELEGRAM_DOCUMENTATION_URL']);
         $response = $parser->handle();
 
-        $version_number = preg_replace('/[^0-9\.]/', '', $parser->version());
+        $version_number = preg_replace('/[^0-9.]/', '', $parser->version());
 
         $path = $this->makeFolder($_ENV['SOURCE_PATH']);
         $filename = $path . DIRECTORY_SEPARATOR . $version_number.'.json';

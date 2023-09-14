@@ -22,7 +22,7 @@ class PhpCommand extends \Symfony\Component\Console\Command\Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $inputVersion = $input->getArgument('version') ?? '';
-        $version = preg_replace('/[^0-9\.]/', '', $inputVersion) ?: null;
+        $version = preg_replace('/[^0-9.]/', '', $inputVersion) ?: null;
 
         $realpath = realpath(__DIR__ .'/../../' . $_ENV['SOURCE_PATH']);
         if (!$realpath) {
@@ -71,7 +71,7 @@ class PhpCommand extends \Symfony\Component\Console\Command\Command
             $filename = str_replace('.json', '', $filename);
             if (in_array($filename, ['.', '..'])) continue;
 
-            $versions[] = preg_replace('/[^0-9\.]/', '', $filename);
+            $versions[] = preg_replace('/[^0-9.]/', '', $filename);
         }
 
         return $versions;
