@@ -7,6 +7,9 @@ use Nette\PhpGenerator\PhpNamespace;
 
 class Helpers
 {
+    public function __construct(private string $version) {
+    }
+
     /**
      * @param string $name
      * @return string
@@ -32,7 +35,7 @@ class Helpers
     {
         $path = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
 
-        $folder = $_ENV['BUILD_PATH'] . DIRECTORY_SEPARATOR
+        $folder = DIRECTORY_SEPARATOR . $_ENV['BUILD_PATH'] . DIRECTORY_SEPARATOR
             . str_replace(basename($path), '', $path);
 
         $folder = trim($folder, DIRECTORY_SEPARATOR);
@@ -60,11 +63,12 @@ class Helpers
     }
 
     /**
+     * @param string $version
      * @param PhpNamespace $namespace
      * @param string $name
      * @return string
      */
-    public static function save(PhpNamespace $namespace, string $name): string
+    public function save(PhpNamespace $namespace, string $name): string
     {
         $printer = new Printer;
 
@@ -72,7 +76,8 @@ class Helpers
         $file->setStrictTypes()
             ->addNamespace($namespace);
 
-        $filename = Helpers::createFolderRecursive($namespace->resolveName($name).'.php');
+        $pathFilename = $this->version .'\\'. $namespace->resolveName($name).'.php';
+        $filename = Helpers::createFolderRecursive($pathFilename);
 
         file_put_contents($filename, $printer->printFile($file));
 

@@ -11,6 +11,8 @@ use TelegramApiParser\Helpers;
 
 class Generator implements GeneratorLibraryInterface
 {
+    private Helpers $helper;
+
     /**
      * @throws GeneratorException
      */
@@ -20,16 +22,25 @@ class Generator implements GeneratorLibraryInterface
             throw new GeneratorException('Please run `php console telegram:json`.');
         }
 
+        $version = preg_replace(
+            '/[^0-9\.]/',
+            '',
+            str_replace('.json', '', basename($filename))
+        );
+
+        $this->helper = new Helpers($version);
+
         $json = json_decode(file_get_contents($filename));
 
         if (json_last_error()) {
             throw new GeneratorException('Parse JSON: '. json_last_error_msg());
         }
 
-        self::placeholders();
+        $this->placeholders();
 
         foreach ($json->items as $item) {
-            self::create($item, [
+            $this->create(
+                $item, [
                 '' => '',
                 '@version' => $json->version,
                 '@author' => 'Sergey Makhlenko <https://github.com/mahlenko>',
@@ -45,18 +56,18 @@ class Generator implements GeneratorLibraryInterface
     private function create($item, array $comments = []): void
     {
         /* Create interfaces */
-        $namespace = Helpers::namespace(PhpPaths::Interface->name);
-        $interface = self::interfaceBuild($namespace, $item, $comments);
+        $namespace = $this->helper->namespace(PhpPaths::Interface->name);
+        $interface = $this->interfaceBuild($namespace, $item, $comments);
 
         foreach($item->data as $method) {
             /* Telegram type */
             if (isset($method->data[0]->field) || in_array($item->name, ['Available types'])) {
-                self::typesBuild($method, $interface, $comments);
+                $this->typesBuild($method, $interface, $comments);
             } elseif (isset($method->data[0]->parameter) || in_array($item->name, ['Getting updates', 'Available methods'])) {
                 /* Telegram method */
-                self::methodsBuild($method, $interface, $comments);
+                $this->methodsBuild($method, $interface, $comments);
             } else {
-                self::typesBuild($method, $interface, $comments);
+                $this->typesBuild($method, $interface, $comments);
             }
         }
     }
@@ -67,13 +78,13 @@ class Generator implements GeneratorLibraryInterface
      * @param array $comments
      * @return string
      */
-    private static function interfaceBuild(PhpNamespace $namespace, $item, array $comments = []): string
+    private function interfaceBuild(PhpNamespace $namespace, $item, array $comments = []): string
     {
-        $name = Helpers::className($item->name) . PhpPaths::Interface->name;
+        $name = $this->helper->className($item->name) . PhpPaths::Interface->name;
 
         $interface = new InterfaceType($name);
         $interface->addComment($item->name . PHP_EOL);
-        $interface->addComment(Helpers::wordwrap($item->description) . PHP_EOL);
+        $interface->addComment($this->helper->wordwrap($item->description) . PHP_EOL);
 
         if ($comments) {
             foreach ($comments as $key => $value) {
@@ -85,7 +96,7 @@ class Generator implements GeneratorLibraryInterface
 
         $namespace->add($interface);
 
-        Helpers::save($namespace, $name);
+        $this->helper->save($namespace, $name);
 
         return $interface->getName();
     }
@@ -93,16 +104,16 @@ class Generator implements GeneratorLibraryInterface
     /**
      * @return void
      */
-    private static function placeholders(): void
+    private function placeholders(): void
     {
-        $namespace = Helpers::namespace();
+        $namespace = $this->helper->namespace();
         $namespace->add(new ClassType('TelegramMethod'));
 
-        Helpers::save($namespace, 'TelegramMethod');
+        $this->helper->save($namespace, 'TelegramMethod');
         $namespace->removeClass('TelegramMethod');
 
         $namespace->add(new ClassType('TelegramType'));
-        Helpers::save($namespace, 'TelegramType');
+        $this->helper->save($namespace, 'TelegramType');
     }
 
     /**
@@ -111,25 +122,25 @@ class Generator implements GeneratorLibraryInterface
      * @param array $comments
      * @return void
      */
-    private static function typesBuild(object $type, string $interface, array $comments = []): void
+    private function typesBuild(object $type, string $interface, array $comments = []): void
     {
         if (str_contains($type->name, ' ')) return;
 
-        $interface = Helpers::pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
+        $interface = $this->helper->pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
 
         /* Create class */
         $class = new ClassType(ucfirst($type->name));
-        $class->addComment(Helpers::wordwrap($type->description));
-        $class->setExtends(Helpers::pathFromBaseNamespace('TelegramType'));
+        $class->addComment($this->helper->wordwrap($type->description));
+        $class->setExtends($this->helper->pathFromBaseNamespace('TelegramType'));
         $class->addImplement($interface);
         foreach ($comments as $comment) {
             $class->addComment($comment);
         }
 
         /* Create namespace */
-        $namespace = Helpers::namespace(PhpPaths::Types->name);
+        $namespace = $this->helper->namespace(PhpPaths::Types->name);
         $namespace->addUse($interface);
-        $namespace->addUse(Helpers::pathFromBaseNamespace('TelegramType'));
+        $namespace->addUse($this->helper->pathFromBaseNamespace('TelegramType'));
 
         /* Add properties */
         $propertyBuilder = new Property($namespace);
@@ -147,7 +158,7 @@ class Generator implements GeneratorLibraryInterface
 
         $namespace->add($class);
 
-        Helpers::save($namespace, $class->getName());
+        $this->helper->save($namespace, $class->getName());
     }
 
     /**
@@ -156,24 +167,24 @@ class Generator implements GeneratorLibraryInterface
      * @param array $comments
      * @return void
      */
-    private static function methodsBuild(object $method, string $interface, array $comments = []): void
+    private function methodsBuild(object $method, string $interface, array $comments = []): void
     {
         if (str_contains($method->name, ' ')) return;
 
-        $interface = Helpers::pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
+        $interface = $this->helper->pathFromBaseNamespace(PhpPaths::Interface->name .'/'. $interface);
 
         /* Create class */
         $class = new ClassType(ucfirst($method->name));
-        $class->setComment(Helpers::wordwrap($method->description));
-        $class->setExtends(Helpers::pathFromBaseNamespace('TelegramMethod'));
+        $class->setComment($this->helper->wordwrap($method->description));
+        $class->setExtends($this->helper->pathFromBaseNamespace('TelegramMethod'));
         $class->addImplement($interface);
         foreach ($comments as $comment) {
             $class->addComment($comment);
         }
 
         /* Create namespace */
-        $namespace = Helpers::namespace(PhpPaths::Methods->name);
-        $namespace->addUse(Helpers::pathFromBaseNamespace('TelegramMethod'));
+        $namespace = $this->helper->namespace(PhpPaths::Methods->name);
+        $namespace->addUse($this->helper->pathFromBaseNamespace('TelegramMethod'));
         $namespace->addUse($interface);
 
         /* Add properties */
@@ -215,6 +226,6 @@ class Generator implements GeneratorLibraryInterface
 
         $namespace->add($class);
 
-        Helpers::save($namespace, ucfirst($method->name));
+        $this->helper->save($namespace, ucfirst($method->name));
     }
 }

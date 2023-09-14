@@ -21,21 +21,16 @@ class JsonCommand extends Command
      * @return int
      * @throws InvalidSelectorException
      */
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
+    protected function execute(InputInterface $input, OutputInterface $output): int {
         $output->writeln('<info>Creating Telegram API JSON format.</info>');
 
         $parser = new TelegramParser($_ENV['TELEGRAM_DOCUMENTATION_URL']);
-
         $response = $parser->handle();
 
-        if (empty($response)) {
-            $output->writeln('🛑Failure get api.');
-            return self::INVALID;
-        }
+        $version_number = preg_replace('/[^0-9\.]/', '', $parser->version());
 
-        $filename = $_ENV['FILENAME_JSON'];
-        $this->createFolders($filename);
+        $path = $this->makeFolder($_ENV['SOURCE_PATH']);
+        $filename = $path . DIRECTORY_SEPARATOR . $version_number.'.json';
 
         $data = [
             'items' => $response->toArray(),
@@ -44,7 +39,7 @@ class JsonCommand extends Command
         ];
 
         if (file_put_contents($filename, json_encode($data))) {
-            $output->writeln('<comment>File created:</comment> <info>' . realpath($filename) .'</info>');
+            $output->writeln('<comment>File created:</comment> <info>' . basename($filename) .'</info>');
             $output->writeln('<info>Version: '. $data['version'] .'</info>');
             $output->writeln('<info>Date API: '. $data['modified_at'] .'</info>');
 
@@ -54,8 +49,7 @@ class JsonCommand extends Command
         return self::SUCCESS;
     }
 
-    private function showResult(TelegramResponse $response, OutputInterface $output)
-    {
+    private function showResult(TelegramResponse $response, OutputInterface $output) {
         foreach ($response->toArray() as $item) {
             $table = new Table($output);
             $table->setHeaderTitle($item->name);
@@ -73,17 +67,15 @@ class JsonCommand extends Command
         }
     }
 
-    private function createFolders(string $filename): void
-    {
-        $folder = str_replace(basename($filename), '', $filename);
-        $folder = trim(trim($folder, '/'), DIRECTORY_SEPARATOR);
+    private function makeFolder(string $path): string {
+        $chunks = explode(DIRECTORY_SEPARATOR, $path);
+        $start_path = realpath(__DIR__ .'/../../');
 
-        $path = '';
-        foreach (explode(DIRECTORY_SEPARATOR, $folder) as $segment) {
-            $path .= $segment . DIRECTORY_SEPARATOR;
-            if (!file_exists($path) || !is_dir($path)) {
-                mkdir($path);
-            }
+        foreach ($chunks as $chunk) {
+            $start_path .= DIRECTORY_SEPARATOR . $chunk;
+            mkdir($start_path);
         }
+
+        return $start_path;
     }
 }
