@@ -73,7 +73,9 @@ class JsonCommand extends Command
 
         foreach ($chunks as $chunk) {
             $start_path .= DIRECTORY_SEPARATOR . $chunk;
-            mkdir($start_path);
+            if (!file_exists($start_path)) {
+                mkdir($start_path);
+            }
         }
 
         return $start_path;
