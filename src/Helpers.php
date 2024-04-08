@@ -63,7 +63,6 @@ class Helpers
     }
 
     /**
-     * @param string $version
      * @param PhpNamespace $namespace
      * @param string $name
      * @return string
@@ -76,7 +75,7 @@ class Helpers
         $file->setStrictTypes()
             ->addNamespace($namespace);
 
-        $pathFilename = $this->version .'\\'. $namespace->resolveName($name).'.php';
+        $pathFilename = $namespace->resolveName($name).'.php';
         $filename = Helpers::createFolderRecursive($pathFilename);
 
         file_put_contents($filename, $printer->printFile($file));
