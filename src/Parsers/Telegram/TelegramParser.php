@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use DiDom\Document;
 use DiDom\Element;
 use DiDom\Exceptions\InvalidSelectorException;
+use TelegramApiParser\Generator\PHP\Generator;
 use TelegramApiParser\Parsers\ParserInterface;
 use TelegramApiParser\Parsers\ResponseParseInterface;
 
@@ -55,19 +56,98 @@ class TelegramParser implements ParserInterface
                 $method_block = $this->findToNext($context, $method);
                 $method_description = $this->findToNext($method_block->first('div'), stopTag: 'table');
 
-                $method = new TelegramResponseBlock(
+                $description = null;
+                if ($method_description->first('p')) {
+                    $description = $method_description->first('p')->innerHtml();
+                }
+
+                $response_block = new TelegramResponseBlock(
                     $method->text(),
-                    $method_description->text(),
+                    $description,
                     $this->table($method_block->first('table'))
                 );
 
-                $item->push($method);
+                $item->push($response_block);
+            }
+
+            // setup response type
+            if (!in_array($item->name, ['Available types'])) {
+                /* @var TelegramResponseBlock $method */
+                foreach ($item->data as $method) {
+                    $responseTypes = $this->findResponseTypes($method->description);
+                    $method->response = $responseTypes;
+                }
             }
 
             $response[] = $item;
         }
 
         return $response;
+    }
+
+    /**
+     * Поиск типов возвращаемых данных
+     * @param string $description
+     * @return array|null
+     * @throws InvalidSelectorException
+     */
+    private function findResponseTypes(string $description): ?array {
+        if ($this->hasReturnType($description)) {
+            $rows = explode('. ', $description);
+            $return_contains_rows = [];
+
+            foreach ($rows as $row) {
+                if ($this->hasReturnType($row)) {
+                    $return_contains_rows[] = $row;
+                }
+            }
+
+            // collecting possible responses
+            if ($return_contains_rows) {
+                $responses = [];
+                $responses_string = implode('. ', $return_contains_rows);
+
+                $document = new Document($responses_string);
+
+                foreach ($document->find('em, a') as $tag) {
+                    $result = match ($tag->text()) {
+                        'True' => true,
+                        'False' => false,
+                        'String' => 'string',
+                        'Int', 'Integer' => 'int',
+                        'Double', 'Float' => 'float',
+                        default => $tag->text()
+                    };
+
+                    if (str_contains($tag, '_')) continue;
+                    if (is_string($result) && !in_array(strtolower($result), Generator::BASE_TYPES) && strncmp(ucfirst($result), $result, 1) !== 0) continue;
+
+                    if ($result === 'Messages') {
+                        $result = 'Message';
+                    }
+
+                    if (str_contains($responses_string, 'array of')) {
+                        $result = sprintf('array<%s>', $result);
+                    }
+
+
+                    $responses[] = $result;
+                }
+
+                if (in_array(true, $responses) && in_array(false, $responses)) {
+                    $responses = array_diff($responses, [true, false]);
+                    $responses[] = 'bool';
+                }
+
+                return $responses;
+            }
+        }
+
+        return null;
+    }
+
+    private function hasReturnType(string $string): bool {
+        return str_contains(strtolower($string), 'return');
     }
 
     /**

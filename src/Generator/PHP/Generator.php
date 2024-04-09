@@ -4,7 +4,9 @@ namespace TelegramApiParser\Generator\PHP;
 
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\InterfaceType;
+use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
+use Nette\PhpGenerator\Property as PhpProperty;
 use TelegramApiParser\Exceptions\GeneratorException;
 use TelegramApiParser\Generator\GeneratorLibraryInterface;
 use TelegramApiParser\Helpers;
@@ -12,6 +14,8 @@ use TelegramApiParser\Helpers;
 class Generator implements GeneratorLibraryInterface
 {
     private Helpers $helper;
+
+    const BASE_TYPES = ['string', 'float', 'int', 'bool', 'array', 'object'];
 
     /**
      * @throws GeneratorException
@@ -39,9 +43,7 @@ class Generator implements GeneratorLibraryInterface
         $this->placeholders();
 
         foreach ($json->items as $item) {
-            $this->create(
-                $item, [
-                '' => '',
+            $this->create($item, [
                 '@version' => $json->version,
                 '@author' => 'Sergey Makhlenko <https://github.com/mahlenko>',
             ]);
@@ -133,7 +135,12 @@ class Generator implements GeneratorLibraryInterface
         $class->addComment($this->helper->wordwrap($type->description));
         $class->setExtends($this->helper->pathFromBaseNamespace('TelegramType'));
         $class->addImplement($interface);
-        foreach ($comments as $comment) {
+
+        $class->setFinal();
+
+        $class->addComment('');
+        foreach ($comments as $key => $comment) {
+            $comment = is_string($key) ? $key .' '. $comment : $comment;
             $class->addComment($comment);
         }
 
@@ -178,7 +185,11 @@ class Generator implements GeneratorLibraryInterface
         $class->setComment($this->helper->wordwrap($method->description));
         $class->setExtends($this->helper->pathFromBaseNamespace('TelegramMethod'));
         $class->addImplement($interface);
-        foreach ($comments as $comment) {
+        $class->setFinal();
+
+        $class->addComment('');
+        foreach ($comments as $key => $comment) {
+            $comment = is_string($key) ? $key .' '. $comment : $comment;
             $class->addComment($comment);
         }
 
@@ -222,10 +233,77 @@ class Generator implements GeneratorLibraryInterface
             true
         )->setValue($required_properties);
 
+        // response types
+        if (isset($method->response)) {
+            $types = $this->makeResponseTypes($method->response);
+
+            $response = new PhpProperty('response_type');
+            $response->addComment('Response mapping type.');
+
+            $type = $types['types'];
+            if (is_array($type)) {
+                $response->setType('array');
+                $response->setValue([new Literal($type[0] .'::class')]);
+                $response->addComment('@var array<'. $type[0] .'>');
+            } else {
+                $response->setType('string');
+
+                if (in_array($type, self::BASE_TYPES)) {
+                    $response->setValue($type);
+                } else {
+                    $response->setValue(new Literal($type .'::class'));
+                }
+            }
+
+            if ($types['use']) {
+                foreach ($types['use'] as $use) {
+                    $namespace->addUse($use);
+                }
+            }
+
+//            $class->addProperty('qweqeqe', new Literal($types['types'][0]));
+
+            $properties[] = $response;
+        }
+
         $class->setProperties($properties);
 
         $namespace->add($class);
 
         $this->helper->save($namespace, ucfirst($method->name));
+    }
+
+    private function makeResponseTypes(array $types): array {
+        $typeObjectNamespace = $_ENV['BASE_NAMESPACE'] .'Types\\';
+        $baseTypes = self::BASE_TYPES;
+
+        $result = [
+            'types' => [],
+            'use' => [],
+        ];
+
+        foreach ($types as $type) {
+            if (str_contains($type, 'array<')) {
+                preg_match('/array<(.*)>/', $type, $matches);
+                if (!key_exists(1, $matches)) continue;
+
+                $type = [ $matches[1] ];
+                $result['comment'][] = '@var array<'.$matches[1].'>';
+                $result['use'][] = $typeObjectNamespace . $matches[1];
+            }
+
+            if (is_string($type) && !in_array($type, $baseTypes)) {
+                $result['use'][] = $typeObjectNamespace . $type;
+            }
+
+            $type = match ($type) {
+                true, false => 'bool',
+                default => $type
+            };
+
+            $result['types'] = $type;
+        }
+
+        return $result;
     }
 }
