@@ -4,5 +4,5 @@ namespace TelegramApiParser\Generator;
 
 interface GeneratorLibraryInterface
 {
-    public function run(string $filename): void;
+    public function run(string $filename, string $package_version): void;
 }

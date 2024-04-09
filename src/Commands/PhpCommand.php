@@ -4,6 +4,7 @@ namespace TelegramApiParser\Commands;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TelegramApiParser\Exceptions\GeneratorException;
 use TelegramApiParser\Generator\PHP\Generator;
@@ -24,6 +25,12 @@ class PhpCommand extends \Symfony\Component\Console\Command\Command
         $inputVersion = $input->getArgument('version') ?? '';
         $version = preg_replace('/[^0-9.]/', '', $inputVersion) ?: null;
 
+        $package_version = $input->getOption('package_version');
+        if (!$package_version) {
+            $output->writeln('<comment>Не указана версия пакета "-p=2.0.0"</comment>');
+            return self::FAILURE;
+        }
+
         $realpath = realpath(__DIR__ .'/../../' . $_ENV['SOURCE_PATH']);
         if (!$realpath) {
             $output->writeln('Run <info>php console telegram:json</info>');
@@ -40,7 +47,7 @@ class PhpCommand extends \Symfony\Component\Console\Command\Command
         }
 
         $generator = new Generator;
-        $generator->run($filename);
+        $generator->run($filename, $package_version);
 
         return self::SUCCESS;
     }
@@ -83,5 +90,13 @@ class PhpCommand extends \Symfony\Component\Console\Command\Command
             InputArgument::OPTIONAL,
             'Version API (source path)',
         );
+
+        $this->addOption(
+            'package_version',
+            'p',
+            InputOption::VALUE_REQUIRED,
+            'Package version',
+        );
+
     }
 }

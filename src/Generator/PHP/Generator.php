@@ -20,7 +20,7 @@ class Generator implements GeneratorLibraryInterface
     /**
      * @throws GeneratorException
      */
-    public function run(string $filename): void
+    public function run(string $filename, string $package_version): void
     {
         if (!file_exists($filename)) {
             throw new GeneratorException('Please run `php console telegram:json`.');
@@ -44,7 +44,7 @@ class Generator implements GeneratorLibraryInterface
 
         foreach ($json->items as $item) {
             $this->create($item, [
-                '@version' => $json->version,
+                '@version' => 'Telegram Bot Casts v'.$package_version.' ('. $json->version. ')',
                 '@author' => 'Sergey Makhlenko <https://github.com/mahlenko>',
             ]);
         }
