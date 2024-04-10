@@ -112,7 +112,7 @@ class PHPGenerator implements GeneratorInterface
             foreach ($section->params as $param) {
                 try {
                     $parameter = $method->addPromotedParameter($param->name);
-                    $parameter->addComment(StringHelper::wrap($param->description));
+                    $parameter->addComment(StringHelper::wrap($param->description, 70));
                     $parameter->setPublic();
 
                     $types = is_array($param->type) ? $param->type : [$param->type];
