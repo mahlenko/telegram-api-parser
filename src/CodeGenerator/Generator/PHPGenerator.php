@@ -84,7 +84,7 @@ class PHPGenerator implements GeneratorInterface
 
             if (str_contains($response_type, '[]')) {
                 $clear_type = str_replace('[]', '', $response_type);
-                if (strncmp(ucfirst($response_type), $response_type, 1) === 0) {
+                if (strncmp(ucfirst($clear_type), $clear_type, 1) === 0) {
                     $type_namespace = self::NAMESPACE . '\\' . TelegramObjectEnum::TYPE->directory() . '\\' . $clear_type;
                     $namespace->addUse($type_namespace);
 
@@ -123,14 +123,14 @@ class PHPGenerator implements GeneratorInterface
 
                             $type_namespace = self::NAMESPACE .'\\'. TelegramObjectEnum::TYPE->directory() .'\\'. $clear_type;
 
-                            if ($section->name != $clear_type) {
+                            if ($section->name != $clear_type && strncmp(ucfirst($clear_type), $clear_type, 1) === 0) {
                                 $namespace->addUse($type_namespace);
                             }
 
                         } else {
                             if (strncmp(ucfirst($type), $type, 1) === 0) {
                                 $types[$index] = self::NAMESPACE . '\\' . TelegramObjectEnum::TYPE->directory() . '\\' . $type;
-                                if ($section->name != $type) {
+                                if ($section->name != $type && strncmp(ucfirst($type), $type, 1) === 0) {
                                     $namespace->addUse($types[$index]);
                                 }
                             }
