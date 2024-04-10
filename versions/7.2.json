@@ -15,19 +15,19 @@
                     "name": "March 31, 2024",
                     "description": "Bot API 7.2\nIntegration with Business Accounts\n - Added the class BusinessConnection and updates about the connection or disconnection of the bot to a business account, represented by the field business_connection in the class Update.\n - Added updates about new messages in a business account connected to the bot, represented by the field business_message in the class Update.\n - Added updates about message edits in a business account connected to the bot, represented by the field edited_business_message in the class Update.\n - Added updates about message deletion in a business account connected to the bot, represented by the class BusinessMessagesDeleted and the field deleted_business_messages in the class Update.\n - Added the method getBusinessConnection.\nWorking on Behalf of Business Accounts\n - Added the parameter business_connection_id to the methods sendMessage, sendPhoto, sendVideo, sendAnimation, sendAudio, sendDocument, sendSticker, sendVideoNote, sendVoice, sendLocation, sendVenue, sendContact, sendPoll, sendDice, sendGame, and sendMediaGroup.\n - Added the parameter business_connection_id to the method sendChatAction.\n - Added the field business_connection_id to the class Message.\n - Added the field sender_business_bot to the class Message.\nInformation about Business Accounts\n - Added the class BusinessIntro and the field business_intro to the class Chat.\n - Added the class BusinessLocation and the field business_location to the class Chat.\n - Added the classes BusinessOpeningHours and BusinessOpeningHoursInterval and the field business_opening_hours to the class Chat.\nMixed-Format Sticker Packs\n - Removed the fields is_animated and is_video from the class StickerSet.\n - Added the field format to the class InputSticker.\n - Removed the parameter sticker_format from the method createNewStickerSet.\n - Added the parameter format to the method setStickerSetThumbnail.\n - Increased the maximum number of stickers in any regular and mask sticker set to 120.\n - Allowed to upload WEBM stickers using SendSticker.\nRequest Chat Improvements\n - Added the fields request_name, request_username, and request_photo to the class KeyboardButtonRequestUsers.\n - Added the fields request_title, request_username, and request_photo to the class KeyboardButtonRequestChat.\n - Added the class SharedUser and replaced the field user_ids in the class UsersShared with the field users.\n - Added the fields title, username, and photo to the class ChatShared.\nOther Changes\n - Added the field is_from_offline to the class Message.\n - Added the field can_connect_to_business to the class User.\n - Added the field personal_chat to the class Chat.\n - Added the method replaceStickerInSet,\n - Added the class Birthdate and the field birthdate to the class Chat.\n - Added the field BiometricManager to the class WebApp.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "February 16, 2024",
                     "description": "Bot API 7.1\n - Added support for the administrator rights can_post_stories, can_edit_stories, can_delete_stories in supergroups.\n - Added the class ChatBoostAdded and the field boost_added to the class Message for service messages about a user boosting a chat.\n - Added the field sender_boost_count to the class Message.\n - Added the field reply_to_story to the class Message.\n - Added the fields chat and id to the class Story.\n - Added the field unrestrict_boost_count to the class Chat.\n - Added the field custom_emoji_sticker_set_name to the class Chat.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "December 29, 2023",
                     "description": "Bot API 7.0\nReactions\n - Added the classes ReactionTypeEmoji and ReactionTypeCustomEmoji representing different types of reaction.\n - Added updates about a reaction change on a message with non-anonymous reactions, represented by the class MessageReactionUpdated and the field message_reaction in the class Update. The bot must explicitly allow the update to receive it.\n - Added updates about reaction changes on a message with anonymous reactions, represented by the class MessageReactionCountUpdated and the field message_reaction_count in the class Update. The bot must explicitly allow the update to receive it.\n - Added the method setMessageReaction that allows bots to react to messages.\n - Added the field available_reactions to the class Chat.\nReplies 2.0\n - Added the ability to reply to messages in other chats or forum topics.\n - Added the class ExternalReplyInfo and the field external_reply of type ExternalReplyInfo to the class Message, containing information about a message that is replied to by the current message, but can be from another chat or forum topic.\n - Added the ability to quote a part of the replied message.\n - Added the class TextQuote and the field quote of type TextQuote to the class Message, which contains the part of the replied message text or caption that is quoted in the current message.\n - Added the class ReplyParameters and replaced parameters reply_to_message_id and allow_sending_without_reply in the methods copyMessage, sendMessage, sendPhoto, sendVideo, sendAnimation, sendAudio, sendDocument, sendSticker, sendVideoNote, sendVoice, sendLocation, sendVenue, sendContact, sendPoll, sendDice, sendInvoice, sendGame, and sendMediaGroup with the field reply_parameters of type ReplyParameters.\nLink Preview Customization\n - Allowed to explicitly specify the URL that will be used for link preview generation in outgoing text messages.\n - Allowed to position link previews above the message text.\n - Allowed to choose media size in link previews.\n - Added the class LinkPreviewOptions and replaced the parameter disable_web_page_preview with link_preview_options in the methods sendMessage and editMessageText.\n - Replaced the field disable_web_page_preview with link_preview_options in the class InputTextMessageContent.\n - Added the field link_preview_options to the class Message with information about the link preview options used to send the message.\nBlock Quotation\n - Added support for \u201cblockquote\u201d entities in received messages.\n - Added support for \u201cblockquote\u201d entity parsing in \u201cMarkdownV2\u201d and \u201cHTML\u201d parse modes.\n - Allowed to explicitly specify \u201cblockquote\u201d entities in formatted texts.\nMultiple Message Actions\n - Added the method deleteMessages to allow the deletion of multiple messages in a single request.\n - Added the method forwardMessages for forwarding of multiple messages in a single request.\n - Added the method copyMessages for copying of multiple messages in a single request.\nRequest for multiple users\n - Renamed the class KeyboardButtonRequestUser to KeyboardButtonRequestUsers and added the field max_quantity to it.\n - Renamed the field request_user in the class KeyboardButton to request_users. The old name will still work for backward compatibility.\n - Added the class UsersShared.\n - Replaced the field user_shared in the class Message with the field users_shared.\nChat Boost\n - Added updates about chat boost changes, represented by the classes ChatBoostUpdated and ChatBoostRemoved and the fields chat_boost and removed_chat_boost in the class Update. The bot must be an administrator in the chat to receive these updates.\n - Added the classes ChatBoostSourcePremium, ChatBoostSourceGiftCode and ChatBoostSourceGiveaway, representing different sources of a chat boost.\n - Added the method getUserChatBoosts for obtaining the list of all active boosts a user has contributed to a chat.\nGiveaway\n - Added the class Giveaway and the field giveaway to the class Message for messages about scheduled giveaways.\n - Added the class GiveawayCreated and the field giveaway_created to the class Message for service messages about the creation of a scheduled giveaway.\n - Added the class GiveawayWinners and the field giveaway_winners to the class Message for messages about the completion of a giveaway with public winners.\n - Added the class GiveawayCompleted and the field giveaway_completed to the class Message for service messages about the completion of a giveaway without public winners.\nWeb App Changes\n - Added the field SettingsButton to the class WebApp.\n - Added the fields header_bg_color, accent_text_color, section_bg_color, section_header_text_color, subtitle_text_color, destructive_text_color to the class ThemeParams.\n - Web Apps no longer close when the method WebApp.openTelegramLink is called.\nOther Changes\n - Added support for the fields emoji_status_custom_emoji_id and emoji_status_expiration_date in the class Chat for non-private chats.\n - Added the fields accent_color_id, background_custom_emoji_id, profile_accent_color_id, and profile_background_custom_emoji_id to the class Chat.\n - Added the field has_visible_history to the class Chat.\n - Added the class MessageOrigin and replaced the fields forward_from, forward_from_chat, forward_from_message_id, forward_signature, forward_sender_name, and forward_date with the field forward_origin of type MessageOrigin in the class Message.\n - Improved documentation for the field message of the class callbackQuery and the field pinned_message of the class Message by adding the classes MaybeInaccessibleMessage and InaccessibleMessage.\nSee earlier changes \u00bb",
                     "response": null,
-                    "data": []
+                    "params": []
                 }
             ]
         },
@@ -44,7 +44,7 @@
                     "name": "Making requests when getting updates",
                     "description": "If you're using webhooks, you can perform a request to the Bot API while sending an answer to the webhook. Use either application\/json or application\/x-www-form-urlencoded or multipart\/form-data response content type for passing parameters. Specify the method to be invoked in the method parameter of the request. It's not possible to know that such a request was successful or get its result.\n\nPlease see our FAQ for examples.\n",
                     "response": null,
-                    "data": []
+                    "params": []
                 }
             ]
         },
@@ -56,7 +56,7 @@
                     "name": "Do I need a Local Bot API Server",
                     "description": "The majority of bots will be OK with the default configuration, running on our servers. But if you feel that you need one of these features, you're welcome to switch to your own at any time.",
                     "response": null,
-                    "data": []
+                    "params": []
                 }
             ]
         },
@@ -68,7 +68,7 @@
                     "name": "Update",
                     "description": "This object represents an incoming update.At most one of the optional parameters can be present in any given update.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "update_id",
                             "type": "int",
@@ -215,7 +215,7 @@
                     "response": [
                         "Update[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "offset",
                             "type": "int",
@@ -248,7 +248,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "url",
                             "type": "string",
@@ -299,7 +299,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "drop_pending_updates",
                             "type": "bool",
@@ -314,13 +314,13 @@
                     "response": [
                         "WebhookInfo"
                     ],
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "WebhookInfo",
                     "description": "Describes the current status of a webhook.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "url",
                             "type": "string",
@@ -387,7 +387,7 @@
                     "name": "User",
                     "description": "This object represents a Telegram user or bot.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "int",
@@ -466,7 +466,7 @@
                     "name": "Chat",
                     "description": "This object represents a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "int",
@@ -725,7 +725,7 @@
                     "name": "Message",
                     "description": "This object represents a message.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "message_id",
                             "type": "int",
@@ -1212,7 +1212,7 @@
                     "name": "MessageId",
                     "description": "This object represents a unique message identifier.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "message_id",
                             "type": "int",
@@ -1225,7 +1225,7 @@
                     "name": "InaccessibleMessage",
                     "description": "This object describes a message that was deleted or is otherwise inaccessible to the bot.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -1250,13 +1250,13 @@
                     "name": "MaybeInaccessibleMessage",
                     "description": "This object describes a message that can be inaccessible to the bot. It can be one of\n - Message\n - InaccessibleMessage",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "MessageEntity",
                     "description": "This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -1305,7 +1305,7 @@
                     "name": "TextQuote",
                     "description": "This object contains information about the quoted part of a message that is replied to by the given message.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "text",
                             "type": "string",
@@ -1336,7 +1336,7 @@
                     "name": "ExternalReplyInfo",
                     "description": "This object contains information about a message that is being replied to, which may come from another chat or forum topic.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "origin",
                             "type": "MessageOrigin",
@@ -1481,7 +1481,7 @@
                     "name": "ReplyParameters",
                     "description": "Describes reply parameters for the message that is being sent.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "message_id",
                             "type": "int",
@@ -1533,13 +1533,13 @@
                     "name": "MessageOrigin",
                     "description": "This object describes the origin of a message. It can be one of\n - MessageOriginUser\n - MessageOriginHiddenUser\n - MessageOriginChat\n - MessageOriginChannel",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "MessageOriginUser",
                     "description": "The message was originally sent by a known user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -1564,7 +1564,7 @@
                     "name": "MessageOriginHiddenUser",
                     "description": "The message was originally sent by an unknown user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -1589,7 +1589,7 @@
                     "name": "MessageOriginChat",
                     "description": "The message was originally sent on behalf of a chat to a group chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -1620,7 +1620,7 @@
                     "name": "MessageOriginChannel",
                     "description": "The message was originally sent to a channel chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -1657,7 +1657,7 @@
                     "name": "PhotoSize",
                     "description": "This object represents one size of a photo or a file \/ sticker thumbnail.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -1694,7 +1694,7 @@
                     "name": "Animation",
                     "description": "This object represents an animation file (GIF or H.264\/MPEG-4 AVC video without sound).",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -1755,7 +1755,7 @@
                     "name": "Audio",
                     "description": "This object represents an audio file to be treated as music by the Telegram clients.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -1816,7 +1816,7 @@
                     "name": "Document",
                     "description": "This object represents a general file (as opposed to photos, voice messages and audio files).",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -1859,7 +1859,7 @@
                     "name": "Story",
                     "description": "This object represents a story.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -1878,7 +1878,7 @@
                     "name": "Video",
                     "description": "This object represents a video file.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -1939,7 +1939,7 @@
                     "name": "VideoNote",
                     "description": "This object represents a video message (available in Telegram apps as of v.4.0).",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -1982,7 +1982,7 @@
                     "name": "Voice",
                     "description": "This object represents a voice note.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -2019,7 +2019,7 @@
                     "name": "Contact",
                     "description": "This object represents a phone contact.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "phone_number",
                             "type": "string",
@@ -2056,7 +2056,7 @@
                     "name": "Dice",
                     "description": "This object represents an animated emoji that displays a random value.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "emoji",
                             "type": "string",
@@ -2075,7 +2075,7 @@
                     "name": "PollOption",
                     "description": "This object contains information about one answer option in a poll.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "text",
                             "type": "string",
@@ -2094,7 +2094,7 @@
                     "name": "PollAnswer",
                     "description": "This object represents an answer of a user in a non-anonymous poll.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "poll_id",
                             "type": "string",
@@ -2125,7 +2125,7 @@
                     "name": "Poll",
                     "description": "This object contains information about a poll.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -2210,7 +2210,7 @@
                     "name": "Location",
                     "description": "This object represents a point on the map.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "latitude",
                             "type": "float",
@@ -2253,7 +2253,7 @@
                     "name": "Venue",
                     "description": "This object represents a venue.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "location",
                             "type": "Location",
@@ -2302,7 +2302,7 @@
                     "name": "WebAppData",
                     "description": "Describes data sent from a Web App to the bot.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "data",
                             "type": "string",
@@ -2321,7 +2321,7 @@
                     "name": "ProximityAlertTriggered",
                     "description": "This object represents the content of a service message, sent whenever a user in the chat triggers a proximity alert set by another user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "traveler",
                             "type": "User",
@@ -2346,7 +2346,7 @@
                     "name": "MessageAutoDeleteTimerChanged",
                     "description": "This object represents a service message about a change in auto-delete timer settings.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "message_auto_delete_time",
                             "type": "int",
@@ -2359,7 +2359,7 @@
                     "name": "ChatBoostAdded",
                     "description": "This object represents a service message about a user boosting a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "boost_count",
                             "type": "int",
@@ -2372,7 +2372,7 @@
                     "name": "ForumTopicCreated",
                     "description": "This object represents a service message about a new forum topic created in the chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -2397,13 +2397,13 @@
                     "name": "ForumTopicClosed",
                     "description": "This object represents a service message about a forum topic closed in the chat. Currently holds no information.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "ForumTopicEdited",
                     "description": "This object represents a service message about an edited forum topic.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -2422,25 +2422,25 @@
                     "name": "ForumTopicReopened",
                     "description": "This object represents a service message about a forum topic reopened in the chat. Currently holds no information.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "GeneralForumTopicHidden",
                     "description": "This object represents a service message about General forum topic hidden in the chat. Currently holds no information.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "GeneralForumTopicUnhidden",
                     "description": "This object represents a service message about General forum topic unhidden in the chat. Currently holds no information.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "SharedUser",
                     "description": "This object contains information about a user that was shared with the bot using a KeyboardButtonRequestUser button.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -2477,7 +2477,7 @@
                     "name": "UsersShared",
                     "description": "This object contains information about the users whose identifiers were shared with the bot using a KeyboardButtonRequestUsers button.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "request_id",
                             "type": "int",
@@ -2496,7 +2496,7 @@
                     "name": "ChatShared",
                     "description": "This object contains information about a chat that was shared with the bot using a KeyboardButtonRequestChat button.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "request_id",
                             "type": "int",
@@ -2533,7 +2533,7 @@
                     "name": "WriteAccessAllowed",
                     "description": "This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "from_request",
                             "type": "bool",
@@ -2558,7 +2558,7 @@
                     "name": "VideoChatScheduled",
                     "description": "This object represents a service message about a video chat scheduled in the chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "start_date",
                             "type": "int",
@@ -2571,13 +2571,13 @@
                     "name": "VideoChatStarted",
                     "description": "This object represents a service message about a video chat started in the chat. Currently holds no information.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "VideoChatEnded",
                     "description": "This object represents a service message about a video chat ended in the chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "duration",
                             "type": "int",
@@ -2590,7 +2590,7 @@
                     "name": "VideoChatParticipantsInvited",
                     "description": "This object represents a service message about new members invited to a video chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "users",
                             "type": "User[]",
@@ -2603,13 +2603,13 @@
                     "name": "GiveawayCreated",
                     "description": "This object represents a service message about the creation of a scheduled giveaway. Currently holds no information.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "Giveaway",
                     "description": "This object represents a message about a scheduled giveaway.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chats",
                             "type": "Chat[]",
@@ -2664,7 +2664,7 @@
                     "name": "GiveawayWinners",
                     "description": "This object represents a message about the completion of a giveaway with public winners.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -2737,7 +2737,7 @@
                     "name": "GiveawayCompleted",
                     "description": "This object represents a service message about the completion of a giveaway without public winners.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "winner_count",
                             "type": "int",
@@ -2762,7 +2762,7 @@
                     "name": "LinkPreviewOptions",
                     "description": "Describes the options used for link preview generation.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "is_disabled",
                             "type": "bool",
@@ -2799,7 +2799,7 @@
                     "name": "UserProfilePhotos",
                     "description": "This object represent a user's profile pictures.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "total_count",
                             "type": "int",
@@ -2818,7 +2818,7 @@
                     "name": "File",
                     "description": "This object represents a file ready to be downloaded. The file can be downloaded via the link https:\/\/api.telegram.org\/file\/bot<token>\/<file_path>. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile.\n\nThe maximum file size to download is 20 MB\n",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -2849,7 +2849,7 @@
                     "name": "WebAppInfo",
                     "description": "Describes a Web App.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "url",
                             "type": "string",
@@ -2862,7 +2862,7 @@
                     "name": "ReplyKeyboardMarkup",
                     "description": "This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "keyboard",
                             "type": "Array of KeyboardButton[]",
@@ -2905,7 +2905,7 @@
                     "name": "KeyboardButton",
                     "description": "This object represents one button of the reply keyboard. For simple text buttons, String can be used instead of this object to specify the button text. The optional fields web_app, request_users, request_chat, request_contact, request_location, and request_poll are mutually exclusive.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "text",
                             "type": "string",
@@ -2954,7 +2954,7 @@
                     "name": "KeyboardButtonRequestUsers",
                     "description": "This object defines the criteria used to request suitable users. Information about the selected users will be shared with the bot when the corresponding button is pressed. More about requesting users \u00bb",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "request_id",
                             "type": "int",
@@ -3003,7 +3003,7 @@
                     "name": "KeyboardButtonRequestChat",
                     "description": "This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the \u0441hat if appropriate More about requesting chats \u00bb",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "request_id",
                             "type": "int",
@@ -3076,7 +3076,7 @@
                     "name": "KeyboardButtonPollType",
                     "description": "This object represents type of a poll, which is allowed to be created and sent when the corresponding button is pressed.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -3089,7 +3089,7 @@
                     "name": "ReplyKeyboardRemove",
                     "description": "Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup).",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "remove_keyboard",
                             "type": "true",
@@ -3108,7 +3108,7 @@
                     "name": "InlineKeyboardMarkup",
                     "description": "This object represents an inline keyboard that appears right next to the message it belongs to.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "inline_keyboard",
                             "type": "Array of InlineKeyboardButton[]",
@@ -3121,7 +3121,7 @@
                     "name": "InlineKeyboardButton",
                     "description": "This object represents one button of an inline keyboard. You must use exactly one of the optional fields.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "text",
                             "type": "string",
@@ -3188,7 +3188,7 @@
                     "name": "LoginUrl",
                     "description": "This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap\/click a button and confirm that they want to log in:\n\n  \n\nTelegram apps support these buttons as of version 5.7.\n\nSample bot: @discussbot\n",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "url",
                             "type": "string",
@@ -3219,7 +3219,7 @@
                     "name": "SwitchInlineQueryChosenChat",
                     "description": "This object represents an inline button that switches the current user to inline mode in a chosen chat, with an optional default inline query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "query",
                             "type": "string",
@@ -3256,7 +3256,7 @@
                     "name": "CallbackQuery",
                     "description": "This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -3305,7 +3305,7 @@
                     "name": "ForceReply",
                     "description": "Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice privacy mode.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "force_reply",
                             "type": "true",
@@ -3330,7 +3330,7 @@
                     "name": "ChatPhoto",
                     "description": "This object represents a chat photo.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "small_file_id",
                             "type": "string",
@@ -3361,7 +3361,7 @@
                     "name": "ChatInviteLink",
                     "description": "Represents an invite link for a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "invite_link",
                             "type": "string",
@@ -3422,7 +3422,7 @@
                     "name": "ChatAdministratorRights",
                     "description": "Represents the rights of an administrator in a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "is_anonymous",
                             "type": "bool",
@@ -3519,7 +3519,7 @@
                     "name": "ChatMemberUpdated",
                     "description": "This object represents changes in the status of a chat member.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -3568,13 +3568,13 @@
                     "name": "ChatMember",
                     "description": "This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:\n - ChatMemberOwner\n - ChatMemberAdministrator\n - ChatMemberMember\n - ChatMemberRestricted\n - ChatMemberLeft\n - ChatMemberBanned",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "ChatMemberOwner",
                     "description": "Represents a chat member that owns the chat and has all administrator privileges.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "status",
                             "type": "string",
@@ -3605,7 +3605,7 @@
                     "name": "ChatMemberAdministrator",
                     "description": "Represents a chat member that has some additional privileges.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "status",
                             "type": "string",
@@ -3726,7 +3726,7 @@
                     "name": "ChatMemberMember",
                     "description": "Represents a chat member that has no additional privileges or restrictions.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "status",
                             "type": "string",
@@ -3745,7 +3745,7 @@
                     "name": "ChatMemberRestricted",
                     "description": "Represents a chat member that is under certain restrictions in the chat. Supergroups only.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "status",
                             "type": "string",
@@ -3860,7 +3860,7 @@
                     "name": "ChatMemberLeft",
                     "description": "Represents a chat member that isn't currently a member of the chat, but may join it themselves.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "status",
                             "type": "string",
@@ -3881,7 +3881,7 @@
                     "response": [
                         "ChatMember"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "status",
                             "type": "string",
@@ -3906,7 +3906,7 @@
                     "name": "ChatJoinRequest",
                     "description": "Represents a join request sent to a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -3949,7 +3949,7 @@
                     "name": "ChatPermissions",
                     "description": "Describes actions that a non-administrator user is allowed to take in a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "can_send_messages",
                             "type": "bool",
@@ -4040,7 +4040,7 @@
                     "name": "Birthdate",
                     "description": "",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "day",
                             "type": "int",
@@ -4065,7 +4065,7 @@
                     "name": "BusinessIntro",
                     "description": "",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "title",
                             "type": "string",
@@ -4090,7 +4090,7 @@
                     "name": "BusinessLocation",
                     "description": "",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "address",
                             "type": "string",
@@ -4109,7 +4109,7 @@
                     "name": "BusinessOpeningHoursInterval",
                     "description": "",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "opening_minute",
                             "type": "int",
@@ -4128,7 +4128,7 @@
                     "name": "BusinessOpeningHours",
                     "description": "",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "time_zone_name",
                             "type": "string",
@@ -4147,7 +4147,7 @@
                     "name": "ChatLocation",
                     "description": "Represents a location to which a chat is connected.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "location",
                             "type": "Location",
@@ -4166,13 +4166,13 @@
                     "name": "ReactionType",
                     "description": "This object describes the type of a reaction. Currently, it can be one of\n - ReactionTypeEmoji\n - ReactionTypeCustomEmoji",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "ReactionTypeEmoji",
                     "description": "The reaction is based on an emoji.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4191,7 +4191,7 @@
                     "name": "ReactionTypeCustomEmoji",
                     "description": "The reaction is based on a custom emoji.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4210,7 +4210,7 @@
                     "name": "ReactionCount",
                     "description": "Represents a reaction added to a message along with the number of times it was added.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "ReactionType",
@@ -4229,7 +4229,7 @@
                     "name": "MessageReactionUpdated",
                     "description": "This object represents a change of a reaction on a message performed by a user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -4278,7 +4278,7 @@
                     "name": "MessageReactionCountUpdated",
                     "description": "This object represents reaction changes on a message with anonymous reactions.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -4309,7 +4309,7 @@
                     "name": "ForumTopic",
                     "description": "This object represents a forum topic.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "message_thread_id",
                             "type": "int",
@@ -4340,7 +4340,7 @@
                     "name": "BotCommand",
                     "description": "This object represents a bot command.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "command",
                             "type": "string",
@@ -4359,19 +4359,19 @@
                     "name": "BotCommandScope",
                     "description": "This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:\n - BotCommandScopeDefault\n - BotCommandScopeAllPrivateChats\n - BotCommandScopeAllGroupChats\n - BotCommandScopeAllChatAdministrators\n - BotCommandScopeChat\n - BotCommandScopeChatAdministrators\n - BotCommandScopeChatMember",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "Determining list of commands",
                     "description": "The following algorithm is used to determine the list of commands for a particular user viewing the bot menu. The first list of commands which is set is returned:\nCommands in the chat with the bot\n - botCommandScopeChat + language_code\n - botCommandScopeChat\n - botCommandScopeAllPrivateChats + language_code\n - botCommandScopeAllPrivateChats\n - botCommandScopeDefault + language_code\n - botCommandScopeDefault\nCommands in group and supergroup chats\n - botCommandScopeChatMember + language_code\n - botCommandScopeChatMember\n - botCommandScopeChatAdministrators + language_code (administrators only)\n - botCommandScopeChatAdministrators (administrators only)\n - botCommandScopeChat + language_code\n - botCommandScopeChat\n - botCommandScopeAllChatAdministrators + language_code (administrators only)\n - botCommandScopeAllChatAdministrators (administrators only)\n - botCommandScopeAllGroupChats + language_code\n - botCommandScopeAllGroupChats\n - botCommandScopeDefault + language_code\n - botCommandScopeDefault",
                     "response": [],
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "BotCommandScopeDefault",
                     "description": "Represents the default scope of bot commands. Default commands are used if no commands with a narrower scope are specified for the user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4384,7 +4384,7 @@
                     "name": "BotCommandScopeAllPrivateChats",
                     "description": "Represents the scope of bot commands, covering all private chats.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4397,7 +4397,7 @@
                     "name": "BotCommandScopeAllGroupChats",
                     "description": "Represents the scope of bot commands, covering all group and supergroup chats.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4410,7 +4410,7 @@
                     "name": "BotCommandScopeAllChatAdministrators",
                     "description": "Represents the scope of bot commands, covering all group and supergroup chat administrators.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4423,7 +4423,7 @@
                     "name": "BotCommandScopeChat",
                     "description": "Represents the scope of bot commands, covering a specific chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4445,7 +4445,7 @@
                     "name": "BotCommandScopeChatAdministrators",
                     "description": "Represents the scope of bot commands, covering all administrators of a specific group or supergroup chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4467,7 +4467,7 @@
                     "name": "BotCommandScopeChatMember",
                     "description": "Represents the scope of bot commands, covering a specific member of a group or supergroup chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4495,7 +4495,7 @@
                     "name": "BotName",
                     "description": "This object represents the bot's name.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -4508,7 +4508,7 @@
                     "name": "BotDescription",
                     "description": "This object represents the bot's description.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "description",
                             "type": "string",
@@ -4521,7 +4521,7 @@
                     "name": "BotShortDescription",
                     "description": "This object represents the bot's short description.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "short_description",
                             "type": "string",
@@ -4534,13 +4534,13 @@
                     "name": "MenuButton",
                     "description": "This object describes the bot's menu button in a private chat. It should be one of\n - MenuButtonCommands\n - MenuButtonWebApp\n - MenuButtonDefault\nIf a menu button other than MenuButtonDefault is set for a private chat, then it is applied in the chat. Otherwise the default menu button is applied. By default, the menu button opens the list of bot commands.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "MenuButtonCommands",
                     "description": "Represents a menu button, which opens the bot's list of commands.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4553,7 +4553,7 @@
                     "name": "MenuButtonWebApp",
                     "description": "Represents a menu button, which launches a Web App.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4578,7 +4578,7 @@
                     "name": "MenuButtonDefault",
                     "description": "Describes that no specific value for the menu button was set.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4591,13 +4591,13 @@
                     "name": "ChatBoostSource",
                     "description": "This object describes the source of a chat boost. It can be one of\n - ChatBoostSourcePremium\n - ChatBoostSourceGiftCode\n - ChatBoostSourceGiveaway",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "ChatBoostSourcePremium",
                     "description": "The boost was obtained by subscribing to Telegram Premium or by gifting a Telegram Premium subscription to another user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -4616,7 +4616,7 @@
                     "name": "ChatBoostSourceGiftCode",
                     "description": "The boost was obtained by the creation of Telegram Premium gift codes to boost a chat. Each such code boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -4635,7 +4635,7 @@
                     "name": "ChatBoostSourceGiveaway",
                     "description": "The boost was obtained by the creation of a Telegram Premium giveaway. This boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -4666,7 +4666,7 @@
                     "name": "ChatBoost",
                     "description": "This object contains information about a chat boost.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "boost_id",
                             "type": "string",
@@ -4697,7 +4697,7 @@
                     "name": "ChatBoostUpdated",
                     "description": "This object represents a boost added to a chat or changed.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -4716,7 +4716,7 @@
                     "name": "ChatBoostRemoved",
                     "description": "This object represents a boost removed from a chat.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "chat",
                             "type": "Chat",
@@ -4747,7 +4747,7 @@
                     "name": "UserChatBoosts",
                     "description": "This object represents a list of boosts added to a chat by a user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "boosts",
                             "type": "ChatBoost[]",
@@ -4760,7 +4760,7 @@
                     "name": "BusinessConnection",
                     "description": "Describes the connection of the bot with a business account.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -4803,7 +4803,7 @@
                     "name": "BusinessMessagesDeleted",
                     "description": "This object is received when messages are deleted from a connected business account.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -4828,7 +4828,7 @@
                     "name": "ResponseParameters",
                     "description": "Describes why a request was unsuccessful.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "migrate_to_chat_id",
                             "type": "int",
@@ -4847,13 +4847,13 @@
                     "name": "InputMedia",
                     "description": "This object represents the content of a media message to be sent. It should be one of\n - InputMediaAnimation\n - InputMediaDocument\n - InputMediaAudio\n - InputMediaPhoto\n - InputMediaVideo",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "InputMediaPhoto",
                     "description": "Represents a photo to be sent.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4896,7 +4896,7 @@
                     "name": "InputMediaVideo",
                     "description": "Represents a video to be sent.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -4972,7 +4972,7 @@
                     "name": "InputMediaAnimation",
                     "description": "Represents an animation file (GIF or H.264\/MPEG-4 AVC video without sound) to be sent.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -5042,7 +5042,7 @@
                     "name": "InputMediaAudio",
                     "description": "Represents an audio file to be treated as music to be sent.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -5106,7 +5106,7 @@
                     "name": "InputMediaDocument",
                     "description": "Represents a general file to be sent.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -5158,19 +5158,19 @@
                     "name": "InputFile",
                     "description": "This object represents the contents of a file to be uploaded. Must be posted using multipart\/form-data in the usual way that files are uploaded via the browser.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "Sending files",
                     "description": "There are three ways to send files (photos, stickers, audio, media, etc.):\n - If the file is already stored somewhere on the Telegram servers, you don't need to reupload it: each file object has a file_id field, simply pass this file_id as a parameter instead of uploading. There are no limits for files sent this way.\n - Provide Telegram with an HTTP URL for the file to be sent. Telegram will download and send the file. 5 MB max size for photos and 20 MB max for other types of content.\n - Post the file using multipart\/form-data in the usual way that files are uploaded via the browser. 10 MB max size for photos, 50 MB for other files.\nSending by file_id\n - It is not possible to change the file type when resending by file_id. I.e. a video can't be sent as a photo, a photo can't be sent as a document, etc.\n - It is not possible to resend thumbnails.\n - Resending a photo by file_id will send all of its sizes.\n - file_id is unique for each individual bot and can't be transferred from one bot to another.\n - file_id uniquely identifies a file, but a file can have different valid file_ids even for the same bot.\nSending by URL\n - When sending by URL the target file must have the correct MIME type (e.g., audio\/mpeg for sendAudio, etc.).\n - In sendDocument, sending by URL will currently only work for GIF, PDF and ZIP files.\n - To use sendVoice, the file must have the type audio\/ogg and be no more than 1MB in size. 1-20MB voice notes will be sent as files.\n - Other configurations may work but we can't guarantee that they will.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "Accent colors",
                     "description": "Colors with identifiers 0 (red), 1 (orange), 2 (purple\/violet), 3 (green), 4 (cyan), 5 (blue), 6 (pink) can be customized by app themes. Additionally, the following colors in RGB format are currently in use. \n",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "7",
                             "type": "E15052 F9AE63",
@@ -5261,7 +5261,7 @@
                     "name": "Profile accent colors",
                     "description": "Currently, the following colors in RGB format are in use for profile backgrounds. \n",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "0",
                             "type": "BA5650",
@@ -5364,7 +5364,7 @@
                     "name": "Inline mode objects",
                     "description": "Objects and methods used in the inline mode are described in the Inline mode section.",
                     "response": null,
-                    "data": []
+                    "params": []
                 }
             ]
         },
@@ -5378,7 +5378,7 @@
                     "response": [
                         "User"
                     ],
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "logOut",
@@ -5386,7 +5386,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "close",
@@ -5394,7 +5394,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "sendMessage",
@@ -5402,7 +5402,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -5483,7 +5483,7 @@
                     "name": "Formatting options",
                     "description": "The Bot API supports basic formatting for messages. You can use bold, italic, underlined, strikethrough, spoiler text, block quotations as well as inline links and pre-formatted code in your bots' messages. Telegram clients will render them accordingly. You can specify text entities directly, or use markdown-style or HTML-style formatting.\nNote that Telegram clients will display an alert to the user before opening an inline link ('Open this link?' together with the full URL).\nMessage entities can be nested, providing following restrictions are met:- If two entities have common characters, then one of them is fully contained inside another.- bold, italic, underline, strikethrough, and spoiler entities can contain and can be part of any other entities, except pre and code.- blockquote entities can't be nested.- All other entities can't contain each other.\nLinks tg:\/\/user?id=<user_id> can be used to mention a user by their identifier without using a username. Please note:\n - These links will work only if they are used inside an inline link or in an inline keyboard button. For example, they will not work, when used in a message text.\n - Unless the user is a member of the chat where they were mentioned, these mentions are only guaranteed to work if the user has contacted the bot in private in the past or has sent a callback query to the bot via an inline button and doesn't have Forwarded Messages privacy enabled for the bot.\nYou can find the list of programming and markup languages for which syntax highlighting is supported at libprisma#supported-languages.\nMarkdownV2 style\nTo use this mode, pass MarkdownV2 in the parse_mode field. Use the following syntax in your message:\n`*bold \\*text*\n_italic \\*text_\n__underline__\n~strikethrough~\n||spoiler||\n*bold _italic bold ~italic bold strikethrough ||italic bold strikethrough spoiler||~ __underline italic bold___ bold*\n[inline URL](http:\/\/www.example.com\/)\n[inline mention of a user](tg:\/\/user?id=123456789)\n![](tg:\/\/emoji?id=5368324170671202286)\n`inline fixed-width code`\n```\npre-formatted fixed-width code block\n```\n```python\npre-formatted fixed-width code block written in the Python programming language\n```\n>Block quotation started\n>Block quotation continued\n>The last line of the block quotation**\n>The second block quotation started right after the previous\\r\n>The third block quotation started right after the previous`\nPlease note:\n - Any character with code between 1 and 126 inclusively can be escaped anywhere with a preceding '\\' character, in which case it is treated as an ordinary character and not a part of the markup. This implies that '\\' character usually must be escaped with a preceding '\\' character.\n - Inside pre and code entities, all '`' and '\\' characters must be escaped with a preceding '\\' character.\n - Inside the (...) part of the inline link and custom emoji definition, all ')' and '\\' must be escaped with a preceding '\\' character.\n - In all other places characters '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!' must be escaped with the preceding character '\\'.\n - In case of ambiguity between italic and underline entities __ is always greadily treated from left to right as beginning or end of underline entity, so instead of ___italic underline___ use ___italic underline_\\r__, where \\r is a character with code 13, which will be ignored.\n - A valid emoji must be provided as an alternative value for the custom emoji. The emoji will be shown instead of the custom emoji in places where a custom emoji cannot be displayed (e.g., system notifications) or if the message is forwarded by a non-premium user. It is recommended to use the emoji from the emoji field of the custom emoji sticker.\n - Custom emoji entities can only be used by bots that purchased additional usernames on Fragment.\nHTML style\nTo use this mode, pass HTML in the parse_mode field. The following tags are currently supported:\n`<b>bold<\/b>, <strong>bold<\/strong>\n<i>italic<\/i>, <em>italic<\/em>\n<u>underline<\/u>, <ins>underline<\/ins>\n<s>strikethrough<\/s>, <strike>strikethrough<\/strike>, <del>strikethrough<\/del>\n<span class=\"tg-spoiler\">spoiler<\/span>, <tg-spoiler>spoiler<\/tg-spoiler>\n<b>bold <i>italic bold <s>italic bold strikethrough <span class=\"tg-spoiler\">italic bold strikethrough spoiler<\/span><\/s> <u>underline italic bold<\/u><\/i> bold<\/b>\n<a href=\"http:\/\/www.example.com\/\">inline URL<\/a>\n<a href=\"tg:\/\/user?id=123456789\">inline mention of a user<\/a>\n<tg-emoji emoji-id=\"5368324170671202286\"><\/tg-emoji>\n<code>inline fixed-width code<\/code>\n<pre>pre-formatted fixed-width code block<\/pre>\n<pre><code class=\"language-python\">pre-formatted fixed-width code block written in the Python programming language<\/code><\/pre>\n<blockquote>Block quotation started\\nBlock quotation continued\\nThe last line of the block quotation<\/blockquote>`\nPlease note:\n - Only the tags mentioned above are currently supported.\n - All <, > and & symbols that are not a part of a tag or an HTML entity must be replaced with the corresponding HTML entities (< with &lt;, > with &gt; and & with &amp;).\n - All numerical HTML entities are supported.\n - The API currently supports only the following named HTML entities: &lt;, &gt;, &amp; and &quot;.\n - Use nested pre and code tags, to define programming language for pre entity.\n - Programming language can't be specified for standalone code tags.\n - A valid emoji must be used as the content of the tg-emoji tag. The emoji will be shown instead of the custom emoji in places where a custom emoji cannot be displayed (e.g., system notifications) or if the message is forwarded by a non-premium user. It is recommended to use the emoji from the emoji field of the custom emoji sticker.\n - Custom emoji entities can only be used by bots that purchased additional usernames on Fragment.\nMarkdown style\nThis is a legacy mode, retained for backward compatibility. To use this mode, pass Markdown in the parse_mode field. Use the following syntax in your message:\n`*bold text*\n_italic text_\n[inline URL](http:\/\/www.example.com\/)\n[inline mention of a user](tg:\/\/user?id=123456789)\n`inline fixed-width code`\n```\npre-formatted fixed-width code block\n```\n```python\npre-formatted fixed-width code block written in the Python programming language\n````\nPlease note:\n - Entities must not be nested, use parse mode MarkdownV2 instead.\n - There is no way to specify \u201cunderline\u201d, \u201cstrikethrough\u201d, \u201cspoiler\u201d, \u201cblockquote\u201d and \u201ccustom_emoji\u201d entities, use parse mode MarkdownV2 instead.\n - To escape characters '_', '*', '`', '[' outside of an entity, prepend the characters '\\' before them.\n - Escaping inside entities is not allowed, so entity must be closed first and reopened again: use _snake_\\__case_ for italic snake_case and *2*\\**2=4* for bold 2*2=4.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "forwardMessage",
@@ -5491,7 +5491,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -5542,7 +5542,7 @@
                     "response": [
                         "MessageId[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -5593,7 +5593,7 @@
                     "response": [
                         "MessageId"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -5679,7 +5679,7 @@
                     "response": [
                         "MessageId[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -5736,7 +5736,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -5828,7 +5828,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -5941,7 +5941,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6042,7 +6042,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6167,7 +6167,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6286,7 +6286,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6378,7 +6378,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6467,7 +6467,7 @@
                     "response": [
                         "Message[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6526,7 +6526,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6621,7 +6621,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6728,7 +6728,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6811,7 +6811,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -6942,7 +6942,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -7007,7 +7007,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -7043,7 +7043,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7079,7 +7079,7 @@
                     "response": [
                         "UserProfilePhotos"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -7106,7 +7106,7 @@
                     "response": [
                         "File"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -7121,7 +7121,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7157,7 +7157,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7187,7 +7187,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7229,7 +7229,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7343,7 +7343,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7373,7 +7373,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7397,7 +7397,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7421,7 +7421,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7451,7 +7451,7 @@
                     "response": [
                         "string"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7469,7 +7469,7 @@
                     "response": [
                         "ChatInviteLink"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7511,7 +7511,7 @@
                     "response": [
                         "ChatInviteLink"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7559,7 +7559,7 @@
                     "response": [
                         "ChatInviteLink"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7583,7 +7583,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7607,7 +7607,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7631,7 +7631,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7655,7 +7655,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7673,7 +7673,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7697,7 +7697,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7721,7 +7721,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7751,7 +7751,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7775,7 +7775,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7793,7 +7793,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7811,7 +7811,7 @@
                     "response": [
                         "Chat"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7829,7 +7829,7 @@
                     "response": [
                         "ChatMember[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7847,7 +7847,7 @@
                     "response": [
                         "int"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7865,7 +7865,7 @@
                     "response": [
                         "ChatMember"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7889,7 +7889,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7913,7 +7913,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7931,7 +7931,7 @@
                     "response": [
                         "Sticker[]"
                     ],
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "createForumTopic",
@@ -7939,7 +7939,7 @@
                     "response": [
                         "ForumTopic"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -7975,7 +7975,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8011,7 +8011,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8035,7 +8035,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8059,7 +8059,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8083,7 +8083,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8107,7 +8107,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8131,7 +8131,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8149,7 +8149,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8167,7 +8167,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8185,7 +8185,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8203,7 +8203,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8221,7 +8221,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "callback_query_id",
                             "type": "string",
@@ -8260,7 +8260,7 @@
                     "response": [
                         "UserChatBoosts"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8284,7 +8284,7 @@
                     "response": [
                         "BusinessConnection"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -8299,7 +8299,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "commands",
                             "type": "BotCommand[]",
@@ -8326,7 +8326,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "scope",
                             "type": "BotCommandScope",
@@ -8347,7 +8347,7 @@
                     "response": [
                         "BotCommand[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "scope",
                             "type": "BotCommandScope",
@@ -8368,7 +8368,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -8389,7 +8389,7 @@
                     "response": [
                         "BotName"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "language_code",
                             "type": "string",
@@ -8404,7 +8404,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "description",
                             "type": "string",
@@ -8425,7 +8425,7 @@
                     "response": [
                         "BotDescription"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "language_code",
                             "type": "string",
@@ -8440,7 +8440,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "short_description",
                             "type": "string",
@@ -8461,7 +8461,7 @@
                     "response": [
                         "BotShortDescription"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "language_code",
                             "type": "string",
@@ -8476,7 +8476,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": "int",
@@ -8497,7 +8497,7 @@
                     "response": [
                         "MenuButton"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": "int",
@@ -8512,7 +8512,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "rights",
                             "type": "ChatAdministratorRights",
@@ -8533,7 +8533,7 @@
                     "response": [
                         "ChatAdministratorRights"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "for_channels",
                             "type": "bool",
@@ -8546,7 +8546,7 @@
                     "name": "Inline mode methods",
                     "description": "Methods and objects used in the inline mode are described in the Inline mode section.",
                     "response": null,
-                    "data": []
+                    "params": []
                 }
             ]
         },
@@ -8560,7 +8560,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8620,7 +8620,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8674,7 +8674,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8716,7 +8716,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8782,7 +8782,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8818,7 +8818,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8854,7 +8854,7 @@
                     "response": [
                         "Poll"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8882,7 +8882,7 @@
                     "name": "deleteMessage",
                     "description": "Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.",
                     "response": [],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8906,7 +8906,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -8934,7 +8934,7 @@
                     "name": "Sticker",
                     "description": "This object represents a sticker.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -9031,7 +9031,7 @@
                     "name": "StickerSet",
                     "description": "This object represents a sticker set.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -9068,7 +9068,7 @@
                     "name": "MaskPosition",
                     "description": "This object describes the position on faces where a mask should be placed by default.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "point",
                             "type": "string",
@@ -9099,7 +9099,7 @@
                     "name": "InputSticker",
                     "description": "This object describes a sticker to be added to a sticker set.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "sticker",
                             "type": [
@@ -9141,7 +9141,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -9215,7 +9215,7 @@
                     "response": [
                         "StickerSet"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -9230,7 +9230,7 @@
                     "response": [
                         "Sticker[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "custom_emoji_ids",
                             "type": "string[]",
@@ -9245,7 +9245,7 @@
                     "response": [
                         "File"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -9272,7 +9272,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -9317,7 +9317,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -9344,7 +9344,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "sticker",
                             "type": "string",
@@ -9365,7 +9365,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "sticker",
                             "type": "string",
@@ -9380,7 +9380,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -9413,7 +9413,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "sticker",
                             "type": "string",
@@ -9434,7 +9434,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "sticker",
                             "type": "string",
@@ -9455,7 +9455,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "sticker",
                             "type": "string",
@@ -9476,7 +9476,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -9497,7 +9497,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -9533,7 +9533,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -9554,7 +9554,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -9573,7 +9573,7 @@
                     "name": "InlineQuery",
                     "description": "This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.",
                     "response": [],
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -9618,7 +9618,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "inline_query_id",
                             "type": "string",
@@ -9661,7 +9661,7 @@
                     "name": "InlineQueryResultsButton",
                     "description": "This object represents a button to be shown above inline query results. You must use exactly one of the optional fields.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "text",
                             "type": "string",
@@ -9686,13 +9686,13 @@
                     "name": "InlineQueryResult",
                     "description": "This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:\n - InlineQueryResultCachedAudio\n - InlineQueryResultCachedDocument\n - InlineQueryResultCachedGif\n - InlineQueryResultCachedMpeg4Gif\n - InlineQueryResultCachedPhoto\n - InlineQueryResultCachedSticker\n - InlineQueryResultCachedVideo\n - InlineQueryResultCachedVoice\n - InlineQueryResultArticle\n - InlineQueryResultAudio\n - InlineQueryResultContact\n - InlineQueryResultGame\n - InlineQueryResultDocument\n - InlineQueryResultGif\n - InlineQueryResultLocation\n - InlineQueryResultMpeg4Gif\n - InlineQueryResultPhoto\n - InlineQueryResultVenue\n - InlineQueryResultVideo\n - InlineQueryResultVoice\nNote: All URLs passed in inline query results will be available to end users and therefore must be assumed to be public.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "InlineQueryResultArticle",
                     "description": "Represents a link to an article or web page.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -9765,7 +9765,7 @@
                     "name": "InlineQueryResultPhoto",
                     "description": "Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -9850,7 +9850,7 @@
                     "name": "InlineQueryResultGif",
                     "description": "Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -9941,7 +9941,7 @@
                     "name": "InlineQueryResultMpeg4Gif",
                     "description": "Represents a link to a video animation (H.264\/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10032,7 +10032,7 @@
                     "name": "InlineQueryResultVideo",
                     "description": "Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.\n\nIf an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you must replace its content using input_message_content.\n",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10129,7 +10129,7 @@
                     "name": "InlineQueryResultAudio",
                     "description": "Represents a link to an MP3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10202,7 +10202,7 @@
                     "name": "InlineQueryResultVoice",
                     "description": "Represents a link to a voice recording in an .OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10269,7 +10269,7 @@
                     "name": "InlineQueryResultDocument",
                     "description": "Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10360,7 +10360,7 @@
                     "name": "InlineQueryResultLocation",
                     "description": "Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10451,7 +10451,7 @@
                     "name": "InlineQueryResultVenue",
                     "description": "Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10548,7 +10548,7 @@
                     "name": "InlineQueryResultContact",
                     "description": "Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10621,7 +10621,7 @@
                     "name": "InlineQueryResultGame",
                     "description": "Represents a Game.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10652,7 +10652,7 @@
                     "name": "InlineQueryResultCachedPhoto",
                     "description": "Represents a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10719,7 +10719,7 @@
                     "name": "InlineQueryResultCachedGif",
                     "description": "Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with specified content instead of the animation.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10780,7 +10780,7 @@
                     "name": "InlineQueryResultCachedMpeg4Gif",
                     "description": "Represents a link to a video animation (H.264\/MPEG-4 AVC video without sound) stored on the Telegram servers. By default, this animated MPEG-4 file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10841,7 +10841,7 @@
                     "name": "InlineQueryResultCachedSticker",
                     "description": "Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10878,7 +10878,7 @@
                     "name": "InlineQueryResultCachedDocument",
                     "description": "Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -10945,7 +10945,7 @@
                     "name": "InlineQueryResultCachedVideo",
                     "description": "Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -11012,7 +11012,7 @@
                     "name": "InlineQueryResultCachedVoice",
                     "description": "Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -11073,7 +11073,7 @@
                     "name": "InlineQueryResultCachedAudio",
                     "description": "Represents a link to an MP3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -11128,13 +11128,13 @@
                     "name": "InputMessageContent",
                     "description": "This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:\n - InputTextMessageContent\n - InputLocationMessageContent\n - InputVenueMessageContent\n - InputContactMessageContent\n - InputInvoiceMessageContent",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "InputTextMessageContent",
                     "description": "Represents the content of a text message to be sent as the result of an inline query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "message_text",
                             "type": "string",
@@ -11165,7 +11165,7 @@
                     "name": "InputLocationMessageContent",
                     "description": "Represents the content of a location message to be sent as the result of an inline query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "latitude",
                             "type": "float",
@@ -11208,7 +11208,7 @@
                     "name": "InputVenueMessageContent",
                     "description": "Represents the content of a venue message to be sent as the result of an inline query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "latitude",
                             "type": "float",
@@ -11263,7 +11263,7 @@
                     "name": "InputContactMessageContent",
                     "description": "Represents the content of a contact message to be sent as the result of an inline query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "phone_number",
                             "type": "string",
@@ -11294,7 +11294,7 @@
                     "name": "InputInvoiceMessageContent",
                     "description": "Represents the content of an invoice message to be sent as the result of an inline query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "title",
                             "type": "string",
@@ -11421,7 +11421,7 @@
                     "name": "ChosenInlineResult",
                     "description": "Represents a result of an inline query that was chosen by the user and sent to their chat partner.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "result_id",
                             "type": "string",
@@ -11460,7 +11460,7 @@
                     "response": [
                         "SentWebAppMessage"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "web_app_query_id",
                             "type": "string",
@@ -11479,7 +11479,7 @@
                     "name": "SentWebAppMessage",
                     "description": "Describes an inline message sent by a Web App on behalf of a user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "inline_message_id",
                             "type": "string",
@@ -11500,7 +11500,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "chat_id",
                             "type": [
@@ -11674,7 +11674,7 @@
                     "response": [
                         "string"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "title",
                             "type": "string",
@@ -11803,7 +11803,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "shipping_query_id",
                             "type": "string",
@@ -11836,7 +11836,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "pre_checkout_query_id",
                             "type": "string",
@@ -11861,7 +11861,7 @@
                     "name": "LabeledPrice",
                     "description": "This object represents a portion of the price for goods or services.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "label",
                             "type": "string",
@@ -11880,7 +11880,7 @@
                     "name": "Invoice",
                     "description": "This object contains basic information about an invoice.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "title",
                             "type": "string",
@@ -11917,7 +11917,7 @@
                     "name": "ShippingAddress",
                     "description": "This object represents a shipping address.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "country_code",
                             "type": "string",
@@ -11960,7 +11960,7 @@
                     "name": "OrderInfo",
                     "description": "This object represents information about an order.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "name",
                             "type": "string",
@@ -11991,7 +11991,7 @@
                     "name": "ShippingOption",
                     "description": "This object represents one shipping option.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -12016,7 +12016,7 @@
                     "name": "SuccessfulPayment",
                     "description": "This object contains basic information about a successful payment.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "currency",
                             "type": "string",
@@ -12065,7 +12065,7 @@
                     "name": "ShippingQuery",
                     "description": "This object contains information about an incoming shipping query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -12096,7 +12096,7 @@
                     "name": "PreCheckoutQuery",
                     "description": "This object contains information about an incoming pre-checkout query.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "id",
                             "type": "string",
@@ -12151,7 +12151,7 @@
                     "name": "PassportData",
                     "description": "Describes Telegram Passport data shared with the bot by the user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "data",
                             "type": "EncryptedPassportElement[]",
@@ -12170,7 +12170,7 @@
                     "name": "PassportFile",
                     "description": "This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "file_id",
                             "type": "string",
@@ -12201,7 +12201,7 @@
                     "name": "EncryptedPassportElement",
                     "description": "Describes documents or other Telegram Passport elements shared with the bot by the user.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "type",
                             "type": "string",
@@ -12268,7 +12268,7 @@
                     "name": "EncryptedCredentials",
                     "description": "Describes data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "data",
                             "type": "string",
@@ -12295,7 +12295,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -12314,13 +12314,13 @@
                     "name": "PassportElementError",
                     "description": "This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:\n - PassportElementErrorDataField\n - PassportElementErrorFrontSide\n - PassportElementErrorReverseSide\n - PassportElementErrorSelfie\n - PassportElementErrorFile\n - PassportElementErrorFiles\n - PassportElementErrorTranslationFile\n - PassportElementErrorTranslationFiles\n - PassportElementErrorUnspecified",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "PassportElementErrorDataField",
                     "description": "Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12357,7 +12357,7 @@
                     "name": "PassportElementErrorFrontSide",
                     "description": "Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12388,7 +12388,7 @@
                     "name": "PassportElementErrorReverseSide",
                     "description": "Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12419,7 +12419,7 @@
                     "name": "PassportElementErrorSelfie",
                     "description": "Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12450,7 +12450,7 @@
                     "name": "PassportElementErrorFile",
                     "description": "Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12481,7 +12481,7 @@
                     "name": "PassportElementErrorFiles",
                     "description": "Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12512,7 +12512,7 @@
                     "name": "PassportElementErrorTranslationFile",
                     "description": "Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12543,7 +12543,7 @@
                     "name": "PassportElementErrorTranslationFiles",
                     "description": "Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12574,7 +12574,7 @@
                     "name": "PassportElementErrorUnspecified",
                     "description": "Represents an issue in an unspecified place. The error is considered resolved when new data is added.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "source",
                             "type": "string",
@@ -12613,7 +12613,7 @@
                     "response": [
                         "Message"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "business_connection_id",
                             "type": "string",
@@ -12668,7 +12668,7 @@
                     "name": "Game",
                     "description": "This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "title",
                             "type": "string",
@@ -12711,7 +12711,7 @@
                     "name": "CallbackGame",
                     "description": "A placeholder, currently holds no information. Use BotFather to set up your game.",
                     "response": null,
-                    "data": []
+                    "params": []
                 },
                 {
                     "name": "setGameScore",
@@ -12719,7 +12719,7 @@
                     "response": [
                         "true"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -12770,7 +12770,7 @@
                     "response": [
                         "GameHighScore[]"
                     ],
-                    "data": [
+                    "params": [
                         {
                             "name": "user_id",
                             "type": "int",
@@ -12801,7 +12801,7 @@
                     "name": "GameHighScore",
                     "description": "This object represents one row of the high scores table for a game.",
                     "response": null,
-                    "data": [
+                    "params": [
                         {
                             "name": "position",
                             "type": "int",
