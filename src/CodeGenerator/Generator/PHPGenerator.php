@@ -11,6 +11,7 @@ use Nette\PhpGenerator\TraitType;
 use RuntimeException;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
 use TelegramApiParser\CodeGenerator\Printer;
+use TelegramApiParser\CodeGenerator\StringHelper;
 
 class PHPGenerator implements GeneratorInterface
 {
@@ -111,7 +112,7 @@ class PHPGenerator implements GeneratorInterface
             foreach ($section->params as $param) {
                 try {
                     $parameter = $method->addPromotedParameter($param->name);
-                    $parameter->addComment($param->description);
+                    $parameter->addComment(StringHelper::wrap($param->description));
                     $parameter->setPublic();
 
                     $types = is_array($param->type) ? $param->type : [$param->type];
@@ -176,10 +177,10 @@ class PHPGenerator implements GeneratorInterface
         string $name,
         string $comment = null
     ): void {
-        $class->addComment($name);
+        $class->addComment(StringHelper::wrap($name));
         if ($comment) {
             $class->addComment('');
-            $class->addComment($comment);
+            $class->addComment(StringHelper::wrap($comment));
         }
 
         $class->addComment('');
