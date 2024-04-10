@@ -7,10 +7,10 @@ use Nette\PhpGenerator\EnumType;
 use Nette\PhpGenerator\InterfaceType;
 use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
-use Nette\PhpGenerator\Printer;
 use Nette\PhpGenerator\TraitType;
 use RuntimeException;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
+use TelegramApiParser\CodeGenerator\Printer;
 
 class PHPGenerator implements GeneratorInterface
 {
@@ -230,9 +230,4 @@ class PHPGenerator implements GeneratorInterface
 
         file_put_contents($filepath, $content);
     }
-
-//    private function getVersion(): string {
-//        return 'Bot API '. $this->API_version .' (release: '. $this->API_date->format('Y-m-d') .')';
-//    }
-
 }
