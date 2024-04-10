@@ -2808,7 +2808,7 @@
                         },
                         {
                             "name": "photos",
-                            "type": "Array of PhotoSize[]",
+                            "type": "PhotoSize[]",
                             "description": "Requested profile pictures (in up to 4 sizes each)",
                             "optional": false
                         }
@@ -2865,7 +2865,7 @@
                     "params": [
                         {
                             "name": "keyboard",
-                            "type": "Array of KeyboardButton[]",
+                            "type": "KeyboardButton[]",
                             "description": "Array of button rows, each represented by an Array of KeyboardButton objects",
                             "optional": false
                         },
@@ -3111,7 +3111,7 @@
                     "params": [
                         {
                             "name": "inline_keyboard",
-                            "type": "Array of InlineKeyboardButton[]",
+                            "type": "InlineKeyboardButton[]",
                             "description": "Array of button rows, each represented by an Array of InlineKeyboardButton objects",
                             "optional": false
                         }

@@ -316,16 +316,17 @@ class TelegramDocumentationParser
         $isArray = false;
         if (str_contains($type, ' of ')) {
             $isArray = true;
-            $type = substr($type, strpos($type, ' of ') + 4);
+            $_temp = explode(' of ', $type);
+            $type = $_temp[array_key_last($_temp)];
         }
 
-        if (str_contains($type, 'or')) {
+        if (str_contains($type, ' or ')) {
             $types = explode(' or ', $type);
         } else {
             $types = [ $type ];
         }
 
-        if (str_contains($type, 'and')) {
+        if (str_contains($type, ' and ')) {
             $type = str_replace(' and ', ', ', $type);
             $types = explode(', ', $type);
         }
