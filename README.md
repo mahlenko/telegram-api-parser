@@ -1,42 +1,44 @@
-# API Objects Generator (Telegram)
-
+# Парсер документации Telegram
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**⚠️ This project is provided as is and may require significant improvements and code refactoring.**
+Мне с периодичностью требуется создать бота в Telegram для моих клиентов.
+Я понимаю, что есть достаточно библиотек, для их создания, 
+но я всегда испытывал некоторые проблемы используя их.
 
-Example of a generated PHP project: [mahlenko/telegram-bot-casts](https://github.com/mahlenko/telegram-bot-casts)
+ - Мне хотелось иметь минимальный набор функций, а именно описание Telegram типов и методов. Чтобы моя IDE (PHPStorm) могла мне подсказывать какие параметры нужно заполнить, для того или иного метода Telegram.
+ - Все библиотеки которые я использовал до этого, не могли обновляться часто, новые функции из API приходили слишком поздно.
+ - Некоторые библиотеки содержат кучу не нужного мне функционала или логики.
 
-The ability to instantly create and update objects from the [Telegram Bot Api](https://core.telegram.org/bots/api#available-types). documentation. You can implement your own object generation after the received JSON object.
+В ручную отслеживать, что изменилось с момента последнего обновления Telegram Bot API, сложно, или невозможно.
+Изучив HTML-разметку документации, мне пришла идея создать парсер, который решит проблему поиска изменений в API.
+Благодаря которой, я теперь могу получать документированную последнюю версию Bot API.
 
-Documentation parsing and JSON generation
+🎁 Пример работы генератора: [mahlenko/telegram-bot-casts](https://github.com/mahlenko/telegram-bot-casts) - вы можете использовать его в своем проекте.
 
-```shell
-php console telegram:json
-```
+## Установка и использование
+Просто склонируйте репозиторий себе, и запустите несколько команд:
+ - `php console telegram:parse` - для парсинга актуальной документации в JSON файл.
+ - `php console telegram:generate` - для генерации PHP файлов.
 
-After creating JSON from the documentation, you can generate PHP files of Telegram Bot API types and methods.
+✅ Готово! Заберите сгенерированные файлы из директории `build` себе в проект.
 
-```shell
-php console telegram:make 
-```
+## Содержание библиотеки
+ - `ParserDocumentation` - Парсит документацию Telegram в JSON файл. Результат его работы можно наблюдать в файле [versions/7.2.json](https://github.com/mahlenko/telegram-api-parser/blob/2.0/versions/7.2.json)
+ - `CodeGenerator/Generator/PHPGenerator` - Использует полученный JSON с документацией, генерируя PHP файлы для типов и методов в каталог `build` в корне проекта.
 
-## .env
+Вы можете, написать собственный генератор для других ЯП, например: TypeScript для JS.
+Поделитесь со мной, вашим генератором, я добавлю его в репозиторий :)
 
-```dotenv
-# Telegram Bot API Documentation url
-TELEGRAM_DOCUMENTATION_URL=https://core.telegram.org/bots/api
-
-# Path to JSON Documentation
-SOURCE_PATH=versions
-
-# Make a Telegramm PHP library of types and methods
-BUILD_PATH=build
-BASE_NAMESPACE=TelegramBot\
-```
-
-## Dependencies
+## Зависимости
 
 - [imangazaliev/didom](https://github.com/nette/php-generatorhttps://github.com/Imangazaliev/DiDOM)
 - [nette/php-generator](https://github.com/nette/php-generator)
 - [symfony/console](https://symfony.com/components/Console)
-- [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)
+
+## ✨ Благодарности
+
+![TonBlockchainLogo](/ton_logo_dark_background.svg#gh-dark-mode-only)
+![TonBlockchainLogo](/ton_logo_light_background.svg#gh-light-mode-only)
+
+Вы всегда можете отправить благодарность с помощью TON на мой кошелек
+`appto-wallet.ton`
