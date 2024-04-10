@@ -12,7 +12,7 @@ $dotenv->load();
 $application = new Application();
 
 // ... register commands
-$application->add(new \TelegramApiParser\Commands\JsonCommand());
-$application->add(new \TelegramApiParser\Commands\PhpCommand());
+$application->add(new \TelegramApiParser\ParserDocumentation\Console\ParseCommand);
+$application->add(new \TelegramApiParser\CodeGenerator\Console\GenerateClassesCommand);
 
 $application->run();
