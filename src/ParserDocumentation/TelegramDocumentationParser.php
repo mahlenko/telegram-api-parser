@@ -65,7 +65,7 @@ class TelegramDocumentationParser
                     'name' => $this->findGroupName($section, 'h4'),
                     'description' => $this->findDescriptionSection($section),
                     'response' => $this->findResponseSection($section),
-                    'data' => $params
+                    'params' => $params
                 ];
             }
 
