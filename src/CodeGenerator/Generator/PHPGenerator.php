@@ -139,8 +139,8 @@ class PHPGenerator implements GeneratorInterface
 
                     $types = array_unique($types);
                     $parameter->setType(implode('|', $types));
-                    if (isset($param->optional)) $parameter->setNullable(!$param->optional);
-                    if (isset($param->required)) $parameter->setNullable(!$param->required);
+                    if (isset($param->optional)) $parameter->setNullable($param->optional);
+                    if (isset($param->required)) $parameter->setNullable($param->required);
 
                 } catch (\Exception $exception) {}
             }
