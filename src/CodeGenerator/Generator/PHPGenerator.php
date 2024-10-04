@@ -9,6 +9,7 @@ use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\TraitType;
 use RuntimeException;
+use Spatie\LaravelData\Data;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
 use TelegramApiParser\CodeGenerator\Printer;
 use TelegramApiParser\CodeGenerator\StringHelper;
@@ -38,20 +39,16 @@ class PHPGenerator implements GeneratorInterface
     }
 
     private function execute(array|object $documentation) {
+        /* make interfaces */
         foreach (TelegramObjectEnum::cases() as $case) {
-            // make interfaces
             $interface = $this->makeInterface($case);
             $this->putFile($interface);
-
-            $interfaces[$case->name] = $interface;
-
-            // make classes
-            $extend_class = $this->makeExtendClass($case, $interface);
-            $this->putFile($extend_class);
-
-            $extends[$case->name] = $extend_class;
         }
 
+        /* Make ResponseObject */
+        $this->makeResponseObject('ResponseObject');
+
+        /* Make documentation */
         foreach ($documentation as $doc) {
             if (in_array($doc->name, self::EXCLUDE_BLOCK_NAMES)) continue;
 
@@ -59,27 +56,31 @@ class PHPGenerator implements GeneratorInterface
             foreach ($doc->sections as $section) {
                 $type = isset($section->response) ? TelegramObjectEnum::METHOD : TelegramObjectEnum::TYPE;
 
-                $extend = $extends[$type->name];
                 $namespace = new PhpNamespace(self::NAMESPACE .'\\'. $type->directory());
-                $this->makeClass($section, $extend, $namespace);
+                $this->makeClass($section, $namespace, $type);
 
                 $this->putFile($namespace);
             }
         }
     }
 
-    private function makeClass($section, PhpNamespace $extend, PhpNamespace $namespace = null): void {
+    private function makeClass($section, PhpNamespace $namespace = null, TelegramObjectEnum $type = null): void {
         $classname = $this->makeClassName($section->name);
-        $extend_namespace = $this->getClassNamespace($extend);
 
         $class = new ClassType($classname, $namespace);
-        $class->setExtends($extend_namespace);
+        $class->setExtends($type->extendClass());
         $class->setFinal();
+
+        if ($type->interfaceClassName()) {
+            $interface = sprintf('\\%s\\Interface\\%s', self::NAMESPACE, $type->interfaceClassName());
+            $namespace->addUse($interface);
+            $class->addImplement($interface);
+        }
 
         $this->addComments($class, ucfirst($section->name), $section->description);
 
         if (!key_exists($classname, $namespace->getClasses())) {
-            $namespace->addUse($extend_namespace);
+            $namespace->addUse($type->extendClass());
             $namespace->add($class);
         }
 
@@ -156,6 +157,11 @@ class PHPGenerator implements GeneratorInterface
         $classname = $this->makeClassName($case->interfaceClassName());
 
         $interface = new InterfaceType($classname);
+        if ($classname == TelegramObjectEnum::METHOD->interfaceClassName()) {
+            $interface->addMethod('toArray')
+                ->setPublic()
+                ->setReturnType('array');
+        }
         $this->addComments($interface, $case->interfaceClassName(), $comment);
 
         $namespace = new PhpNamespace(self::NAMESPACE .'\\Interface');
@@ -164,19 +170,41 @@ class PHPGenerator implements GeneratorInterface
         return $namespace;
     }
 
-    private function makeExtendClass(TelegramObjectEnum $case, PhpNamespace $interface, string $comment = null): PhpNamespace {
-        $classname = $this->makeClassName($case->extendsClassName());
-        $interface_namespace = $this->getClassNamespace($interface);
+    private function makeResponseObject(string $name): ClassType {
+        $type = TelegramObjectEnum::TYPE;
+        $namespace = new PhpNamespace(self::NAMESPACE .'\\'. $type->directory());
+        $namespace->addUse($type->extendClass());
 
-        $class = new ClassType($classname);
-        $class->setImplements([$interface_namespace]);
-        $this->addComments($class, $case->extendsClassName(), $comment);
+        $class = new ClassType($name, $namespace);
+        $class->setExtends($type->extendClass());
+        $class->setFinal();
 
-        $namespace = new PhpNamespace(self::NAMESPACE);
-        $namespace->addUse($interface_namespace);
+        if ($type->interfaceClassName()) {
+            $interface = sprintf('\\%s\\Interface\\%s', self::NAMESPACE, $type->interfaceClassName());
+            $namespace->addUse($interface);
+            $class->addImplement($interface);
+        }
+
+        $method = $class->addMethod('__construct');
+
+        $parameters = [
+            'ok' => ['type' => ['bool'], 'nullable' => false],
+            'result' => ['type' => ['bool', 'array'], 'nullable' => true],
+            'error_code' => ['type' => ['int'], 'nullable' => true],
+            'description' => ['type' => ['string'], 'nullable' => true],
+        ];
+
+        foreach ($parameters as $name => $options) {
+            $method->addPromotedParameter($name)
+                ->setType(implode('|', $options['type']))
+                ->setPublic()
+                ->setNullable($options['nullable']);
+        }
+
         $namespace->add($class);
+        $this->putFile($namespace);
 
-        return $namespace;
+        return $class;
     }
 
     private function makeClassName(string $name): string {
@@ -192,7 +220,7 @@ class PHPGenerator implements GeneratorInterface
     private function addComments(
         ClassType|InterfaceType|TraitType|EnumType $class,
         string $name,
-        string $comment = null
+        string $comment = null,
     ): void {
         $class->addComment(StringHelper::wrap($name));
         if ($comment) {
@@ -211,7 +239,7 @@ class PHPGenerator implements GeneratorInterface
             $directory = str_replace(
                 self::NAMESPACE,
                 '',
-                str_replace('\\', DIRECTORY_SEPARATOR, $namespace->getName())
+                str_replace('\\', DIRECTORY_SEPARATOR, $namespace->getName()),
             );
 
             return rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $class->getName() .'.php';
