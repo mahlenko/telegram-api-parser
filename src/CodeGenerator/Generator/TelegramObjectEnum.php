@@ -2,6 +2,9 @@
 
 namespace TelegramApiParser\CodeGenerator\Generator;
 
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Dto;
+
 enum TelegramObjectEnum
 {
     case TYPE;
@@ -9,22 +12,22 @@ enum TelegramObjectEnum
 
     public function interfaceClassName(): string {
         return match ($this) {
-            self::TYPE => 'TelegramTypeInterface',
-            self::METHOD => 'TelegramMethodInterface',
+            self::TYPE => 'TypeInterface',
+            self::METHOD => 'MethodInterface',
         };
     }
 
-    public function extendsClassName(): string {
+    public function extendClass() {
         return match ($this) {
-            self::TYPE => 'TelegramType',
-            self::METHOD => 'TelegramMethod',
+            self::TYPE => Dto::class,
+            self::METHOD => Data::class,
         };
     }
 
     public function directory(): string {
         return match ($this) {
-            self::TYPE => 'Types',
-            self::METHOD => 'Methods',
+            self::TYPE => 'Type',
+            self::METHOD => 'Method',
         };
     }
 }
