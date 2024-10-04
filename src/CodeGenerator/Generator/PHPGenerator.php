@@ -38,13 +38,18 @@ class PHPGenerator implements GeneratorInterface
     }
 
     private function execute(array|object $documentation) {
-        $interfaces = [
-            TelegramObjectEnum::TYPE->name => $this->makeInterface(TelegramObjectEnum::TYPE->interface()),
-            TelegramObjectEnum::METHOD->name => $this->makeInterface(TelegramObjectEnum::METHOD->interface()),
-        ];
-
-        foreach ($interfaces as $interface) {
+        foreach (TelegramObjectEnum::cases() as $case) {
+            // make interfaces
+            $interface = $this->makeInterface($case);
             $this->putFile($interface);
+
+            $interfaces[$case->name] = $interface;
+
+            // make classes
+            $extend_class = $this->makeExtendClass($case, $interface);
+            $this->putFile($extend_class);
+
+            $extends[$case->name] = $extend_class;
         }
 
         foreach ($documentation as $doc) {
@@ -54,28 +59,27 @@ class PHPGenerator implements GeneratorInterface
             foreach ($doc->sections as $section) {
                 $type = isset($section->response) ? TelegramObjectEnum::METHOD : TelegramObjectEnum::TYPE;
 
-                $interface = $interfaces[$type->name];
+                $extend = $extends[$type->name];
                 $namespace = new PhpNamespace(self::NAMESPACE .'\\'. $type->directory());
-                $this->makeClass($section, $interface, $namespace);
+                $this->makeClass($section, $extend, $namespace);
 
                 $this->putFile($namespace);
             }
         }
     }
 
-    private function makeClass($section, PhpNamespace $interface, PhpNamespace $namespace = null): void {
+    private function makeClass($section, PhpNamespace $extend, PhpNamespace $namespace = null): void {
         $classname = $this->makeClassName($section->name);
-        $interface_namespace = $this->getClassNamespace($interface);
+        $extend_namespace = $this->getClassNamespace($extend);
 
         $class = new ClassType($classname, $namespace);
-        $class->addImplement($interface_namespace);
-        $class->setReadOnly();
+        $class->setExtends($extend_namespace);
         $class->setFinal();
 
         $this->addComments($class, ucfirst($section->name), $section->description);
 
         if (!key_exists($classname, $namespace->getClasses())) {
-            $namespace->addUse($interface_namespace);
+            $namespace->addUse($extend_namespace);
             $namespace->add($class);
         }
 
@@ -148,14 +152,29 @@ class PHPGenerator implements GeneratorInterface
         }
     }
 
-    private function makeInterface(string $name, string $comment = null): PhpNamespace {
-        $classname = $this->makeClassName($name);
+    private function makeInterface(TelegramObjectEnum $case, string $comment = null): PhpNamespace {
+        $classname = $this->makeClassName($case->interfaceClassName());
 
         $interface = new InterfaceType($classname);
-        $this->addComments($interface, $name, $comment);
+        $this->addComments($interface, $case->interfaceClassName(), $comment);
 
         $namespace = new PhpNamespace(self::NAMESPACE .'\\Interface');
         $namespace->add($interface);
+
+        return $namespace;
+    }
+
+    private function makeExtendClass(TelegramObjectEnum $case, PhpNamespace $interface, string $comment = null): PhpNamespace {
+        $classname = $this->makeClassName($case->extendsClassName());
+        $interface_namespace = $this->getClassNamespace($interface);
+
+        $class = new ClassType($classname);
+        $class->setImplements([$interface_namespace]);
+        $this->addComments($class, $case->extendsClassName(), $comment);
+
+        $namespace = new PhpNamespace(self::NAMESPACE);
+        $namespace->addUse($interface_namespace);
+        $namespace->add($class);
 
         return $namespace;
     }
@@ -167,9 +186,7 @@ class PHPGenerator implements GeneratorInterface
             $name_chunks[$index] = ucfirst($name_chunk);
         }
 
-        $name = implode('', $name_chunks);
-
-        return $name;
+        return implode('', $name_chunks);
     }
 
     private function addComments(

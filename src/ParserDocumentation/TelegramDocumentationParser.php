@@ -13,14 +13,14 @@ class TelegramDocumentationParser
 
     const BASE_TYPES = ['int', 'integer', 'float', 'double', 'string', 'bool', 'boolean', 'true', 'false'];
 
-    public function version(): float {
+    public function version(): string {
         $document = new Document(self::BASE_URL, true);
         $version_el = $document
             ->first('#dev_page_content')
             ->first('h4')
             ->nextSibling('p');
 
-        return floatval(preg_replace('/[^0-9.]/', '', $version_el->text()));
+        return preg_replace('/[^\d.]/', '', $version_el->text());
     }
 
     public function latestDate(): DateTimeImmutable {
