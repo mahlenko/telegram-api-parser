@@ -9,7 +9,6 @@ use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\TraitType;
 use RuntimeException;
-use Spatie\LaravelData\Data;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
 use TelegramApiParser\CodeGenerator\Printer;
 use TelegramApiParser\CodeGenerator\StringHelper;
@@ -17,6 +16,8 @@ use TelegramApiParser\CodeGenerator\StringHelper;
 class PHPGenerator implements GeneratorInterface
 {
     private const NAMESPACE = 'TelegramBotCast';
+
+    private const DefaultResponseName = 'ResponseObject';
 
     private string $output;
 
@@ -46,7 +47,7 @@ class PHPGenerator implements GeneratorInterface
         }
 
         /* Make ResponseObject */
-        $this->makeResponseObject('ResponseObject');
+        $this->makeResponseObject(self::DefaultResponseName);
 
         /* Make documentation */
         foreach ($documentation as $doc) {
@@ -105,6 +106,11 @@ class PHPGenerator implements GeneratorInterface
 
                     $response_type = new Literal($response_type.'::class');
                 }
+            }
+
+            if ($response_type == 'true') {
+                $response_type = new Literal(self::DefaultResponseName.'::class');
+                $namespace->addUse(self::NAMESPACE . '\\' . TelegramObjectEnum::TYPE->directory() . '\\' . self::DefaultResponseName);
             }
 
             $class->addConstant('RESPONSE_TYPE', $response_type);
