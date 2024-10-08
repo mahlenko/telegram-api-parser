@@ -70,7 +70,6 @@ class TelegramDocumentationParser
                     $data = [
                         'name' => $section->first('h4')->text(),
                         'description' => $this->findGroupDescription($section),
-                        'response' => null,
                     ];
                 }
 
