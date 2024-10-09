@@ -52,7 +52,6 @@ class TypeGenerator {
         $array = $this->toArray($array);
 
         if (count($array) === count($array, COUNT_RECURSIVE)) {
-            //dump(sprintf('array<%s>', implode('|', $array)));
             return sprintf('array<%s>', implode('|', $array));
         }
 
