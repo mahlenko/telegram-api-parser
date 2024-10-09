@@ -258,15 +258,16 @@ class DocumentationParser
         if (!str_contains(strtolower($description), 'return'))
             return null;
 
-        $sentences = array_values(array_filter(
-            explode('.', $description),
-            fn($sentences) => str_contains(strtolower($sentences), 'return')
-        ));
-
-        krsort($sentences);
+        $sentences = array_filter(explode('. ', $description), function($row) {
+            $row = trim($row);
+            return (str_contains($row, 'Returns') || str_contains($row, 'return ') || str_contains($row, 'On success'))
+                && (str_contains($row, '<a') || str_contains($row, '<em>'));
+        });
 
         if (!$sentences)
             return null;
+
+        $types = [];
 
         foreach ($sentences as $sentence) {
             $sentence = new Document($sentence);
@@ -276,23 +277,34 @@ class DocumentationParser
                 preg_match('/Array of (.*)/i', $text, $matches);
                 if (isset($matches[1])) {
                     $type = explode(' ', $matches[1]);
-                    return [ $this->fixMessagesType($this->camelCase($type[0])) ];
+                    $types[] = [ $this->fixMessagesType($this->camelCase($type[0])) ];
                 }
+
+                continue;
             }
 
             $returnTypeFromEm = $sentence->find('em');
             if ($returnTypeFromEm && count($returnTypeFromEm))
-                return $this->fixMessagesType(
+                $types[] = $this->fixMessagesType(
                     $this->camelCase($returnTypeFromEm[count($returnTypeFromEm) - 1]->text())
                 );
 
-            if ($sentence->has('a'))
-                return $this->fixMessagesType(
-                    $this->camelCase($sentence->first('a')->text())
-                );
+            if ($sentence->find('a')) {
+                $link = $sentence->first('a');
+
+                if (str_starts_with($link->attr('href'), '#')) {
+                    $types[] = $this->fixMessagesType(
+                        $this->camelCase($sentence->first('a')->text())
+                    );
+                }
+            }
+
+            $types = array_filter($types, function($value) {
+                return ucfirst($value) == $value;
+            });
         }
 
-        return null;
+        return $types ?? null;
     }
 
     /**

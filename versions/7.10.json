@@ -21,8 +21,7 @@
                 },
                 {
                     "name": "July 31, 2024",
-                    "description": "Bot API 7.8\n - Added the option for bots to set a <a href=\"\/bots\/webapps#launching-the-main-mini-app\">Main Mini App<\/a>, which can be previewed and launched directly from a button in the bot's profile or a link.\n - Added the method <em>shareToStory<\/em> to the class <a href=\"\/bots\/webapps#initializing-mini-apps\">WebApp<\/a>.\n - Added the field <em>has_main_web_app<\/em> to the class <a href=\"#user\">User<\/a>, which is returned in the response to <a href=\"#getme\">getMe<\/a>.\n - Added the parameter <em>business_connection_id<\/em> to the methods <a href=\"#pinchatmessage\">pinChatMessage<\/a> and <a href=\"#unpinchatmessage\">unpinChatMessage<\/a>, allowing bots to manage pinned messages on behalf of a business account.",
-                    "return": "has_main_web_app"
+                    "description": "Bot API 7.8\n - Added the option for bots to set a <a href=\"\/bots\/webapps#launching-the-main-mini-app\">Main Mini App<\/a>, which can be previewed and launched directly from a button in the bot's profile or a link.\n - Added the method <em>shareToStory<\/em> to the class <a href=\"\/bots\/webapps#initializing-mini-apps\">WebApp<\/a>.\n - Added the field <em>has_main_web_app<\/em> to the class <a href=\"#user\">User<\/a>, which is returned in the response to <a href=\"#getme\">getMe<\/a>.\n - Added the parameter <em>business_connection_id<\/em> to the methods <a href=\"#pinchatmessage\">pinChatMessage<\/a> and <a href=\"#unpinchatmessage\">unpinChatMessage<\/a>, allowing bots to manage pinned messages on behalf of a business account."
                 },
                 {
                     "name": "July 7, 2024",
@@ -244,7 +243,9 @@
                         }
                     ],
                     "return": [
-                        "Update"
+                        [
+                            "Update"
+                        ]
                     ]
                 },
                 {
@@ -295,8 +296,7 @@
                             "description": "A secret token to be sent in a header \"X-Telegram-Bot-Api-Secret-Token\" in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.",
                             "required": false
                         }
-                    ],
-                    "return": "True"
+                    ]
                 },
                 {
                     "name": "deleteWebhook",
@@ -309,12 +309,16 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getWebhookInfo",
                     "description": "Use this method to get current webhook status. Requires no parameters. On success, returns a <a href=\"#webhookinfo\">WebhookInfo<\/a> object. If the bot is using <a href=\"#getupdates\">getUpdates<\/a>, will return an object with the <em>url<\/em> field empty.",
-                    "return": "url"
+                    "return": [
+                        "WebhookInfo"
+                    ]
                 },
                 {
                     "name": "WebhookInfo",
@@ -4358,7 +4362,9 @@
                             "required": true
                         }
                     ],
-                    "return": "ChatMember"
+                    "return": [
+                        "ChatMember"
+                    ]
                 },
                 {
                     "name": "ChatJoinRequest",
@@ -5901,17 +5907,23 @@
                 {
                     "name": "getMe",
                     "description": "A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a <a href=\"#user\">User<\/a> object.",
-                    "return": "User"
+                    "return": [
+                        "User"
+                    ]
                 },
                 {
                     "name": "logOut",
                     "description": "Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns <em>True<\/em> on success. Requires no parameters.",
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "close",
                     "description": "Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns <em>True<\/em> on success. Requires no parameters.",
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "sendMessage",
@@ -6000,7 +6012,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "Formatting options",
@@ -6053,7 +6067,9 @@
                             "required": true
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "forwardMessages",
@@ -6105,7 +6121,9 @@
                         }
                     ],
                     "return": [
-                        "MessageId"
+                        [
+                            "MessageId"
+                        ]
                     ]
                 },
                 {
@@ -6198,7 +6216,9 @@
                             "required": false
                         }
                     ],
-                    "return": "MessageId"
+                    "return": [
+                        "MessageId"
+                    ]
                 },
                 {
                     "name": "copyMessages",
@@ -6256,7 +6276,9 @@
                         }
                     ],
                     "return": [
-                        "MessageId"
+                        [
+                            "MessageId"
+                        ]
                     ]
                 },
                 {
@@ -6361,7 +6383,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendAudio",
@@ -6480,7 +6504,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendDocument",
@@ -6587,7 +6613,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendVideo",
@@ -6724,7 +6752,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendAnimation",
@@ -6855,7 +6885,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendVoice",
@@ -6953,7 +6985,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendVideoNote",
@@ -7046,7 +7080,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendPaidMedia",
@@ -7143,7 +7179,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendMediaGroup",
@@ -7207,7 +7245,9 @@
                         }
                     ],
                     "return": [
-                        "Message"
+                        [
+                            "Message"
+                        ]
                     ]
                 },
                 {
@@ -7307,7 +7347,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendVenue",
@@ -7418,7 +7460,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendContact",
@@ -7505,7 +7549,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendPoll",
@@ -7658,7 +7704,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendDice",
@@ -7727,7 +7775,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "sendChatAction",
@@ -7761,7 +7811,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setMessageReaction",
@@ -7797,7 +7849,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getUserProfilePhotos",
@@ -7822,7 +7876,9 @@
                             "required": false
                         }
                     ],
-                    "return": "UserProfilePhotos"
+                    "return": [
+                        "UserProfilePhotos"
+                    ]
                 },
                 {
                     "name": "getFile",
@@ -7835,7 +7891,9 @@
                             "required": true
                         }
                     ],
-                    "return": "File"
+                    "return": [
+                        "File"
+                    ]
                 },
                 {
                     "name": "banChatMember",
@@ -7869,7 +7927,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unbanChatMember",
@@ -7897,7 +7957,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "restrictChatMember",
@@ -7937,7 +7999,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "promoteChatMember",
@@ -8049,7 +8113,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setChatAdministratorCustomTitle",
@@ -8077,7 +8143,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "banChatSenderChat",
@@ -8099,7 +8167,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unbanChatSenderChat",
@@ -8121,7 +8191,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setChatPermissions",
@@ -8149,7 +8221,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "exportChatInviteLink",
@@ -8165,7 +8239,9 @@
                             "required": true
                         }
                     ],
-                    "return": "String"
+                    "return": [
+                        "String"
+                    ]
                 },
                 {
                     "name": "createChatInviteLink",
@@ -8205,7 +8281,9 @@
                             "required": false
                         }
                     ],
-                    "return": "ChatInviteLink"
+                    "return": [
+                        "ChatInviteLink"
+                    ]
                 },
                 {
                     "name": "editChatInviteLink",
@@ -8251,7 +8329,9 @@
                             "required": false
                         }
                     ],
-                    "return": "ChatInviteLink"
+                    "return": [
+                        "ChatInviteLink"
+                    ]
                 },
                 {
                     "name": "createChatSubscriptionInviteLink",
@@ -8285,7 +8365,9 @@
                             "required": true
                         }
                     ],
-                    "return": "ChatInviteLink"
+                    "return": [
+                        "ChatInviteLink"
+                    ]
                 },
                 {
                     "name": "editChatSubscriptionInviteLink",
@@ -8313,7 +8395,9 @@
                             "required": false
                         }
                     ],
-                    "return": "ChatInviteLink"
+                    "return": [
+                        "ChatInviteLink"
+                    ]
                 },
                 {
                     "name": "revokeChatInviteLink",
@@ -8335,7 +8419,9 @@
                             "required": true
                         }
                     ],
-                    "return": "ChatInviteLink"
+                    "return": [
+                        "ChatInviteLink"
+                    ]
                 },
                 {
                     "name": "approveChatJoinRequest",
@@ -8357,7 +8443,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "declineChatJoinRequest",
@@ -8379,7 +8467,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setChatPhoto",
@@ -8401,7 +8491,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteChatPhoto",
@@ -8417,7 +8509,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setChatTitle",
@@ -8439,7 +8533,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setChatDescription",
@@ -8461,7 +8557,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "pinChatMessage",
@@ -8495,7 +8593,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unpinChatMessage",
@@ -8523,7 +8623,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unpinAllChatMessages",
@@ -8539,7 +8641,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "leaveChat",
@@ -8555,7 +8659,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getChat",
@@ -8571,7 +8677,9 @@
                             "required": true
                         }
                     ],
-                    "return": "ChatFullInfo"
+                    "return": [
+                        "ChatFullInfo"
+                    ]
                 },
                 {
                     "name": "getChatAdministrators",
@@ -8588,7 +8696,9 @@
                         }
                     ],
                     "return": [
-                        "ChatMember"
+                        [
+                            "ChatMember"
+                        ]
                     ]
                 },
                 {
@@ -8605,7 +8715,9 @@
                             "required": true
                         }
                     ],
-                    "return": "Int"
+                    "return": [
+                        "Int"
+                    ]
                 },
                 {
                     "name": "getChatMember",
@@ -8627,7 +8739,9 @@
                             "required": true
                         }
                     ],
-                    "return": "ChatMember"
+                    "return": [
+                        "ChatMember"
+                    ]
                 },
                 {
                     "name": "setChatStickerSet",
@@ -8649,7 +8763,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteChatStickerSet",
@@ -8665,13 +8781,17 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getForumTopicIconStickers",
                     "description": "Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of <a href=\"#sticker\">Sticker<\/a> objects.",
                     "return": [
-                        "Sticker"
+                        [
+                            "Sticker"
+                        ]
                     ]
                 },
                 {
@@ -8706,7 +8826,9 @@
                             "required": false
                         }
                     ],
-                    "return": "ForumTopic"
+                    "return": [
+                        "ForumTopic"
+                    ]
                 },
                 {
                     "name": "editForumTopic",
@@ -8740,7 +8862,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "closeForumTopic",
@@ -8762,7 +8886,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "reopenForumTopic",
@@ -8784,7 +8910,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteForumTopic",
@@ -8806,7 +8934,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unpinAllForumTopicMessages",
@@ -8828,7 +8958,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "editGeneralForumTopic",
@@ -8850,7 +8982,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "closeGeneralForumTopic",
@@ -8866,7 +9000,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "reopenGeneralForumTopic",
@@ -8882,7 +9018,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "hideGeneralForumTopic",
@@ -8898,7 +9036,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unhideGeneralForumTopic",
@@ -8914,7 +9054,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "unpinAllGeneralForumTopicMessages",
@@ -8930,7 +9072,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "answerCallbackQuery",
@@ -8967,7 +9111,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getUserChatBoosts",
@@ -8989,7 +9135,9 @@
                             "required": true
                         }
                     ],
-                    "return": "UserChatBoosts"
+                    "return": [
+                        "UserChatBoosts"
+                    ]
                 },
                 {
                     "name": "getBusinessConnection",
@@ -9002,7 +9150,9 @@
                             "required": true
                         }
                     ],
-                    "return": "BusinessConnection"
+                    "return": [
+                        "BusinessConnection"
+                    ]
                 },
                 {
                     "name": "setMyCommands",
@@ -9029,7 +9179,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteMyCommands",
@@ -9048,7 +9200,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getMyCommands",
@@ -9068,7 +9222,9 @@
                         }
                     ],
                     "return": [
-                        "BotCommand"
+                        [
+                            "BotCommand"
+                        ]
                     ]
                 },
                 {
@@ -9088,7 +9244,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getMyName",
@@ -9101,7 +9259,9 @@
                             "required": false
                         }
                     ],
-                    "return": "BotName"
+                    "return": [
+                        "BotName"
+                    ]
                 },
                 {
                     "name": "setMyDescription",
@@ -9120,7 +9280,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getMyDescription",
@@ -9133,7 +9295,9 @@
                             "required": false
                         }
                     ],
-                    "return": "BotDescription"
+                    "return": [
+                        "BotDescription"
+                    ]
                 },
                 {
                     "name": "setMyShortDescription",
@@ -9152,7 +9316,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getMyShortDescription",
@@ -9165,7 +9331,9 @@
                             "required": false
                         }
                     ],
-                    "return": "BotShortDescription"
+                    "return": [
+                        "BotShortDescription"
+                    ]
                 },
                 {
                     "name": "setChatMenuButton",
@@ -9184,7 +9352,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getChatMenuButton",
@@ -9197,7 +9367,9 @@
                             "required": false
                         }
                     ],
-                    "return": "MenuButton"
+                    "return": [
+                        "MenuButton"
+                    ]
                 },
                 {
                     "name": "setMyDefaultAdministratorRights",
@@ -9216,7 +9388,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getMyDefaultAdministratorRights",
@@ -9229,7 +9403,9 @@
                             "required": false
                         }
                     ],
-                    "return": "ChatAdministratorRights"
+                    "return": [
+                        "ChatAdministratorRights"
+                    ]
                 },
                 {
                     "name": "Inline mode methods",
@@ -9305,7 +9481,10 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True",
+                        "Message"
+                    ]
                 },
                 {
                     "name": "editMessageCaption",
@@ -9371,7 +9550,10 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True",
+                        "Message"
+                    ]
                 },
                 {
                     "name": "editMessageMedia",
@@ -9417,7 +9599,10 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True",
+                        "Message"
+                    ]
                 },
                 {
                     "name": "editMessageLiveLocation",
@@ -9493,7 +9678,10 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True",
+                        "Message"
+                    ]
                 },
                 {
                     "name": "stopMessageLiveLocation",
@@ -9533,7 +9721,10 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True",
+                        "Message"
+                    ]
                 },
                 {
                     "name": "editMessageReplyMarkup",
@@ -9573,7 +9764,10 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True",
+                        "Message"
+                    ]
                 },
                 {
                     "name": "stopPoll",
@@ -9607,7 +9801,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Poll"
+                    "return": [
+                        "Poll"
+                    ]
                 },
                 {
                     "name": "deleteMessage",
@@ -9629,7 +9825,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteMessages",
@@ -9653,7 +9851,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 }
             ]
         },
@@ -9944,7 +10144,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "getStickerSet",
@@ -9957,7 +10159,9 @@
                             "required": true
                         }
                     ],
-                    "return": "StickerSet"
+                    "return": [
+                        "StickerSet"
+                    ]
                 },
                 {
                     "name": "getCustomEmojiStickers",
@@ -9973,7 +10177,9 @@
                         }
                     ],
                     "return": [
-                        "Sticker"
+                        [
+                            "Sticker"
+                        ]
                     ]
                 },
                 {
@@ -9999,7 +10205,9 @@
                             "required": true
                         }
                     ],
-                    "return": "File"
+                    "return": [
+                        "File"
+                    ]
                 },
                 {
                     "name": "createNewStickerSet",
@@ -10044,7 +10252,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "addStickerToSet",
@@ -10069,7 +10279,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setStickerPositionInSet",
@@ -10088,7 +10300,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteStickerFromSet",
@@ -10101,7 +10315,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "replaceStickerInSet",
@@ -10132,7 +10348,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setStickerEmojiList",
@@ -10153,7 +10371,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setStickerKeywords",
@@ -10174,7 +10394,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setStickerMaskPosition",
@@ -10193,7 +10415,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setStickerSetTitle",
@@ -10212,7 +10436,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setStickerSetThumbnail",
@@ -10246,7 +10472,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "setCustomEmojiStickerSetThumbnail",
@@ -10265,7 +10493,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "deleteStickerSet",
@@ -10278,7 +10508,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 }
             ]
         },
@@ -10371,7 +10603,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "InlineQueryResultsButton",
@@ -12238,7 +12472,9 @@
                             "required": true
                         }
                     ],
-                    "return": "SentWebAppMessage"
+                    "return": [
+                        "SentWebAppMessage"
+                    ]
                 },
                 {
                     "name": "SentWebAppMessage",
@@ -12438,7 +12674,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "createInvoiceLink",
@@ -12569,7 +12807,9 @@
                             "required": false
                         }
                     ],
-                    "return": "String"
+                    "return": [
+                        "String"
+                    ]
                 },
                 {
                     "name": "answerShippingQuery",
@@ -12602,7 +12842,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "answerPreCheckoutQuery",
@@ -12627,7 +12869,9 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "getStarTransactions",
@@ -12646,7 +12890,9 @@
                             "required": false
                         }
                     ],
-                    "return": "StarTransactions"
+                    "return": [
+                        "StarTransactions"
+                    ]
                 },
                 {
                     "name": "refundStarPayment",
@@ -12665,7 +12911,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "LabeledPrice",
@@ -13354,7 +13602,9 @@
                             "required": true
                         }
                     ],
-                    "return": "True"
+                    "return": [
+                        "True"
+                    ]
                 },
                 {
                     "name": "PassportElementError",
@@ -13705,7 +13955,9 @@
                             "required": false
                         }
                     ],
-                    "return": "Message"
+                    "return": [
+                        "Message"
+                    ]
                 },
                 {
                     "name": "Game",
@@ -13804,7 +14056,11 @@
                             "required": false
                         }
                     ],
-                    "return": "False"
+                    "return": [
+                        "True",
+                        "Message",
+                        "False"
+                    ]
                 },
                 {
                     "name": "getGameHighScores",
@@ -13836,7 +14092,9 @@
                         }
                     ],
                     "return": [
-                        "GameHighScore"
+                        [
+                            "GameHighScore"
+                        ]
                     ]
                 },
                 {
