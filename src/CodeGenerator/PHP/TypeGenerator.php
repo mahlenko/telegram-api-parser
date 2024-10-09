@@ -13,6 +13,7 @@ class TypeGenerator {
         'array' => 'array',
         'true' => 'true',
         'false' => 'false',
+        'resource' => 'resource'
     ];
 
     public function getType(string|array $types, DataTypeEnum $type): string {
@@ -30,17 +31,6 @@ class TypeGenerator {
         return 'array';
     }
 
-    public function toString(string|array $types, bool $nullable = false): string {
-        $array = $this->toArray($types);
-
-        $nullableType = $nullable ? '|null' : null;
-
-        if (!$this->hasArrays($array))
-            return implode('|', $array) . $nullableType;
-
-        return $this->toStringArray($array[0]);
-    }
-
     public function excludeDefaultTypes(string $classname, array $types, DataTypeEnum $type): array {
         $namespace = trim(PHPGenerator::NAMESPACE, '\\') .'\\'. $type->toString();
 
@@ -53,19 +43,36 @@ class TypeGenerator {
         return $types;
     }
 
-    private function toStringArray(string|array $array, string $result = ''): string {
-        foreach ($array as $value) {
-            if (is_array($value)) {
-                $value = $this->toStringArray($value, $result);
-            }
+    public function toString(string|array $types, bool $nullable = false): string {
+        $array = $this->toArray($types);
+        return implode('|', $array);
+    }
 
-            $result = sprintf('array<%s>', $value);
+    public function toStringArray(array $array): string {
+        $array = $this->toArray($array);
+
+        if (count($array) === count($array, COUNT_RECURSIVE)) {
+            //dump(sprintf('array<%s>', implode('|', $array)));
+            return sprintf('array<%s>', implode('|', $array));
         }
 
-        return $result;
+        $multiArray = [];
+        if (is_array($array[0])) {
+            foreach ($array[0] as $key => $type) {
+                if (is_array($type)) {
+                    $multiArray[$key] = sprintf('array<%s>', $this->toStringArray($type));
+                }
+            }
+        }
+
+        return implode('|', $multiArray);
     }
 
     private function toArray(string|array $types): array {
+        if (is_string($types) && str_contains($types, ' or ')) {
+            $types = explode(' or ', $types);
+        }
+
         if (!is_array($types))
             return [ $this->toPHP($types) ];
 

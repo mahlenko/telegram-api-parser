@@ -33,6 +33,21 @@ class PHPGenerator implements GeneratorInterface
      * @return void
      */
     public function handle(string $file_source, string $extends = null): void {
+
+//        $test = [
+//            'Chat or ChatMember',
+//            ['Integer', 'String', 'Boolean'],
+//            ["ReactionType"],
+//            [["InlineKeyboardButton"]],
+//            ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]
+//        ];
+//
+//        foreach ($test as $item) {
+//            dump($this->typeGenerator->toString($item));
+//        }
+
+//        exit;
+
         $source = json_decode(file_get_contents($file_source));
 
         $documentation = $source->documentation;
@@ -93,10 +108,14 @@ class PHPGenerator implements GeneratorInterface
                 ->setPublic();
 
             foreach ($class->parameters as $parameter) {
+                $typeComment = is_string($parameter->type)
+                    ? $this->typeGenerator->toString($parameter->type)
+                    : $this->typeGenerator->toStringArray($parameter->type);
+
                 $method->addPromotedParameter($parameter->name)
                     ->setType($this->typeGenerator->getType($parameter->type, DataTypeEnum::TYPE))
                     ->setComment(wordwrap($parameter->description, self::WRAP_LENGTH))
-                    ->addComment(sprintf('@var %s', $this->typeGenerator->toString($parameter->type, !$parameter->required)))
+                    ->addComment(sprintf('@var %s', $typeComment))
                     ->setNullable(!$parameter->required)
                     ->setPublic();
             }

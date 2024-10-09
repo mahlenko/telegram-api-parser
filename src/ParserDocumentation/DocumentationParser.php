@@ -66,6 +66,7 @@ class DocumentationParser
                             ? $this->makeObjectParameters($table)
                             : $this->makeMethodParameters($table),
                     ];
+
                 } else {
                     $data = [
                         'name' => $section->first('h4')->text(),
@@ -249,10 +250,10 @@ class DocumentationParser
     private function defineType(string $type): string|array|null {
         $arrayKey = 'Array of';
         if (str_contains($type, $arrayKey))
-            return $this->formatArrayType($type, [], $arrayKey);
+            return $this->formatArrayType($type, $arrayKey);
 
         if (str_contains($type, ' or '))
-            return explode(' or ', $type);
+            return $type;
 
         if (str_contains($type, ' '))
             return null;
@@ -315,21 +316,23 @@ class DocumentationParser
             });
         }
 
-        return $types ?? null;
+        if (count($types) == count($types, COUNT_RECURSIVE)) {
+            return implode(' or ', $types) ?: null;
+        }
+
+        return $types[0];
     }
 
     /**
      * @param  string  $source
-     * @param  array  $build
      * @param  string  $define
      * @return array
      */
-    public function formatArrayType(string $source, array $build, string $define = 'Array of'): array {
+    private function formatArrayType(string $source, string $define): array {
         $source = substr($source, strlen($define) + 1);
 
         if (str_contains($source, $define)) {
-            $build[] = $this->formatArrayType($source, $build, $define);
-            return $build;
+            return [ $this->formatArrayType($source, $define) ];
         }
 
         $source = str_replace(' and ', ', ', $source);

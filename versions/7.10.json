@@ -243,9 +243,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "Update"
-                        ]
+                        "Update"
                     ]
                 },
                 {
@@ -309,16 +307,12 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getWebhookInfo",
                     "description": "Use this method to get current webhook status. Requires no parameters. On success, returns a <a href=\"#webhookinfo\">WebhookInfo<\/a> object. If the bot is using <a href=\"#getupdates\">getUpdates<\/a>, will return an object with the <em>url<\/em> field empty.",
-                    "return": [
-                        "WebhookInfo"
-                    ]
+                    "return": "WebhookInfo"
                 },
                 {
                     "name": "WebhookInfo",
@@ -1604,10 +1598,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername). Not supported for messages sent on behalf of a business account.",
                             "required": false
                         },
@@ -4362,9 +4353,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "ChatMember"
-                    ]
+                    "return": "ChatMember"
                 },
                 {
                     "name": "ChatJoinRequest",
@@ -4890,10 +4879,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
@@ -4911,10 +4897,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
@@ -4932,10 +4915,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -5361,10 +5341,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -5444,10 +5421,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -5521,10 +5495,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -5586,10 +5557,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -5675,10 +5643,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -5917,23 +5882,17 @@
                 {
                     "name": "getMe",
                     "description": "A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a <a href=\"#user\">User<\/a> object.",
-                    "return": [
-                        "User"
-                    ]
+                    "return": "User"
                 },
                 {
                     "name": "logOut",
                     "description": "Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns <em>True<\/em> on success. Requires no parameters.",
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "close",
                     "description": "Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns <em>True<\/em> on success. Requires no parameters.",
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "sendMessage",
@@ -5947,10 +5906,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6012,19 +5968,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "Formatting options",
@@ -6036,10 +5985,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6051,10 +5997,7 @@
                         },
                         {
                             "name": "from_chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)",
                             "required": true
                         },
@@ -6077,9 +6020,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "forwardMessages",
@@ -6087,10 +6028,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6102,10 +6040,7 @@
                         },
                         {
                             "name": "from_chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)",
                             "required": true
                         },
@@ -6131,9 +6066,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "MessageId"
-                        ]
+                        "MessageId"
                     ]
                 },
                 {
@@ -6142,10 +6075,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6157,10 +6087,7 @@
                         },
                         {
                             "name": "from_chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)",
                             "required": true
                         },
@@ -6216,19 +6143,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "MessageId"
-                    ]
+                    "return": "MessageId"
                 },
                 {
                     "name": "copyMessages",
@@ -6236,10 +6156,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6251,10 +6168,7 @@
                         },
                         {
                             "name": "from_chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)",
                             "required": true
                         },
@@ -6286,9 +6200,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "MessageId"
-                        ]
+                        "MessageId"
                     ]
                 },
                 {
@@ -6303,10 +6215,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6318,10 +6227,7 @@
                         },
                         {
                             "name": "photo",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart\/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files",
                             "required": true
                         },
@@ -6383,19 +6289,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendAudio",
@@ -6409,10 +6308,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6424,10 +6320,7 @@
                         },
                         {
                             "name": "audio",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart\/form-data. More information on Sending Files",
                             "required": true
                         },
@@ -6471,10 +6364,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -6504,19 +6394,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendDocument",
@@ -6530,10 +6413,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6545,19 +6425,13 @@
                         },
                         {
                             "name": "document",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart\/form-data. More information on Sending Files",
                             "required": true
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -6613,19 +6487,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendVideo",
@@ -6639,10 +6506,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6654,10 +6518,7 @@
                         },
                         {
                             "name": "video",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart\/form-data. More information on Sending Files",
                             "required": true
                         },
@@ -6681,10 +6542,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -6752,19 +6610,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendAnimation",
@@ -6778,10 +6629,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6793,10 +6641,7 @@
                         },
                         {
                             "name": "animation",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart\/form-data. More information on Sending Files",
                             "required": true
                         },
@@ -6820,10 +6665,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -6885,19 +6727,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendVoice",
@@ -6911,10 +6746,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -6926,10 +6758,7 @@
                         },
                         {
                             "name": "voice",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart\/form-data. More information on Sending Files",
                             "required": true
                         },
@@ -6985,19 +6814,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendVideoNote",
@@ -7011,10 +6833,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7026,10 +6845,7 @@
                         },
                         {
                             "name": "video_note",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart\/form-data. More information on Sending Files . Sending video notes by a URL is currently unsupported",
                             "required": true
                         },
@@ -7047,10 +6863,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
@@ -7080,19 +6893,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendPaidMedia",
@@ -7106,10 +6912,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.",
                             "required": true
                         },
@@ -7179,19 +6982,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendMediaGroup",
@@ -7205,10 +7001,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7255,9 +7048,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "Message"
-                        ]
+                        "Message"
                     ]
                 },
                 {
@@ -7272,10 +7063,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7347,19 +7135,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendVenue",
@@ -7373,10 +7154,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7460,19 +7238,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendContact",
@@ -7486,10 +7257,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7549,19 +7317,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendPoll",
@@ -7575,10 +7336,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7704,19 +7462,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendDice",
@@ -7730,10 +7481,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7775,19 +7523,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "sendChatAction",
@@ -7801,10 +7542,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7821,9 +7559,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setMessageReaction",
@@ -7831,10 +7567,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7859,9 +7592,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getUserProfilePhotos",
@@ -7886,9 +7617,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "UserProfilePhotos"
-                    ]
+                    "return": "UserProfilePhotos"
                 },
                 {
                     "name": "getFile",
@@ -7901,9 +7630,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "File"
-                    ]
+                    "return": "File"
                 },
                 {
                     "name": "banChatMember",
@@ -7911,10 +7638,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7937,9 +7661,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unbanChatMember",
@@ -7947,10 +7669,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         },
@@ -7967,9 +7686,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "restrictChatMember",
@@ -7977,10 +7694,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8009,9 +7723,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "promoteChatMember",
@@ -8019,10 +7731,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8123,9 +7832,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setChatAdministratorCustomTitle",
@@ -8133,10 +7840,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8153,9 +7857,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "banChatSenderChat",
@@ -8163,10 +7865,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8177,9 +7876,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unbanChatSenderChat",
@@ -8187,10 +7884,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8201,9 +7895,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setChatPermissions",
@@ -8211,10 +7903,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8231,9 +7920,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "exportChatInviteLink",
@@ -8241,17 +7928,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "String"
-                    ]
+                    "return": "String"
                 },
                 {
                     "name": "createChatInviteLink",
@@ -8259,10 +7941,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8291,9 +7970,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "ChatInviteLink"
-                    ]
+                    "return": "ChatInviteLink"
                 },
                 {
                     "name": "editChatInviteLink",
@@ -8301,10 +7978,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8339,9 +8013,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "ChatInviteLink"
-                    ]
+                    "return": "ChatInviteLink"
                 },
                 {
                     "name": "createChatSubscriptionInviteLink",
@@ -8349,10 +8021,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8375,9 +8044,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "ChatInviteLink"
-                    ]
+                    "return": "ChatInviteLink"
                 },
                 {
                     "name": "editChatSubscriptionInviteLink",
@@ -8385,10 +8052,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8405,9 +8069,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "ChatInviteLink"
-                    ]
+                    "return": "ChatInviteLink"
                 },
                 {
                     "name": "revokeChatInviteLink",
@@ -8415,10 +8077,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier of the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8429,9 +8088,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "ChatInviteLink"
-                    ]
+                    "return": "ChatInviteLink"
                 },
                 {
                     "name": "approveChatJoinRequest",
@@ -8439,10 +8096,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8453,9 +8107,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "declineChatJoinRequest",
@@ -8463,10 +8115,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8477,9 +8126,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setChatPhoto",
@@ -8487,10 +8134,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8501,9 +8145,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteChatPhoto",
@@ -8511,17 +8153,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setChatTitle",
@@ -8529,10 +8166,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8543,9 +8177,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setChatDescription",
@@ -8553,10 +8185,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8567,9 +8196,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "pinChatMessage",
@@ -8583,10 +8210,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8603,9 +8227,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unpinChatMessage",
@@ -8619,10 +8241,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8633,9 +8252,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unpinAllChatMessages",
@@ -8643,17 +8260,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "leaveChat",
@@ -8661,17 +8273,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getChat",
@@ -8679,17 +8286,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "ChatFullInfo"
-                    ]
+                    "return": "ChatFullInfo"
                 },
                 {
                     "name": "getChatAdministrators",
@@ -8697,18 +8299,13 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
                     "return": [
-                        [
-                            "ChatMember"
-                        ]
+                        "ChatMember"
                     ]
                 },
                 {
@@ -8717,17 +8314,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "Int"
-                    ]
+                    "return": "Int"
                 },
                 {
                     "name": "getChatMember",
@@ -8735,10 +8327,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)",
                             "required": true
                         },
@@ -8749,9 +8338,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "ChatMember"
-                    ]
+                    "return": "ChatMember"
                 },
                 {
                     "name": "setChatStickerSet",
@@ -8759,10 +8346,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8773,9 +8357,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteChatStickerSet",
@@ -8783,25 +8365,18 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getForumTopicIconStickers",
                     "description": "Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of <a href=\"#sticker\">Sticker<\/a> objects.",
                     "return": [
-                        [
-                            "Sticker"
-                        ]
+                        "Sticker"
                     ]
                 },
                 {
@@ -8810,10 +8385,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8836,9 +8408,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "ForumTopic"
-                    ]
+                    "return": "ForumTopic"
                 },
                 {
                     "name": "editForumTopic",
@@ -8846,10 +8416,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8872,9 +8439,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "closeForumTopic",
@@ -8882,10 +8447,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8896,9 +8458,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "reopenForumTopic",
@@ -8906,10 +8466,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8920,9 +8477,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteForumTopic",
@@ -8930,10 +8485,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8944,9 +8496,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unpinAllForumTopicMessages",
@@ -8954,10 +8504,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8968,9 +8515,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "editGeneralForumTopic",
@@ -8978,10 +8523,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         },
@@ -8992,9 +8534,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "closeGeneralForumTopic",
@@ -9002,17 +8542,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "reopenGeneralForumTopic",
@@ -9020,17 +8555,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "hideGeneralForumTopic",
@@ -9038,17 +8568,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unhideGeneralForumTopic",
@@ -9056,17 +8581,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "unpinAllGeneralForumTopicMessages",
@@ -9074,17 +8594,12 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "answerCallbackQuery",
@@ -9121,9 +8636,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getUserChatBoosts",
@@ -9131,10 +8644,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the chat or username of the channel (in the format @channelusername)",
                             "required": true
                         },
@@ -9145,9 +8655,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "UserChatBoosts"
-                    ]
+                    "return": "UserChatBoosts"
                 },
                 {
                     "name": "getBusinessConnection",
@@ -9160,9 +8668,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "BusinessConnection"
-                    ]
+                    "return": "BusinessConnection"
                 },
                 {
                     "name": "setMyCommands",
@@ -9189,9 +8695,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteMyCommands",
@@ -9210,9 +8714,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getMyCommands",
@@ -9232,9 +8734,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "BotCommand"
-                        ]
+                        "BotCommand"
                     ]
                 },
                 {
@@ -9254,9 +8754,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getMyName",
@@ -9269,9 +8767,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "BotName"
-                    ]
+                    "return": "BotName"
                 },
                 {
                     "name": "setMyDescription",
@@ -9290,9 +8786,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getMyDescription",
@@ -9305,9 +8799,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "BotDescription"
-                    ]
+                    "return": "BotDescription"
                 },
                 {
                     "name": "setMyShortDescription",
@@ -9326,9 +8818,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getMyShortDescription",
@@ -9341,9 +8831,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "BotShortDescription"
-                    ]
+                    "return": "BotShortDescription"
                 },
                 {
                     "name": "setChatMenuButton",
@@ -9362,9 +8850,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getChatMenuButton",
@@ -9377,9 +8863,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "MenuButton"
-                    ]
+                    "return": "MenuButton"
                 },
                 {
                     "name": "setMyDefaultAdministratorRights",
@@ -9398,9 +8882,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getMyDefaultAdministratorRights",
@@ -9413,9 +8895,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "ChatAdministratorRights"
-                    ]
+                    "return": "ChatAdministratorRights"
                 },
                 {
                     "name": "Inline mode methods",
@@ -9439,10 +8919,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": false
                         },
@@ -9491,10 +8968,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message"
-                    ]
+                    "return": "True or Message"
                 },
                 {
                     "name": "editMessageCaption",
@@ -9508,10 +8982,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": false
                         },
@@ -9560,10 +9031,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message"
-                    ]
+                    "return": "True or Message"
                 },
                 {
                     "name": "editMessageMedia",
@@ -9577,10 +9045,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": false
                         },
@@ -9609,10 +9074,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message"
-                    ]
+                    "return": "True or Message"
                 },
                 {
                     "name": "editMessageLiveLocation",
@@ -9626,10 +9088,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": false
                         },
@@ -9688,10 +9147,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message"
-                    ]
+                    "return": "True or Message"
                 },
                 {
                     "name": "stopMessageLiveLocation",
@@ -9705,10 +9161,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": false
                         },
@@ -9731,10 +9184,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message"
-                    ]
+                    "return": "True or Message"
                 },
                 {
                     "name": "editMessageReplyMarkup",
@@ -9748,10 +9198,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": false
                         },
@@ -9774,10 +9221,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message"
-                    ]
+                    "return": "True or Message"
                 },
                 {
                     "name": "stopPoll",
@@ -9791,10 +9235,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -9811,9 +9252,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Poll"
-                    ]
+                    "return": "Poll"
                 },
                 {
                     "name": "deleteMessage",
@@ -9821,10 +9260,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -9835,9 +9271,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteMessages",
@@ -9845,10 +9279,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -9861,9 +9292,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 }
             ]
         },
@@ -10041,10 +9470,7 @@
                     "parameters": [
                         {
                             "name": "sticker",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "The added sticker. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, upload a new one using multipart\/form-data, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. Animated and video stickers can't be uploaded via HTTP URL. More information on Sending Files",
                             "required": true
                         },
@@ -10090,10 +9516,7 @@
                         },
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -10105,10 +9528,7 @@
                         },
                         {
                             "name": "sticker",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart\/form-data. More information on Sending Files . Video and animated stickers can't be sent via an HTTP URL.",
                             "required": true
                         },
@@ -10144,19 +9564,12 @@
                         },
                         {
                             "name": "reply_markup",
-                            "type": [
-                                "InlineKeyboardMarkup",
-                                "ReplyKeyboardMarkup",
-                                "ReplyKeyboardRemove",
-                                "ForceReply"
-                            ],
+                            "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
                             "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "getStickerSet",
@@ -10169,9 +9582,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "StickerSet"
-                    ]
+                    "return": "StickerSet"
                 },
                 {
                     "name": "getCustomEmojiStickers",
@@ -10187,9 +9598,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "Sticker"
-                        ]
+                        "Sticker"
                     ]
                 },
                 {
@@ -10215,9 +9624,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "File"
-                    ]
+                    "return": "File"
                 },
                 {
                     "name": "createNewStickerSet",
@@ -10262,9 +9669,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "addStickerToSet",
@@ -10289,9 +9694,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setStickerPositionInSet",
@@ -10310,9 +9713,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteStickerFromSet",
@@ -10325,9 +9726,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "replaceStickerInSet",
@@ -10358,9 +9757,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setStickerEmojiList",
@@ -10381,9 +9778,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setStickerKeywords",
@@ -10404,9 +9799,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setStickerMaskPosition",
@@ -10425,9 +9818,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setStickerSetTitle",
@@ -10446,9 +9837,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setStickerSetThumbnail",
@@ -10468,10 +9857,7 @@
                         },
                         {
                             "name": "thumbnail",
-                            "type": [
-                                "InputFile",
-                                "String"
-                            ],
+                            "type": "InputFile or String",
                             "description": "A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see https:\/\/core.telegram.org\/stickers#animation-requirements for animated sticker technical requirements), or a WEBM video with the thumbnail up to 32 kilobytes in size; see https:\/\/core.telegram.org\/stickers#video-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart\/form-data. More information on Sending Files . Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.",
                             "required": false
                         },
@@ -10482,9 +9868,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "setCustomEmojiStickerSetThumbnail",
@@ -10503,9 +9887,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "deleteStickerSet",
@@ -10518,9 +9900,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 }
             ]
         },
@@ -10613,9 +9993,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "InlineQueryResultsButton",
@@ -12482,9 +11860,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "SentWebAppMessage"
-                    ]
+                    "return": "SentWebAppMessage"
                 },
                 {
                     "name": "SentWebAppMessage",
@@ -12510,10 +11886,7 @@
                     "parameters": [
                         {
                             "name": "chat_id",
-                            "type": [
-                                "Integer",
-                                "String"
-                            ],
+                            "type": "Integer or String",
                             "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
                             "required": true
                         },
@@ -12684,9 +12057,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "createInvoiceLink",
@@ -12817,9 +12188,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "String"
-                    ]
+                    "return": "String"
                 },
                 {
                     "name": "answerShippingQuery",
@@ -12852,9 +12221,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "answerPreCheckoutQuery",
@@ -12879,9 +12246,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "getStarTransactions",
@@ -12900,9 +12265,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "StarTransactions"
-                    ]
+                    "return": "StarTransactions"
                 },
                 {
                     "name": "refundStarPayment",
@@ -12921,9 +12284,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "LabeledPrice",
@@ -13612,9 +12973,7 @@
                             "required": true
                         }
                     ],
-                    "return": [
-                        "True"
-                    ]
+                    "return": "True"
                 },
                 {
                     "name": "PassportElementError",
@@ -13965,9 +13324,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "Message"
-                    ]
+                    "return": "Message"
                 },
                 {
                     "name": "Game",
@@ -14066,11 +13423,7 @@
                             "required": false
                         }
                     ],
-                    "return": [
-                        "True",
-                        "Message",
-                        "False"
-                    ]
+                    "return": "True or Message or False"
                 },
                 {
                     "name": "getGameHighScores",
@@ -14102,9 +13455,7 @@
                         }
                     ],
                     "return": [
-                        [
-                            "GameHighScore"
-                        ]
+                        "GameHighScore"
                     ]
                 },
                 {
