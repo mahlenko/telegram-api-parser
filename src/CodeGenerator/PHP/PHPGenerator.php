@@ -3,7 +3,9 @@
 namespace TelegramApiParser\CodeGenerator\PHP;
 
 use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\InterfaceType;
 use Nette\PhpGenerator\PhpNamespace;
+use Nette\PhpGenerator\Printer;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
 
 class PHPGenerator implements GeneratorInterface
@@ -40,6 +42,8 @@ class PHPGenerator implements GeneratorInterface
             'Making requests', 'Using a Local Bot API Server',
         ];
 
+        $contracts = $this->makeContracts();
+
         foreach ($documentation as $group) {
             if (in_array($group->name, $excludeGroupsName))
                 continue;
@@ -48,13 +52,19 @@ class PHPGenerator implements GeneratorInterface
                 if (str_contains($class->name, ' '))
                     continue;
 
+                $type = isset($class->return) ? DataTypeEnum::METHOD : DataTypeEnum::TYPE;
+
                 /** Create class */
                 $template = $this->makeClassTemplate($class, $extends);
                 $template->addComment(PHP_EOL.'@version Telegram Bot API '. $source->version);
 
                 /** Create namespace */
-                $namespace = $this->makeNamespace(isset($class->return) ? 'Method' : 'Type');
+                $namespace = $this->makeNamespace($type->toString());
                 $namespace->add($template);
+
+                $contract = $contracts[$type->toString()];
+                $template->addImplement($contract);
+                $namespace->addUse($contract);
 
                 /** Add dependencies */
                 $this->addDependencies($namespace, $template);
@@ -84,7 +94,7 @@ class PHPGenerator implements GeneratorInterface
 
             foreach ($class->parameters as $parameter) {
                 $method->addPromotedParameter($parameter->name)
-                    ->setType($this->typeGenerator->getType($parameter->type))
+                    ->setType($this->typeGenerator->getType($parameter->type, DataTypeEnum::TYPE))
                     ->setComment(wordwrap($parameter->description, self::WRAP_LENGTH))
                     ->addComment(sprintf('@var %s', $this->typeGenerator->toString($parameter->type, !$parameter->required)))
                     ->setNullable(!$parameter->required)
@@ -93,6 +103,29 @@ class PHPGenerator implements GeneratorInterface
         }
 
         return $template;
+    }
+
+    /**
+     * @return array<InterfaceType>
+     */
+    private function makeContracts(): array {
+        $namespace = $this->makeNamespace('Contracts');
+
+        $contracts = [
+            DataTypeEnum::TYPE->toString() => 'TelegramTypeContract',
+            DataTypeEnum::METHOD->toString() => 'TelegramMethodContract'
+        ];
+
+        $namespaces = [];
+        foreach ($contracts as $type => $name) {
+            $namespace->add(new InterfaceType($name));
+            $this->print($namespace);
+            $namespace->removeClass($name);
+
+            $namespaces[$type] = $namespace->getName() .'\\'. $name;
+        }
+
+        return $namespaces;
     }
 
     /**
@@ -108,7 +141,7 @@ class PHPGenerator implements GeneratorInterface
                 $types = explode('|', $parameter->getType());
                 $used = array_merge(
                     $used,
-                    $this->typeGenerator->excludeDefaultTypes($classType->getName(), $types),
+                    $this->typeGenerator->excludeDefaultTypes($classType->getName(), $types, DataTypeEnum::TYPE),
                 );
             }
 
@@ -135,7 +168,7 @@ class PHPGenerator implements GeneratorInterface
      * @return void
      */
     private function print(PhpNamespace $namespace): void {
-        $printer = new \Nette\PhpGenerator\Printer();
+        $printer = new Printer();
         $printer->indentation = '    ';
 
         $content = '<?php' . PHP_EOL . $printer->printNamespace($namespace);

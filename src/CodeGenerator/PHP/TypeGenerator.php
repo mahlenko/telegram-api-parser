@@ -15,8 +15,8 @@ class TypeGenerator {
         'false' => 'false',
     ];
 
-    public function getType(string|array $types, string $namespace = 'Type'): string {
-        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . $namespace;
+    public function getType(string|array $types, DataTypeEnum $type): string {
+        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . $type->toString();
         $array = $this->toArray($types);
 
         if (!$this->hasArrays($array)) {
@@ -41,8 +41,8 @@ class TypeGenerator {
         return $this->toStringArray($array[0]);
     }
 
-    public function excludeDefaultTypes(string $classname, array $types, string $namespace = 'Type'): array {
-        $namespace = trim(PHPGenerator::NAMESPACE, '\\') .'\\'. $namespace;
+    public function excludeDefaultTypes(string $classname, array $types, DataTypeEnum $type): array {
+        $namespace = trim(PHPGenerator::NAMESPACE, '\\') .'\\'. $type->toString();
 
         $types = array_filter($types, function($type) use ($classname, $namespace) {
             return !in_array($type, self::BASE_TYPES) && $namespace . $classname !== $type;
