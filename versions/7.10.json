@@ -5623,7 +5623,17 @@
                 },
                 {
                     "name": "InputFile",
-                    "description": "This object represents the contents of a file to be uploaded. Must be posted using multipart\/form-data in the usual way that files are uploaded via the browser."
+                    "description": "This object represents the contents of a file to be uploaded. Must be posted using multipart\/form-data in the usual way that files are uploaded via the browser.",
+                    "parameters": [
+                        {
+                            "name": "attach",
+                            "type": [
+                                "String"
+                            ],
+                            "description": "The attached file.\nPlease note that this parameter does not exist in the documentation, it has been added to make it easier to work with files.",
+                            "required": true
+                        }
+                    ]
                 },
                 {
                     "name": "InputPaidMedia",

@@ -71,6 +71,17 @@ class DocumentationParser
                         'name' => $section->first('h4')->text(),
                         'description' => $this->findGroupDescription($section),
                     ];
+
+                    if ($data['name'] == 'InputFile') {
+                        $data['parameters'] = [
+                            [
+                                'name' => 'attach',
+                                'type' => ['String'],
+                                'description' => "The attached file.\nPlease note that this parameter does not exist in the documentation, it has been added to make it easier to work with files.",
+                                'required' => true,
+                            ]
+                        ];
+                    }
                 }
 
                 /* Is method? */
