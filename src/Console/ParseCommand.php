@@ -1,7 +1,8 @@
 <?php
 
-namespace TelegramApiParser\ParserDocumentation\Console;
+namespace TelegramApiParser\Console;
 
+use DiDom\Exceptions\InvalidSelectorException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,6 +14,10 @@ class ParseCommand extends Command
 
     protected static $defaultDescription = '';
 
+    /**
+     * @throws \DateMalformedStringException
+     * @throws InvalidSelectorException
+     */
     public function execute(InputInterface $input, OutputInterface $output): int {
         $documentation_parser = new TelegramDocumentationParser();
 
@@ -26,7 +31,7 @@ class ParseCommand extends Command
             'documentation' => $documentation_parser->handle()
         ];
 
-        file_put_contents(__DIR__ .'/../../../versions/'.$version.'.json', json_encode($data, JSON_PRETTY_PRINT));
+        file_put_contents(__DIR__ .'/../../versions/'.$version.'.json', json_encode($data, JSON_PRETTY_PRINT));
         $output->writeln('<info>Parsing version '.$version.'</info>');
 
         return self::SUCCESS;
