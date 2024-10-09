@@ -6,7 +6,7 @@ use DiDom\Exceptions\InvalidSelectorException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TelegramApiParser\ParserDocumentation\TelegramDocumentationParser;
+use TelegramApiParser\ParserDocumentation\DocumentationParser;
 
 class ParseCommand extends Command
 {
@@ -19,7 +19,7 @@ class ParseCommand extends Command
      * @throws InvalidSelectorException
      */
     public function execute(InputInterface $input, OutputInterface $output): int {
-        $documentation_parser = new TelegramDocumentationParser();
+        $documentation_parser = new DocumentationParser();
 
         $version = $documentation_parser->version();
         $date = $documentation_parser->latestDate();
