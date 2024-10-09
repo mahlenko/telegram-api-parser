@@ -314,7 +314,7 @@
                 {
                     "name": "getWebhookInfo",
                     "description": "Use this method to get current webhook status. Requires no parameters. On success, returns a <a href=\"#webhookinfo\">WebhookInfo<\/a> object. If the bot is using <a href=\"#getupdates\">getUpdates<\/a>, will return an object with the <em>url<\/em> field empty.",
-                    "return": "WebhookInfo"
+                    "return": "url"
                 },
                 {
                     "name": "WebhookInfo",
@@ -4358,7 +4358,7 @@
                             "required": true
                         }
                     ],
-                    "return": "chat member"
+                    "return": "ChatMember"
                 },
                 {
                     "name": "ChatJoinRequest",
@@ -7207,7 +7207,7 @@
                         }
                     ],
                     "return": [
-                        "Messages"
+                        "Message"
                     ]
                 },
                 {
@@ -8649,7 +8649,7 @@
                             "required": true
                         }
                     ],
-                    "return": "can_set_sticker_set"
+                    "return": "True"
                 },
                 {
                     "name": "deleteChatStickerSet",
@@ -8665,7 +8665,7 @@
                             "required": true
                         }
                     ],
-                    "return": "can_set_sticker_set"
+                    "return": "True"
                 },
                 {
                     "name": "getForumTopicIconStickers",
@@ -13804,7 +13804,7 @@
                             "required": false
                         }
                     ],
-                    "return": "True"
+                    "return": "False"
                 },
                 {
                     "name": "getGameHighScores",

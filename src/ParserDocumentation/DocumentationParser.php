@@ -7,7 +7,7 @@ use DiDom\Document;
 use DiDom\Element;
 use DiDom\Exceptions\InvalidSelectorException;
 
-class TelegramDocumentationParser
+class DocumentationParser
 {
     const BASE_URL = 'https://core.telegram.org/bots/api';
 
@@ -263,6 +263,8 @@ class TelegramDocumentationParser
             fn($sentences) => str_contains(strtolower($sentences), 'return')
         ));
 
+        krsort($sentences);
+
         if (!$sentences)
             return null;
 
@@ -274,16 +276,20 @@ class TelegramDocumentationParser
                 preg_match('/Array of (.*)/i', $text, $matches);
                 if (isset($matches[1])) {
                     $type = explode(' ', $matches[1]);
-                    return [ $type[0] ];
+                    return [ $this->fixMessagesType($this->camelCase($type[0])) ];
                 }
             }
 
             $returnTypeFromEm = $sentence->find('em');
             if ($returnTypeFromEm && count($returnTypeFromEm))
-                return $returnTypeFromEm[count($returnTypeFromEm) - 1]->text();
+                return $this->fixMessagesType(
+                    $this->camelCase($returnTypeFromEm[count($returnTypeFromEm) - 1]->text())
+                );
 
             if ($sentence->has('a'))
-                return $sentence->first('a')->text();
+                return $this->fixMessagesType(
+                    $this->camelCase($sentence->first('a')->text())
+                );
         }
 
         return null;
@@ -305,6 +311,21 @@ class TelegramDocumentationParser
 
         $source = str_replace(' and ', ', ', $source);
         return explode(', ', $source);
+    }
+
+    private function fixMessagesType(string $type):string {
+        if ($type == 'Messages')
+            return 'Message';
+
+        return $type;
+    }
+
+    private function camelCase(string $string): string {
+        if (!str_contains($string, ' '))
+            return $string;
+
+        $string = str_replace(['-', '_'], ' ', $string);
+        return str_replace(' ', '', ucwords($string));
     }
 
     /**
