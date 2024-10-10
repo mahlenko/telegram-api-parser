@@ -185,8 +185,9 @@ class DocumentationParser
         $data = [];
         foreach ($table->find('tr') as $tr) {
             $param = [];
-            foreach ($tr->find('td') as $td) {
-                $param[] = $td->text();
+            $columns = $tr->find('td');
+            foreach ($columns as $index => $td) {
+                $param[] = $index == count($columns) - 1 ? $td->innerHtml() : $td->text();
             }
 
             if ($param) $data[] = $param;
@@ -211,6 +212,7 @@ class DocumentationParser
                 'required' => !str_contains($row[2], $optionalKey),
             ];
 
+            /*  */
             if (str_contains($parameter['description'], 'attach://')) {
                 if (is_string($parameter['type'])) {
                     if (!str_contains($parameter['type'], 'InputFile')) {
@@ -221,6 +223,12 @@ class DocumentationParser
                         $parameter['type'][] = 'InputFile';
                     }
                 }
+            }
+
+            /* default value */
+            if (str_contains($parameter['description'], 'must be <em>')) {
+                $description = new Document($parameter['description']);
+                $parameter['default'] = $description->first('em')->text();
             }
 
             $parameters[] = $parameter;
