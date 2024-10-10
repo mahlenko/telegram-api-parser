@@ -42,7 +42,7 @@ class TypeGenerator {
         if (is_array($array[0])) {
             foreach ($array[0] as $key => $type) {
                 if (is_array($type)) {
-                    $multiArray[$key] = sprintf('%s[]', $this->toStringDocBlock($type));
+                    $multiArray[$key] = sprintf('array<%s>', $this->toStringDocBlock($type));
                 }
             }
         }
