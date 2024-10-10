@@ -3,7 +3,7 @@
 namespace TelegramApiParser\CodeGenerator\PHP;
 
 class TypeGenerator {
-    private const BASE_TYPES = [
+    private const PHP_TYPE_MAPPING = [
         'boolean' => 'bool',
         'integer' => 'int',
         'int' => 'int',
@@ -12,46 +12,29 @@ class TypeGenerator {
         'string' => 'string',
         'array' => 'array',
         'true' => 'true',
-        'false' => 'false',
-        'resource' => 'resource'
+        'false' => 'false'
     ];
 
-    public function getType(string|array $types, DataTypeEnum $type): string {
-        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . $type->toString();
-        $array = $this->toArray($types);
+    /**
+     * Returns a string with a description of the types for DocBlock
+     *
+     * Example: InlineKeyboardButton[][] or array<InputMediaAudio|InputMediaDocument|InputMediaPhoto|InputMediaVideo>
+     *
+     * @param  string|array  $types
+     * @return string
+     */
+    public function toStringDocBlock(string|array $types): string {
+        $array = $this->mapping($types);
 
-        if (!$this->hasArrays($array)) {
-            foreach ($array as $key => $type) {
-                if (!$this->isPHP($type))
-                    $array[$key] = $namespace . '\\' . $type;
-            }
+        if (is_string($types)) {
             return implode('|', $array);
         }
 
-        return 'array';
-    }
-
-    public function excludeDefaultTypes(string $classname, array $types, DataTypeEnum $type): array {
-        $namespace = trim(PHPGenerator::NAMESPACE, '\\') .'\\'. $type->toString();
-
-        $types = array_filter($types, function($type) use ($classname, $namespace) {
-            return !in_array($type, self::BASE_TYPES) && $namespace . $classname !== $type;
-        });
-
-        if (!$types) return [];
-
-        return $types;
-    }
-
-    public function toString(string|array $types, bool $nullable = false): string {
-        $array = $this->toArray($types);
-        return implode('|', $array);
-    }
-
-    public function toStringArray(array $array): string {
-        $array = $this->toArray($array);
-
         if (count($array) === count($array, COUNT_RECURSIVE)) {
+            if (count($array) == 1) {
+                return sprintf('%s[]', $array[0]);
+            }
+
             return sprintf('array<%s>', implode('|', $array));
         }
 
@@ -59,7 +42,7 @@ class TypeGenerator {
         if (is_array($array[0])) {
             foreach ($array[0] as $key => $type) {
                 if (is_array($type)) {
-                    $multiArray[$key] = sprintf('array<%s>', $this->toStringArray($type));
+                    $multiArray[$key] = sprintf('%s[]', $this->toStringDocBlock($type));
                 }
             }
         }
@@ -67,20 +50,74 @@ class TypeGenerator {
         return implode('|', $multiArray);
     }
 
-    private function toArray(string|array $types): array {
+    /**
+     * Returns a string with types separated by "|"
+     *
+     * Example: InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply
+     *
+     * @param  string|array  $types
+     * @return string
+     */
+    public function toStringReturn(string|array $types): string {
+        if (is_array($types))
+            return 'array';
+
+        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . DataTypeEnum::TYPE->toString();
+
+        $array = $this->mapping($types);
+        foreach ($array as $key => $type) {
+            if (is_array($type)) {
+                unset($array[$key]);
+                continue;
+            }
+
+            if (!$this->isBaseType($type))
+                $array[$key] = $namespace . '\\' . $type;
+        }
+
+        return implode('|', $array);
+    }
+
+    /**
+     * Returns an array of custom types
+     *
+     * Example: [ TelegramBot\\Type\\Message, TelegramBot\\Type\\Update ]
+     *
+     * @param  string|array  $types
+     * @return array
+     */
+    public function getDependenciesList(string|array $types): array {
+        $result = [];
+        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . DataTypeEnum::TYPE->toString();
+
+        foreach ($this->flatten($this->mapping($types)) as $type) {
+            if (!$this->isBaseType($type)) {
+                $result[] = $namespace.'\\'.$type;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Type mapping with PHP
+     * @param  string|array  $types
+     * @return string[]
+     */
+    private function mapping(string|array $types): array {
         if (is_string($types) && str_contains($types, ' or ')) {
             $types = explode(' or ', $types);
         }
 
         if (!is_array($types))
-            return [ $this->toPHP($types) ];
+            return [ $this->mappingType($types) ];
 
         foreach ($types as $key => $type) {
             if (!is_array($type)) {
-                $type = $this->toPHP($type);
+                $type = $this->mappingType($type);
             } else {
                 foreach ($type as $k => $subType) {
-                    $type[$k] = $this->toArray($subType);
+                    $type[$k] = $this->mapping($subType);
                 }
             }
 
@@ -90,25 +127,35 @@ class TypeGenerator {
         return $types;
     }
 
-    private function toPHP(string $type): string {
+    /**
+     * @param  string  $type
+     * @return string
+     */
+    private function mappingType(string $type): string {
         $lower = strtolower($type);
 
-        if (key_exists($lower, self::BASE_TYPES)) {
-            return self::BASE_TYPES[$lower];
+        if (key_exists($lower, self::PHP_TYPE_MAPPING)) {
+            return self::PHP_TYPE_MAPPING[$lower];
         }
 
         return $type;
     }
 
-    private function isPHP(string $type): bool {
-        return in_array($type, self::BASE_TYPES);
+    /**
+     * @param  string  $type
+     * @return bool
+     */
+    private function isBaseType(string $type): bool {
+        return in_array($type, self::PHP_TYPE_MAPPING);
     }
 
-    private function hasArrays(array $arr): bool {
-        foreach ($arr as $value) {
-            if (is_array($value)) return true;
-        }
-
-        return false;
+    /**
+     * @param  array  $array
+     * @return array
+     */
+    private function flatten(array $array): array {
+        $return = [];
+        array_walk_recursive($array, function($arr) use (&$return) { $return[] = $arr; });
+        return $return;
     }
 }
