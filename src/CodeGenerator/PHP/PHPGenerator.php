@@ -33,23 +33,7 @@ class PHPGenerator implements GeneratorInterface
      * @return void
      */
     public function handle(string $file_source, string $extends = null): void {
-
-//        $test = [
-//            'Chat or ChatMember',
-//            ['Integer', 'String', 'Boolean'],
-//            ["ReactionType"],
-//            [["InlineKeyboardButton"]],
-//            ["InlineKeyboardMarkup", "ReplyKeyboardMarkup", "ReplyKeyboardRemove", "ForceReply"]
-//        ];
-//
-//        foreach ($test as $item) {
-//            dump($this->typeGenerator->toString($item));
-//        }
-
-//        exit;
-
         $source = json_decode(file_get_contents($file_source));
-
         $documentation = $source->documentation;
 
         $excludeGroupsName = [
@@ -57,8 +41,10 @@ class PHPGenerator implements GeneratorInterface
             'Making requests', 'Using a Local Bot API Server',
         ];
 
+        /* creating basic contracts for types and methods */
         $contracts = $this->makeContracts();
 
+        /* creating classes for documentation types and methods */
         foreach ($documentation as $group) {
             if (in_array($group->name, $excludeGroupsName))
                 continue;
@@ -67,68 +53,83 @@ class PHPGenerator implements GeneratorInterface
                 if (str_contains($class->name, ' '))
                     continue;
 
-                $type = isset($class->return) ? DataTypeEnum::METHOD : DataTypeEnum::TYPE;
+                $document = $this->generate($class, $extends, $contracts, $source->version);
 
-                /** Create class */
-                $template = $this->makeClassTemplate($class, $extends);
-                $template->addComment(PHP_EOL.'@version Telegram Bot API '. $source->version);
-
-                /** Create namespace */
-                $namespace = $this->makeNamespace($type->toString());
-                $namespace->add($template);
-
-                $contract = $contracts[$type->toString()];
-                $template->addImplement($contract);
-                $namespace->addUse($contract);
-
-                /** Add dependencies */
-                $this->addDependencies($namespace, $template);
-
-                $this->print($namespace);
+                $this->writeToFile($document);
             }
         }
     }
 
     /**
+     * Generate class
+     *
      * @param  mixed  $class
      * @param  string|null  $extends
-     * @return ClassType
+     * @param  array  $contracts
+     * @return PhpNamespace
      */
-    private function makeClassTemplate(mixed $class, string $extends = null): ClassType {
-        $template = (new ClassType(ucfirst($class->name)))
+    private function generate(
+        mixed $class,
+        string $extends = null,
+        array $contracts = [],
+        string $version = null
+    ): PhpNamespace {
+        $type = isset($class->return) ? DataTypeEnum::METHOD : DataTypeEnum::TYPE;
+
+        $document = (new ClassType(ucfirst($class->name)))
             ->setComment(wordwrap($class->description, self::WRAP_LENGTH))
             ->setFinal();
 
-        if ($extends)
-            $template->setExtends($extends);
+        if (!empty($version)) {
+            $document->addComment(PHP_EOL.'@version Telegram Bot API '.$version);
+        }
 
+        /* adds the class to the namespace */
+        $namespace = $this->getNamespace($type->toString());
+        $namespace->add($document);
+
+        if ($extends) {
+            $document->setExtends($extends);
+            $namespace->addUse($extends);
+        }
+
+        /* adds a constructor method and describes its arguments */
         if (isset($class->parameters)) {
-            $method = $template
+            $method = $document
                 ->addMethod('__construct')
                 ->setPublic();
 
+            /* add parameters */
             foreach ($class->parameters as $parameter) {
-                $typeComment = is_string($parameter->type)
-                    ? $this->typeGenerator->toString($parameter->type)
-                    : $this->typeGenerator->toStringArray($parameter->type);
-
                 $method->addPromotedParameter($parameter->name)
-                    ->setType($this->typeGenerator->getType($parameter->type, DataTypeEnum::TYPE))
+                    ->setType($this->typeGenerator->toStringReturn($parameter->type))
                     ->setComment(wordwrap($parameter->description, self::WRAP_LENGTH))
-                    ->addComment(sprintf('@var %s', $typeComment))
+                    ->addComment(sprintf('@var %s', $this->typeGenerator->toStringDocBlock($parameter->type)))
                     ->setNullable(!$parameter->required)
                     ->setPublic();
             }
         }
 
-        return $template;
+        /* adds a contract to the class */
+        if ($contracts && key_exists($type->toString(), $contracts)) {
+            $contract = $contracts[$type->toString()];
+            $document->addImplement($contract);
+            $namespace->addUse($contract);
+        }
+
+        /* adding custom dependencies */
+        if (isset($class->parameters)) {
+            $this->addDependencies($namespace, $class->parameters);
+        }
+
+        return $namespace;
     }
 
     /**
-     * @return array<InterfaceType>
+     * @return InterfaceType[]
      */
     private function makeContracts(): array {
-        $namespace = $this->makeNamespace('Contracts');
+        $namespace = $this->getNamespace('Contracts');
 
         $contracts = [
             DataTypeEnum::TYPE->toString() => 'TelegramTypeContract',
@@ -138,7 +139,7 @@ class PHPGenerator implements GeneratorInterface
         $namespaces = [];
         foreach ($contracts as $type => $name) {
             $namespace->add(new InterfaceType($name));
-            $this->print($namespace);
+            $this->writeToFile($namespace);
             $namespace->removeClass($name);
 
             $namespaces[$type] = $namespace->getName() .'\\'. $name;
@@ -149,31 +150,25 @@ class PHPGenerator implements GeneratorInterface
 
     /**
      * @param  PhpNamespace  $namespace
-     * @param  ClassType  $classType
+     * @param  string|array  $parameters
      * @return void
      */
-    private function addDependencies(PhpNamespace $namespace, ClassType $classType): void {
-        /* From constructor parameters */
-        if ($classType->hasMethod('__construct')) {
-            $used = [];
-            foreach ($classType->getMethod('__construct')->getParameters() as $parameter) {
-                $types = explode('|', $parameter->getType());
-                $used = array_merge(
-                    $used,
-                    $this->typeGenerator->excludeDefaultTypes($classType->getName(), $types, DataTypeEnum::TYPE),
-                );
-            }
-
-            foreach (array_unique($used) as $use) {
-                $namespace->addUse($use);
+    private function addDependencies(PhpNamespace $namespace, array $parameters): void {
+        foreach ($parameters as $parameter) {
+            $use = $this->typeGenerator->getDependenciesList($parameter->type);
+            if ($use) {
+                foreach ($use as $value) {
+                    $namespace->addUse($value);
+                }
             }
         }
-
-        if ($classType->getExtends())
-            $namespace->addUse($classType->getExtends());
     }
 
-    private function makeNamespace(string $name = null): PhpNamespace {
+    /**
+     * @param  string|null  $name
+     * @return PhpNamespace
+     */
+    private function getNamespace(string $name = null): PhpNamespace {
         $namespace = trim(self::NAMESPACE, '\\');
 
         if (!empty($namespace) && $name)
@@ -186,7 +181,7 @@ class PHPGenerator implements GeneratorInterface
      * @param  PhpNamespace  $namespace
      * @return void
      */
-    private function print(PhpNamespace $namespace): void {
+    private function writeToFile(PhpNamespace $namespace): void {
         $printer = new Printer();
         $printer->indentation = '    ';
 
