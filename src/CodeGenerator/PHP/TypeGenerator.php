@@ -35,7 +35,7 @@ class TypeGenerator {
                 return sprintf('%s[]', $array[0]);
             }
 
-            return sprintf('array<%s>', implode('|', $array));
+            return sprintf('<%s>[]', implode('|', $array));
         }
 
         $multiArray = [];
