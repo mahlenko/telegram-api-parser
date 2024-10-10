@@ -663,7 +663,7 @@
                         {
                             "name": "has_private_forwards",
                             "type": "True",
-                            "description": "True, if privacy settings of the other party in the private chat allows to use tg:\/\/user?id=&lt;user_id&gt; links only in chats with the user",
+                            "description": "True, if privacy settings of the other party in the private chat allows to use tg:\/\/user?id=<user_id> links only in chats with the user",
                             "required": false
                         },
                         {
@@ -3287,7 +3287,7 @@
                         {
                             "name": "file_path",
                             "type": "String",
-                            "description": "File path. Use https:\/\/api.telegram.org\/file\/bot&lt;token&gt;\/&lt;file_path&gt; to get the file.",
+                            "description": "File path. Use https:\/\/api.telegram.org\/file\/bot<token>\/<file_path> to get the file.",
                             "required": false
                         }
                     ]
@@ -3577,7 +3577,7 @@
                         {
                             "name": "url",
                             "type": "String",
-                            "description": "HTTP or tg:\/\/ URL to be opened when the button is pressed. Links tg:\/\/user?id=&lt;user_id&gt; can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.",
+                            "description": "HTTP or tg:\/\/ URL to be opened when the button is pressed. Links tg:\/\/user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.",
                             "required": false
                         },
                         {
@@ -5297,7 +5297,7 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         },
                         {
@@ -5348,13 +5348,13 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         },
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. More information on Sending Files",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
                         {
@@ -5429,13 +5429,13 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         },
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. More information on Sending Files",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
                         {
@@ -5504,13 +5504,13 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         },
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. More information on Sending Files",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
                         {
@@ -5567,13 +5567,13 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         },
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. More information on Sending Files",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
                         {
@@ -5634,7 +5634,7 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         }
                     ]
@@ -5653,13 +5653,13 @@
                         {
                             "name": "media",
                             "type": "InputFile or String",
-                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. More information on Sending Files",
+                            "description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. More information on Sending Files",
                             "required": true
                         },
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. More information on Sending Files",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. More information on Sending Files",
                             "required": false
                         },
                         {
@@ -6380,7 +6380,7 @@
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. <a href=\"#sending-files\">More information on Sending Files <\/a>",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. <a href=\"#sending-files\">More information on Sending Files <\/a>",
                             "required": false
                         },
                         {
@@ -6447,7 +6447,7 @@
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. <a href=\"#sending-files\">More information on Sending Files <\/a>",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. <a href=\"#sending-files\">More information on Sending Files <\/a>",
                             "required": false
                         },
                         {
@@ -6558,7 +6558,7 @@
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. <a href=\"#sending-files\">More information on Sending Files <\/a>",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. <a href=\"#sending-files\">More information on Sending Files <\/a>",
                             "required": false
                         },
                         {
@@ -6681,7 +6681,7 @@
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. <a href=\"#sending-files\">More information on Sending Files <\/a>",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. <a href=\"#sending-files\">More information on Sending Files <\/a>",
                             "required": false
                         },
                         {
@@ -6879,7 +6879,7 @@
                         {
                             "name": "thumbnail",
                             "type": "InputFile or String",
-                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/&lt;file_attach_name&gt;\" if the thumbnail was uploaded using multipart\/form-data under &lt;file_attach_name&gt;. <a href=\"#sending-files\">More information on Sending Files <\/a>",
+                            "description": "Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart\/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass \"attach:\/\/<file_attach_name>\" if the thumbnail was uploaded using multipart\/form-data under <file_attach_name>. <a href=\"#sending-files\">More information on Sending Files <\/a>",
                             "required": false
                         },
                         {
@@ -9486,7 +9486,7 @@
                         {
                             "name": "sticker",
                             "type": "InputFile or String",
-                            "description": "The added sticker. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, upload a new one using multipart\/form-data, or pass \"attach:\/\/&lt;file_attach_name&gt;\" to upload a new one using multipart\/form-data under &lt;file_attach_name&gt; name. Animated and video stickers can't be uploaded via HTTP URL. More information on Sending Files",
+                            "description": "The added sticker. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, upload a new one using multipart\/form-data, or pass \"attach:\/\/<file_attach_name>\" to upload a new one using multipart\/form-data under <file_attach_name> name. Animated and video stickers can't be uploaded via HTTP URL. More information on Sending Files",
                             "required": true
                         },
                         {
@@ -9654,7 +9654,7 @@
                         {
                             "name": "name",
                             "type": "String",
-                            "description": "Short name of sticker set, to be used in <code>t.me\/addstickers\/<\/code> URLs (e.g., <em>animals<\/em>). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in <code>\"_by_&lt;bot_username&gt;\"<\/code>. <code>&lt;bot_username&gt;<\/code> is case insensitive. 1-64 characters.",
+                            "description": "Short name of sticker set, to be used in <code>t.me\/addstickers\/<\/code> URLs (e.g., <em>animals<\/em>). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in <code>\"_by_<bot_username>\"<\/code>. <code><bot_username><\/code> is case insensitive. 1-64 characters.",
                             "required": true
                         },
                         {

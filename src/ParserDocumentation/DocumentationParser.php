@@ -261,7 +261,7 @@ class DocumentationParser
      * @return string
      */
     private function cleanFormatDescription(string $text): string {
-        $text = str_replace(["\u{201c}", "\u{201d}", "\u{00bb}"], ['"', '"', ''], $text);
+        $text = str_replace(["\u{201c}", "\u{201d}", "\u{00bb}", '&lt;', '&gt;'], ['"', '"', '', '<', '>'], $text);
         return trim($text);
     }
 
