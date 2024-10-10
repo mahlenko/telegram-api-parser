@@ -77,7 +77,7 @@ class DocumentationParser
                         $data['parameters'] = [
                             [
                                 'name' => 'attach',
-                                'type' => ['String'],
+                                'type' => 'String',
                                 'description' => "The attached file.\nPlease note that this parameter does not exist in the documentation, it has been added to make it easier to work with files.",
                                 'required' => true,
                             ]
@@ -204,12 +204,26 @@ class DocumentationParser
 
         $optionalKey = 'Optional.';
         foreach ($table as $row) {
-            $parameters[] = [
+            $parameter = [
                 'name' => $row[0],
                 'type' => $this->defineType($row[1]),
                 'description' => $this->cleanFormatDescription(str_replace($optionalKey, '', $row[2])),
                 'required' => !str_contains($row[2], $optionalKey),
             ];
+
+            if (str_contains($parameter['description'], 'attach://')) {
+                if (is_string($parameter['type'])) {
+                    if (!str_contains($parameter['type'], 'InputFile')) {
+                        $parameter['type'] = 'InputFile or '. $parameter['type'];
+                    }
+                } else {
+                    if (!in_array('InputFile', $parameter['type'])) {
+                        $parameter['type'][] = 'InputFile';
+                    }
+                }
+            }
+
+            $parameters[] = $parameter;
         }
 
         return $parameters;
