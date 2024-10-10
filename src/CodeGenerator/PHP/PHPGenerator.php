@@ -4,8 +4,10 @@ namespace TelegramApiParser\CodeGenerator\PHP;
 
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\InterfaceType;
+use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Printer;
+use Nette\PhpGenerator\PromotedParameter;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
 
 class PHPGenerator implements GeneratorInterface
@@ -95,18 +97,22 @@ class PHPGenerator implements GeneratorInterface
 
         /* adds a constructor method and describes its arguments */
         if (isset($class->parameters)) {
-            $method = $document
-                ->addMethod('__construct')
-                ->setPublic();
+            $method = $document->addMethod('__construct')->setPublic();
 
-            /* add parameters */
+            $parametersHasValue = [];
             foreach ($class->parameters as $parameter) {
-                $method->addPromotedParameter($parameter->name)
-                    ->setType($this->typeGenerator->toStringReturn($parameter->type))
-                    ->setComment(wordwrap($parameter->description, self::WRAP_LENGTH))
-                    ->addComment(sprintf('@var %s', $this->typeGenerator->toStringDocBlock($parameter->type)))
-                    ->setNullable(!$parameter->required)
-                    ->setPublic();
+                if (isset($parameter->default)) {
+                    /* collecting parameters with the value */
+                    $parametersHasValue[] = $parameter;
+                } else {
+                    /* adding parameters without a value */
+                    $this->setMethodParameter($method, $parameter);
+                }
+            }
+
+            /* adding parameters without a value */
+            foreach ($parametersHasValue as $parameter) {
+                $this->setMethodParameter($method, $parameter);
             }
         }
 
@@ -123,6 +129,23 @@ class PHPGenerator implements GeneratorInterface
         }
 
         return $namespace;
+    }
+
+    /**
+     * @param  Method  $method
+     * @param $data
+     */
+    private function setMethodParameter(Method $method, $data): void {
+        $parameter = $method
+            ->addPromotedParameter($data->name)
+            ->setType($this->typeGenerator->toStringReturn($data->type))
+            ->setComment(wordwrap($data->description, self::WRAP_LENGTH))
+            ->addComment(sprintf('@var %s', $this->typeGenerator->toStringDocBlock($data->type)))
+            ->setNullable(!$data->required)
+            ->setPublic();
+
+        if (isset($data->default))
+            $parameter->setDefaultValue($data->default);
     }
 
     /**
