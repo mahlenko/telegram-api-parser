@@ -208,8 +208,8 @@ class DocumentationParser
             $parameter = [
                 'name' => $row[0],
                 'type' => $this->defineType($row[1]),
-                'description' => $this->cleanFormatDescription(str_replace($optionalKey, '', $row[2])),
-                'required' => !str_contains($row[2], $optionalKey),
+                'description' => $this->cleanFormatDescription(str_replace($optionalKey, '', strip_tags($row[2]))),
+                'required' => !str_contains(strip_tags($row[2]), $optionalKey),
             ];
 
             /*  */
@@ -226,8 +226,8 @@ class DocumentationParser
             }
 
             /* default value */
-            if (str_contains($parameter['description'], 'must be <em>')) {
-                $description = new Document($parameter['description']);
+            if (str_contains($row[2], 'must be <em>')) {
+                $description = new Document($row[2]);
                 $parameter['default'] = $description->first('em')->text();
             }
 
