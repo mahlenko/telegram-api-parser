@@ -61,7 +61,7 @@ class DocumentationParser
                 if ($table) {
                     $data = [
                         'name' => $section->first('h4')->text(),
-                        'description' => $this->findGroupDescription($section),
+                        'description' => $this->cleanFormatDescription($this->findGroupDescription($section)),
                         'parameters' => count($table[0]) === 3
                             ? $this->makeObjectParameters($table)
                             : $this->makeMethodParameters($table),
@@ -70,7 +70,7 @@ class DocumentationParser
                 } else {
                     $data = [
                         'name' => $section->first('h4')->text(),
-                        'description' => $this->findGroupDescription($section),
+                        'description' => $this->cleanFormatDescription($this->findGroupDescription($section)),
                     ];
 
                     if ($data['name'] == 'InputFile') {
