@@ -86,9 +86,9 @@ class TypeGenerator {
      * @param  string|array  $types
      * @return array
      */
-    public function getDependenciesList(string|array $types): array {
+    public function getNamespace(string|array $types, DataTypeEnum $type = DataTypeEnum::TYPE): array {
         $result = [];
-        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . DataTypeEnum::TYPE->toString();
+        $namespace = trim(PHPGenerator::NAMESPACE, '\\') . '\\' . $type->toString();
 
         foreach ($this->flatten($this->mapping($types)) as $type) {
             if (!$this->isBaseType($type)) {

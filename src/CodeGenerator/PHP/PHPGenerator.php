@@ -19,6 +19,8 @@ class PHPGenerator implements GeneratorInterface
 
     private const WRAP_LENGTH = 80;
 
+    private array $methods = [];
+
     public function __construct(string $output) {
         if (!file_exists($output))
             mkdir($output, 0755, true);
@@ -43,7 +45,7 @@ class PHPGenerator implements GeneratorInterface
         ];
 
         /* creating basic contracts for types and methods */
-        $contracts = $this->makeContracts();
+        $interfaces = $this->makeInterface();
 
         /* creating classes for documentation types and methods */
         foreach ($documentation as $group) {
@@ -54,10 +56,15 @@ class PHPGenerator implements GeneratorInterface
                 if (str_contains($class->name, ' '))
                     continue;
 
-                $document = $this->generate($class, $extends, $contracts, $source->version);
+                $document = $this->generate($class, $extends, $interfaces, $source->version);
 
                 $this->writeToFile($document);
             }
+        }
+
+        /* Client interface */
+        if ($this->methods) {
+            $this->createBotInterface($this->methods);
         }
     }
 
@@ -127,6 +134,14 @@ class PHPGenerator implements GeneratorInterface
             $this->addDependencies($namespace, $class->parameters);
         }
 
+        if ($type == DataTypeEnum::METHOD) {
+            $this->methods[] = [
+                'name' => $class->name,
+                'description' => $class->description,
+                'return' => $class->return,
+            ];
+        }
+
         return $namespace;
     }
 
@@ -150,12 +165,12 @@ class PHPGenerator implements GeneratorInterface
     /**
      * @return InterfaceType[]
      */
-    private function makeContracts(): array {
-        $namespace = $this->getNamespace('Contracts');
+    private function makeInterface(): array {
+        $namespace = $this->getNamespace('Interface');
 
         $contracts = [
-            DataTypeEnum::TYPE->toString() => 'TelegramTypeContract',
-            DataTypeEnum::METHOD->toString() => 'TelegramMethodContract'
+            DataTypeEnum::TYPE->toString() => 'TelegramTypeInterface',
+            DataTypeEnum::METHOD->toString() => 'TelegramMethodInterface'
         ];
 
         $namespaces = [];
@@ -170,6 +185,44 @@ class PHPGenerator implements GeneratorInterface
         return $namespaces;
     }
 
+    private function createBotInterface(array $methods): void {
+        $namespace = $this->getNamespace('Interface');
+        $interface = new InterfaceType('TelegramBotInterface');
+
+        $namespace->add($interface);
+
+        $dependencies = [];
+        foreach ($methods as $method) {
+            $typeClassname = ucfirst(ucfirst($method['name']));
+
+            $dependencies = array_merge(
+                $dependencies,
+                $param = $this->typeGenerator->getNamespace($typeClassname, DataTypeEnum::METHOD),
+                $this->typeGenerator->getNamespace($method['return'])
+            );
+
+//            $params = implode('|', $params);
+//            $return = implode('|', $return);
+
+            $interface->addMethod($method['name'])
+                ->setReturnType($this->typeGenerator->toStringReturn($method['return']))
+                ->addComment($method['description'])
+                ->addComment('@param ' . $this->typeGenerator->toStringDocBlock($typeClassname) .' $method')
+                ->addComment('@return ' . $this->typeGenerator->toStringDocBlock($method['return']))
+                ->addParameter('method')
+                ->setType($param[0]);
+        }
+
+        $dependencies = array_unique($dependencies);
+        if ($dependencies) {
+            foreach ($dependencies as $dependency) {
+                $namespace->addUse($dependency);
+            }
+        }
+
+        $this->writeToFile($namespace);
+    }
+
     /**
      * @param  PhpNamespace  $namespace
      * @param  string|array  $parameters
@@ -177,7 +230,7 @@ class PHPGenerator implements GeneratorInterface
      */
     private function addDependencies(PhpNamespace $namespace, array $parameters): void {
         foreach ($parameters as $parameter) {
-            $use = $this->typeGenerator->getDependenciesList($parameter->type);
+            $use = $this->typeGenerator->getNamespace($parameter->type);
             if ($use) {
                 foreach ($use as $value) {
                     $namespace->addUse($value);
