@@ -205,10 +205,13 @@ class PHPGenerator implements GeneratorInterface
                 ->addComment($method['description']);
 
             if ($param) {
+                $param[] = 'array';
+                $param = array_unique($param);
+
                 $methodInterface
-                    ->addComment('@param '.$this->typeGenerator->toStringDocBlock($method['parameter']).' $method')
+                    ->addComment('@param '.$this->typeGenerator->toStringDocBlock($method['parameter']).'|array $method')
                     ->addParameter('method')
-                    ->setType($param[0]);
+                    ->setType(implode('|', $param));
             }
 
             $methodInterface->addComment('@return '.$this->typeGenerator->toStringDocBlock($method['return']));
