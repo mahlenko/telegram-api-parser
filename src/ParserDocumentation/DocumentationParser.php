@@ -334,6 +334,12 @@ class DocumentationParser
             $types = array_filter($types, function($value) {
                 return ucfirst($value) == $value;
             });
+
+            /* Fix: Message|True|False */
+            if (in_array('True', $types) && in_array('False', $types)) {
+                $types = array_values(array_diff($types, ['True', 'False']));
+                $types[] = 'Boolean';
+            }
         }
 
         if (count($types) == count($types, COUNT_RECURSIVE)) {

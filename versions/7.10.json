@@ -13468,7 +13468,7 @@
                             "required": false
                         }
                     ],
-                    "return": "True or Message or False"
+                    "return": "Message or Boolean"
                 },
                 {
                     "name": "getGameHighScores",
