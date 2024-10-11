@@ -139,6 +139,7 @@ class PHPGenerator implements GeneratorInterface
                 'name' => $class->name,
                 'description' => $class->description,
                 'return' => $class->return,
+                'parameter' => isset($class->parameters) ? ucfirst($class->name) : null,
             ];
         }
 
@@ -193,24 +194,24 @@ class PHPGenerator implements GeneratorInterface
 
         $dependencies = [];
         foreach ($methods as $method) {
-            $typeClassname = ucfirst(ucfirst($method['name']));
+            $param = $method['parameter']
+                ? $this->typeGenerator->getNamespace($method['parameter'], DataTypeEnum::METHOD)
+                : [];
 
-            $dependencies = array_merge(
-                $dependencies,
-                $param = $this->typeGenerator->getNamespace($typeClassname, DataTypeEnum::METHOD),
-                $this->typeGenerator->getNamespace($method['return'])
-            );
+            $dependencies = array_merge($dependencies, $param, $this->typeGenerator->getNamespace($method['return']));
 
-//            $params = implode('|', $params);
-//            $return = implode('|', $return);
-
-            $interface->addMethod($method['name'])
+            $methodInterface = $interface->addMethod($method['name'])
                 ->setReturnType($this->typeGenerator->toStringReturn($method['return']))
-                ->addComment($method['description'])
-                ->addComment('@param ' . $this->typeGenerator->toStringDocBlock($typeClassname) .' $method')
-                ->addComment('@return ' . $this->typeGenerator->toStringDocBlock($method['return']))
-                ->addParameter('method')
-                ->setType($param[0]);
+                ->addComment($method['description']);
+
+            if ($param) {
+                $methodInterface
+                    ->addComment('@param '.$this->typeGenerator->toStringDocBlock($method['parameter']).' $method')
+                    ->addParameter('method')
+                    ->setType($param[0]);
+            }
+
+            $methodInterface->addComment('@return '.$this->typeGenerator->toStringDocBlock($method['return']));
         }
 
         $dependencies = array_unique($dependencies);
