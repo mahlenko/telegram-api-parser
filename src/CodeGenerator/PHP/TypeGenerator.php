@@ -12,7 +12,7 @@ class TypeGenerator {
         'string' => 'string',
         'array' => 'array',
         'true' => 'true',
-        'false' => 'false'
+        'false' => 'false',
     ];
 
     /**
@@ -97,6 +97,10 @@ class TypeGenerator {
         }
 
         return $result;
+    }
+
+    public function define(object $class): DataTypeEnum {
+        return isset($class->return) ? DataTypeEnum::METHOD : DataTypeEnum::TYPE;
     }
 
     /**

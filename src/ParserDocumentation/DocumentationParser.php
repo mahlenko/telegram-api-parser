@@ -86,7 +86,7 @@ class DocumentationParser
                 }
 
                 /* Is method? */
-                $data['return'] = $this->defineReturnType($data['description']);
+                $data['return'] = $this->defineReturnType($data['description'], $data['name']);
 
                 $groupResult['sections'][] = array_filter($data);
             }
@@ -288,7 +288,7 @@ class DocumentationParser
      * @return string|array|null
      * @throws InvalidSelectorException
      */
-    private function defineReturnType(string $description): string|array|null {
+    private function defineReturnType(string $description, $name): string|array|null {
         if (!str_contains(strtolower($description), 'return'))
             return null;
 
@@ -317,11 +317,9 @@ class DocumentationParser
                 continue;
             }
 
-            $returnTypeFromEm = $sentence->find('em');
-            if ($returnTypeFromEm && count($returnTypeFromEm))
-                $types[] = $this->fixMessagesType(
-                    $this->camelCase($returnTypeFromEm[count($returnTypeFromEm) - 1]->text())
-                );
+            foreach ($sentence->find('em') as $element) {
+                $types[] = $this->fixMessagesType($this->camelCase($element->text()));
+            }
 
             if ($sentence->find('a')) {
                 $link = $sentence->first('a');

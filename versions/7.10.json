@@ -294,7 +294,8 @@
                             "description": "A secret token to be sent in a header \"X-Telegram-Bot-Api-Secret-Token\" in every webhook request, 1-256 characters. Only characters <code>A-Z<\/code>, <code>a-z<\/code>, <code>0-9<\/code>, <code>_<\/code> and <code>-<\/code> are allowed. The header is useful to ensure that the request comes from a webhook set by you.",
                             "required": false
                         }
-                    ]
+                    ],
+                    "return": "True"
                 },
                 {
                     "name": "deleteWebhook",

@@ -7,7 +7,6 @@ use Nette\PhpGenerator\InterfaceType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Printer;
-use Nette\PhpGenerator\PromotedParameter;
 use TelegramApiParser\CodeGenerator\GeneratorInterface;
 
 class PHPGenerator implements GeneratorInterface
@@ -76,7 +75,7 @@ class PHPGenerator implements GeneratorInterface
         array $contracts = [],
         string $version = null
     ): PhpNamespace {
-        $type = isset($class->return) ? DataTypeEnum::METHOD : DataTypeEnum::TYPE;
+        $type = $this->typeGenerator->define($class);
 
         $document = (new ClassType(ucfirst($class->name)))
             ->setComment(wordwrap($class->description, self::WRAP_LENGTH))
