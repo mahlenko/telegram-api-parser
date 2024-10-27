@@ -23,3 +23,10 @@ jobs:
 
       - name: Download version Telegram API
         run: php console telegram:parse
+
+      - name: View git status
+        run: |
+          git status
+          git add versions/*.json
+          git commit -m "Autocommit API version"
+          git push
