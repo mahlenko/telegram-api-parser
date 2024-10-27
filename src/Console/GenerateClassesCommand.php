@@ -1,6 +1,6 @@
 <?php
 
-namespace TelegramApiParser\CodeGenerator\Console;
+namespace TelegramApiParser\Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -8,14 +8,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use TelegramApiParser\CodeGenerator\Generator\PHPGenerator;
-use TelegramApiParser\ParserDocumentation\Console\ParseCommand;
+use TelegramApiParser\CodeGenerator\PHP\PHPGenerator;
 
 class GenerateClassesCommand extends Command
 {
     protected static $defaultName = 'telegram:generate';
 
     protected static $defaultDescription = 'Generates objects from the documentation.';
+
+    private const VERSIONS_DIRECTORY = __DIR__ .'/../../versions';
 
     private const GENERATORS = [
         'php' => PHPGenerator::class
@@ -28,19 +29,17 @@ class GenerateClassesCommand extends Command
             return Command::FAILURE;
         }
 
-
-
-        $version = floatval($input->getOption('v'));
+        $version = $input->getOption('v');
         if (!in_array($version, $this->versions(), true)) {
             $output->writeln('<error>Invalid version API.</error>');
             return Command::FAILURE;
         }
 
-        $documentation_file = __DIR__ .'/../../../versions/'.$version.'.json';
-        $build_output = __DIR__ .'/../../../build';
+        $documentation_file = realpath(self::VERSIONS_DIRECTORY.'/'.$version.'.json');
+        $build_output = __DIR__ .'/../../build';
 
         $generator = new (self::GENERATORS[$generator_key])($build_output);
-        $generator->handle($documentation_file, $output);
+        $generator->handle($documentation_file, $input->getOption('extends'));
 
         return Command::SUCCESS;
     }
@@ -48,8 +47,8 @@ class GenerateClassesCommand extends Command
     private function versions(): array {
         $versions = [];
 
-        foreach (glob(__DIR__ .'/../../../versions/*.json') as $file_version) {
-            $versions[] = floatval(str_replace('.json', '', basename($file_version)));
+        foreach (glob(self::VERSIONS_DIRECTORY . '/*.json') as $file_version) {
+            $versions[] = str_replace('.json', '', basename($file_version));
         }
 
         return $versions;
@@ -71,6 +70,6 @@ class GenerateClassesCommand extends Command
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Which version of the API should I generate? Available: '. implode(', ', $versions),
                 default: $versions[array_key_last($versions)]
-            );
+            )->addOption('extends', mode: InputOption::VALUE_OPTIONAL);
     }
 }

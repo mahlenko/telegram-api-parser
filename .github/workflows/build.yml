@@ -1,0 +1,75 @@
+name: Get new API version
+run-name: 🚀 Update Telegram Bot API version (${{ github.actor }})
+on:
+  push:
+    branches:
+      - "main"
+  schedule:
+    - cron: 0 0 * * *
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: composer install --no-dev
+
+      - name: Download version Telegram API
+        run: php console telegram:parse
+
+      - name: Has new version?
+        id: has_new_version
+        run: |
+          if git status -s | grep -x "** [FILENAME]"; then
+            echo "new_version=true" >> $GITHUB_OUTPUT
+          else
+            echo "new_version=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push new version
+        if: steps.has_new_version.outputs.new_version == 'true'
+        run: |
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git add ./versions/*
+          git commit -m "[BOT] Add new version Telegram bot API"
+          git push
+
+      - name: Get telegram-bot-cast-laravel repo
+        if: steps.has_new_version.outputs.new_version == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: 'mahlenko/telegram-bot-cast-laravel'
+          path: 'repo'
+          token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
+
+      - name: Generate files for Laravel
+        if: steps.has_new_version.outputs.new_version == 'true'
+        id: generate_files
+        run: |
+          php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
+          rm -rf repo/src
+          mv build/Appto/TelegramBot repo/src
+          cd repo
+          if git status -s | grep -x "** [FILENAME]"; then
+            echo "check_result=true" >> $GITHUB_OUTPUT
+          else
+            echo "check_result=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push telegram-bot-cast-laravel
+        if: steps.generate_files.outputs.check_result == 'true'
+        run: |
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git add ./src/*
+          git commit -m "[BOT] Update version"
+          git push
+

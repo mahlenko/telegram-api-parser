@@ -9,7 +9,7 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 // ... register commands
-$application->add(new \TelegramApiParser\ParserDocumentation\Console\ParseCommand);
-$application->add(new \TelegramApiParser\CodeGenerator\Console\GenerateClassesCommand);
+$application->add(new \TelegramApiParser\Console\ParseCommand);
+$application->add(new \TelegramApiParser\Console\GenerateClassesCommand);
 
 $application->run();
