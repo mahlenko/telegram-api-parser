@@ -28,10 +28,6 @@ jobs:
         with:
           branch: 2.0
 
-  make-laravel-version:
-    runs-on: ubuntu-22.04
-    needs: build
-    steps:
       - name: Generate PHP files
         run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
 
