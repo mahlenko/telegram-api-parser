@@ -1,5 +1,5 @@
 name: Get new API version
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: 🚀 Update Telegram Bot API version (${{ github.actor }})
 on:
   push:
     branches:
@@ -24,9 +24,22 @@ jobs:
       - name: Download version Telegram API
         run: php console telegram:parse
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: 2.0
+      - name: Has new version?
+        id: has_new_version
+        run: |
+          if git status -s | grep -x "** [FILENAME]"; then
+            echo "new_version=true" >> $GITHUB_OUTPUT
+          else
+            echo "new_version=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push new version
+        run: |
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git add ./versions/*
+          git commit -m "[BOT] Add new version Telegram bot API"
+          git push
 
       - name: Get telegram-bot-cast-laravel repo
         uses: actions/checkout@v4
@@ -48,7 +61,7 @@ jobs:
             echo "check_result=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Push laravel version
+      - name: Push telegram-bot-cast-laravel
         if: steps.generate_files.outputs.check_result == 'true'
         run: |
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
