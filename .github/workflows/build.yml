@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: 0 0 * * *
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - name: Setup PHP with PECL extension
@@ -28,5 +28,20 @@ jobs:
         with:
           branch: 2.0
 
+  make-laravel-version:
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
       - name: Generate PHP files
-        run: php console telegram:generate
+        run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
+
+      - name: Push generated webpage to another repository
+        uses: nkoppel/push-files-to-another-repository@v1.1.3
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.GH_PAT_LARAVEL_REPO }}
+        with:
+          source-files: 'build/'
+          destination-username: ${{ github.actor }}
+          destination-repository: 'https://github.com/mahlenko/telegram-bot-cast-laravel'
+          destination-directory: 'src'
+          commit-email: ${{ secrets.REPOSITORY_EMAIL }}
