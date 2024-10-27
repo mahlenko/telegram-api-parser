@@ -28,18 +28,14 @@ jobs:
         with:
           branch: 2.0
 
-      - name: Generate PHP files
-        run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
-
-      - name: Download telegram-bot-cast-laravel
+      - name: Generate Laravel version and push
         uses: actions/checkout@v4
         with:
           repository: 'mahlenko/telegram-bot-cast-laravel'
           path: 'repo'
           token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
-
-      - name: Push generate files
         run: |
+          php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
           rm -rf repo/src
           mv build/Appto/TelegramBot repo/src
           cd repo
@@ -48,15 +44,3 @@ jobs:
           git add ./src/*
           git commit -m "[BOT] Update version"
           git push
-
-#      - name: Push generated files to telegram-bot-cast-laravel
-#        uses: nkoppel/push-files-to-another-repository@v1.1.3
-#        env:
-#          API_TOKEN_GITHUB: ${{ secrets.GH_PAT_LARAVEL_REPO }}
-#        with:
-#          destination-branch: 'main'
-#          source-files: 'build/Appto/TelegramBot/**/*.php '
-#          destination-username: ${{ github.actor }}
-#          destination-repository: 'telegram-bot-cast-laravel'
-#          destination-directory: 'src'
-#          commit-email: ${{ secrets.REPOSITORY_EMAIL }}
