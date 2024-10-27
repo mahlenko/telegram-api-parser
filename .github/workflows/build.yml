@@ -42,6 +42,8 @@ jobs:
         run: |
           mv build/Appto/TelegramBot repo/src/
           cd repo
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
           git commit -m "[BOT] Update version"
           git push
 
