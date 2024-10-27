@@ -1,10 +1,9 @@
 name: Get new API version
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
-  push: {
+  push:
     branches:
-      - 2.0
-  }
+      - "2.0"
   schedule:
     - cron: 0 0 * * *
 jobs:
