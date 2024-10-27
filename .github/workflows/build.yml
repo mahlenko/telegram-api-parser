@@ -28,9 +28,6 @@ jobs:
         with:
           branch: 2.0
 
-      - name: Generate Laravel version
-        run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
-
       - name: Get telegram-bot-cast-laravel repo
         uses: actions/checkout@v4
         with:
@@ -38,11 +35,22 @@ jobs:
           path: 'repo'
           token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
 
-      - name: Push generate files
+      - name: Generate files for Laravel
+        id: generate_files
         run: |
+          php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
           rm -rf repo/src
           mv build/Appto/TelegramBot repo/src
           cd repo
+          if git status -s | grep -x "** [FILENAME]"; then
+            echo "check_result=true" >> $GITHUB_OUTPUT
+          else
+            echo "check_result=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push laravel version
+        if: steps.generate_files.outputs.check_result == 'true'
+        run: |
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
           git add ./src/*
