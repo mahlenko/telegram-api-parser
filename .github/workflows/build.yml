@@ -28,6 +28,9 @@ jobs:
         with:
           branch: 2.0
 
+      - name: Generate Laravel version
+        run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
+
       - name: Get repository Telegram Bot cast for Laravel
         uses: actions/checkout@v4
         with:
@@ -35,9 +38,8 @@ jobs:
           path: 'repo'
           token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
 
-      - name: Generate Laravel version and push
+      - name: Push laravel version
         run: |
-          php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
           rm -rf repo/src
           mv build/Appto/TelegramBot repo/src
           cd repo
