@@ -32,14 +32,15 @@ jobs:
         run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
 
       - name: View build files
-        run: ls build/
+        run: ls build/Appto/TelegramBot
 
-      - name: Push generated webpage to another repository
+      - name: Push generated files to telegram-bot-cast-laravel
         uses: nkoppel/push-files-to-another-repository@v1.1.3
         env:
           API_TOKEN_GITHUB: ${{ secrets.GH_PAT_LARAVEL_REPO }}
         with:
-          source-files: 'build/'
+          destination-branch: 'main'
+          source-files: 'build/Appto/TelegramBot/*'
           destination-username: ${{ github.actor }}
           destination-repository: 'telegram-bot-cast-laravel'
           destination-directory: 'src'
