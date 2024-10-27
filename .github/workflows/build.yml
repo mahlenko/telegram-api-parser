@@ -30,7 +30,7 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git add versions/*.json
           git commit -m "Autocommit API version"
-          git push
+          git push -u origin "2.0"
 
       - name: Generate PHP files
         run: php console telegram:generate
