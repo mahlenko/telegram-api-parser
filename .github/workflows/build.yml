@@ -43,6 +43,7 @@ jobs:
           git push
 
       - name: Get telegram-bot-cast-laravel repo
+        if: steps.has_new_version.outputs.new_version == 'true'
         uses: actions/checkout@v4
         with:
           repository: 'mahlenko/telegram-bot-cast-laravel'
@@ -50,6 +51,7 @@ jobs:
           token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
 
       - name: Generate files for Laravel
+        if: steps.has_new_version.outputs.new_version == 'true'
         id: generate_files
         run: |
           php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
