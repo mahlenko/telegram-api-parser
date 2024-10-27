@@ -24,13 +24,9 @@ jobs:
       - name: Download version Telegram API
         run: php console telegram:parse
 
-      - name: Make new commit
-        run: |
-          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
-          git config --global user.name "${{ github.actor }}"
-          git add versions/*.json
-          git commit -m "Autocommit API version"
-          git push -u origin "2.0"
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: 2.0
 
       - name: Generate PHP files
         run: php console telegram:generate
