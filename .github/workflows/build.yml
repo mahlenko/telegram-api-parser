@@ -3,7 +3,7 @@ run-name: 🚀 Update Telegram Bot API version (${{ github.actor }})
 on:
   push:
     branches:
-      - "2.0"
+      - "main"
   schedule:
     - cron: 0 0 * * *
 jobs:
