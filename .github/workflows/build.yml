@@ -28,12 +28,14 @@ jobs:
         with:
           branch: 2.0
 
-      - name: Generate Laravel version and push
+      - name: Get repository Telegram Bot cast for Laravel
         uses: actions/checkout@v4
         with:
           repository: 'mahlenko/telegram-bot-cast-laravel'
           path: 'repo'
           token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
+
+      - name: Generate Laravel version and push
         run: |
           php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
           rm -rf repo/src
@@ -42,5 +44,5 @@ jobs:
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
           git add ./src/*
-          git commit -m "[BOT] Update version"
+          git commit -m "[BOT] Update build version"
           git push
