@@ -15,6 +15,9 @@ jobs:
         with:
           php-version: '8.2'
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install deps
         run: composer install --no-dev
 
