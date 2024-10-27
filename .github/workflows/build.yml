@@ -31,16 +31,19 @@ jobs:
       - name: Generate PHP files
         run: php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
 
-      - name: Checkout
+      - name: Download telegram-bot-cast-laravel
         uses: actions/checkout@v4
         with:
           repository: 'mahlenko/telegram-bot-cast-laravel'
           path: 'repo'
           token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
 
-      - name: View
-        run: ls -l
-
+      - name: Push generate files
+        run: |
+          mv build/Appto/TelegramBot repo/src/
+          cd repo
+          git commit -m "[BOT] Update version"
+          git push
 
 #      - name: Push generated files to telegram-bot-cast-laravel
 #        uses: nkoppel/push-files-to-another-repository@v1.1.3
