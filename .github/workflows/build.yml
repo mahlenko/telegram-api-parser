@@ -28,8 +28,17 @@ jobs:
         run: |
           echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
 
-      - name: View version
-        run: echo ${{ steps.download.outputs.api_version }}
+      - name: Update repository
+        run: |
+          if git status -s | grep -x "** [FILENAME]"; then
+            git add .
+            git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+            git config --global user.name "${{ github.actor }}"
+            git add ./versions/*
+            git commit -m "[BOT] Version ${{ steps.download.outputs.api_version }} of the Telegram Bot API has been added"
+            git push
+          fi
+          
 
   update-repo:
     runs-on: ubuntu-22.04
