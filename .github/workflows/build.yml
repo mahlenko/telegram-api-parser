@@ -37,6 +37,8 @@ jobs:
     steps:
       - name: View version
         run: echo ${{ needs.build.outputs.api_version }}
+      - name: Ls
+        run: ls
 
 #      - name: Has new version?
 #        id: has_new_version
