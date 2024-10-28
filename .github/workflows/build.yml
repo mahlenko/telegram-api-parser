@@ -26,6 +26,7 @@ jobs:
       - name: Download version Telegram API
         id: download
         run: |
+          mkdir -p versions
           echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
           ls versions
 
