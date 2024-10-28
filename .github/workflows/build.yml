@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    outputs:
+      api_version: ${{ steps.download.outputs.api_version }}
     steps:
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
@@ -24,10 +26,17 @@ jobs:
       - name: Download version Telegram API
         id: download
         run: |
-          echo "version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
+          echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
 
       - name: View version
-        run: echo ${{ steps.download.outputs.version }}
+        run: echo ${{ steps.download.outputs.api_version }}
+
+  update-repo:
+    runs-on: ubuntu-22.04
+    needs: build
+    steps:
+      - name: View version
+        run: echo ${{ needs.build.outputs.api_version }}
 
 #      - name: Has new version?
 #        id: has_new_version
