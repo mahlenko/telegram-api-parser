@@ -98,7 +98,7 @@ jobs:
       - name: Push telegram-bot-cast
         # if: steps.generate_files.outputs.check_result == 'true'
         run: |
-          git add ./src/*
+          git add .
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
           git commit -m "[BOT] Update version"
