@@ -82,7 +82,7 @@ jobs:
           token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
 
       - name: Generate files
-        if: steps.has_new_version.outputs.new_version == 'true'
+        # if: steps.has_new_version.outputs.new_version == 'true'
         id: generate_files
         run: |
           php console telegram:generate
