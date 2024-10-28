@@ -108,7 +108,7 @@ jobs:
           git add .
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
-          git commit -m "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
+          git commit -m "[BOT] Version 7.10 of the Telegram Bot API has been added"
           git push
 
       - name: View version
