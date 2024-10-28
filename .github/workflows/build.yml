@@ -21,12 +21,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install deps
-        run: composer install --no-dev
+        run: |
+          git pull
+          composer install --no-dev
 
       - name: Download version Telegram API
         id: download
         run: |
-          git pull
           echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
 
       - name: Has new version
