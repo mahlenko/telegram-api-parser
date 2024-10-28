@@ -47,14 +47,45 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'appto-dev/telegram-bot-cast-laravel'
-          path: 'repo'
+          path: 'repo-laravel'
           token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
 
       - name: Generate files for Laravel
         if: steps.has_new_version.outputs.new_version == 'true'
-        id: generate_files
+        id: generate_files_laravel
         run: |
           php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
+          rm -rf repo-laravel/src
+          mv build/Appto/TelegramBot repo/src
+          cd repo-laravel
+          if git status -s | grep -x "** [FILENAME]"; then
+            echo "check_result=true" >> $GITHUB_OUTPUT
+          else
+            echo "check_result=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push telegram-bot-cast-laravel
+        if: steps.generate_files_laravel.outputs.check_result == 'true'
+        run: |
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git add ./src/*
+          git commit -m "[BOT] Update version"
+          git push
+
+      - name: Get telegram-bot-cast
+        # if: steps.has_new_version.outputs.new_version == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: 'appto-dev/telegram-bot-cast'
+          path: 'repo'
+          token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
+
+      - name: Generate files
+        if: steps.has_new_version.outputs.new_version == 'true'
+        id: generate_files
+        run: |
+          php console telegram:generate
           rm -rf repo/src
           mv build/Appto/TelegramBot repo/src
           cd repo
@@ -63,8 +94,8 @@ jobs:
           else
             echo "check_result=false" >> $GITHUB_OUTPUT
           fi
-
-      - name: Push telegram-bot-cast-laravel
+          
+      - name: Push telegram-bot-cast
         if: steps.generate_files.outputs.check_result == 'true'
         run: |
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
