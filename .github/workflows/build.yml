@@ -32,7 +32,7 @@ jobs:
       - name: Has new version
         id: requires_update
         run: |
-          if git status -s | grep -i "**"; then
+          if git ls-files --other --exclude-standard --directory; then
             echo "hasUpdate=true" >> $GITHUB_OUTPUT
           else
             echo "hasUpdate=false" >> $GITHUB_OUTPUT
