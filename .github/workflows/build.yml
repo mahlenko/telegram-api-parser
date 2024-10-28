@@ -25,7 +25,7 @@ jobs:
       - name: Install deps
         run: |
           git pull
-          rm --rf ${{ env.directory_repo }}
+          rm -rf ${{ env.directory_repo }}
           composer install --no-dev
 
       - name: Download version Telegram API
