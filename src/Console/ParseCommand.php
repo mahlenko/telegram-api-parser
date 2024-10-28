@@ -32,7 +32,7 @@ class ParseCommand extends Command
         ];
 
         file_put_contents(__DIR__ .'/../../versions/'.$version.'.json', json_encode($data, JSON_PRETTY_PRINT));
-        $output->writeln('<info>Parsing version '.$version.'</info>');
+        $output->writeln($version);
 
         return self::SUCCESS;
     }
