@@ -16,8 +16,6 @@ class GenerateClassesCommand extends Command
 
     protected static $defaultDescription = 'Generates objects from the documentation.';
 
-    private const VERSIONS_DIRECTORY = __DIR__ .'/../../versions';
-
     private const GENERATORS = [
         'php' => PHPGenerator::class
     ];
@@ -35,7 +33,7 @@ class GenerateClassesCommand extends Command
             return Command::FAILURE;
         }
 
-        $documentation_file = realpath(self::VERSIONS_DIRECTORY.'/'.$version.'.json');
+        $documentation_file = realpath(ParseCommand::VERSIONS_DIRECTORY.'/'.$version.'.json');
         $build_output = __DIR__ .'/../../build';
 
         $generator = new (self::GENERATORS[$generator_key])($build_output);
@@ -47,7 +45,7 @@ class GenerateClassesCommand extends Command
     private function versions(): array {
         $versions = [];
 
-        foreach (glob(self::VERSIONS_DIRECTORY . '/*.json') as $file_version) {
+        foreach (glob(ParseCommand::VERSIONS_DIRECTORY . '/*.json') as $file_version) {
             $versions[] = str_replace('.json', '', basename($file_version));
         }
 
@@ -59,17 +57,12 @@ class GenerateClassesCommand extends Command
 
         $versions = $this->versions();
 
-        if (!count($versions)) {
-            $command_name = ParseCommand::getDefaultName();
-            throw new RuntimeException('First, generate the Documentation JSON. Use the '. $command_name .' command');
-        }
-
         $this
             ->addArgument('generator', InputArgument::OPTIONAL, 'Which generator should I use? Available: '. implode(', ', $generators), $generators[0])
             ->addOption('v',
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Which version of the API should I generate? Available: '. implode(', ', $versions),
-                default: $versions[array_key_last($versions)]
+                default: $versions ? $versions[array_key_last($versions)] : null
             )->addOption('extends', mode: InputOption::VALUE_OPTIONAL);
     }
 }

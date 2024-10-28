@@ -14,6 +14,8 @@ class ParseCommand extends Command
 
     protected static $defaultDescription = '';
 
+    public const VERSIONS_DIRECTORY = __DIR__ .'/../../api_versions';
+
     /**
      * @throws \DateMalformedStringException
      * @throws InvalidSelectorException
@@ -31,7 +33,13 @@ class ParseCommand extends Command
             'documentation' => $documentation_parser->handle()
         ];
 
-        file_put_contents(__DIR__ .'/../../versions/'.$version.'.json', json_encode($data, JSON_PRETTY_PRINT));
+        if (!file_exists(self::VERSIONS_DIRECTORY)) {
+            mkdir(self::VERSIONS_DIRECTORY);
+        }
+
+        $realpath = realpath(self::VERSIONS_DIRECTORY);
+        file_put_contents($realpath. DIRECTORY_SEPARATOR .$version.'.json', json_encode($data, JSON_PRETTY_PRINT));
+
         $output->writeln($version);
 
         return self::SUCCESS;
