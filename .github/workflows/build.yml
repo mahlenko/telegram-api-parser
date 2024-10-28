@@ -6,8 +6,6 @@ on:
       - "main"
   schedule:
     - cron: 0 0 * * *
-env:
-  TG_API_VERSION: null
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -24,10 +22,13 @@ jobs:
         run: composer install --no-dev
 
       - name: Download version Telegram API
-        run: php console telegram:parse >> $TG_API_VERSION
+        id: download
+        run: |
+          VERSION=php console telegram:parse
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: View version
-        run: echo $TG_API_VERSION
+        run: echo ${{ steps.download.outputs.version }}
 
 #      - name: Has new version?
 #        id: has_new_version
