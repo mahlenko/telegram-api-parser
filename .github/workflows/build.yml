@@ -27,6 +27,7 @@ jobs:
         id: download
         run: |
           echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
+          ls versions
 
       - name: Has new version
         id: requires_update
