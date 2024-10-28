@@ -46,9 +46,9 @@ jobs:
         if: steps.has_new_version.outputs.new_version == 'true'
         uses: actions/checkout@v4
         with:
-          repository: 'mahlenko/telegram-bot-cast-laravel'
+          repository: 'appto-dev/telegram-bot-cast-laravel'
           path: 'repo'
-          token: '${{ secrets.GH_PAT_LARAVEL_REPO }}'
+          token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
 
       - name: Generate files for Laravel
         if: steps.has_new_version.outputs.new_version == 'true'
