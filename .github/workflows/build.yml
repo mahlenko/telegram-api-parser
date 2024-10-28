@@ -32,7 +32,7 @@ jobs:
       - name: Has new version
         id: requires_update
         run: |
-          if git status -s then
+          if git status -s | grep -i "**"; then
             echo "hasUpdate=true" >> $GITHUB_OUTPUT
           else
             echo "hasUpdate=false" >> $GITHUB_OUTPUT
