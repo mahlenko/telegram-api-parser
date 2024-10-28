@@ -6,53 +6,54 @@ on:
       - "main"
   schedule:
     - cron: 0 0 * * *
+env:
+  directory_repo: clone-repository
 jobs:
-#  download-new-version:
-#    runs-on: ubuntu-22.04
-#    outputs:
-#      api_version: ${{ steps.download.outputs.api_version }}
-#    steps:
-#      - name: Setup PHP with PECL extension
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: '8.2'
-#
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Install deps
-#        run: |
-#          git pull
-#          composer install --no-dev
-#
-#      - name: Download version Telegram API
-#        id: download
-#        run: |
-#          echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
-#
-#      - name: Has new version
-#        id: requires_update
-#        run: |
-#          if git ls-files --other --exclude-standard --directory | grep -i "**"; then
-#            echo "hasUpdate=true" >> $GITHUB_OUTPUT
-#          else
-#            echo "hasUpdate=false" >> $GITHUB_OUTPUT
-#          fi
-#
-#      - name: Update repository
-#        if: steps.requires_update.outputs.hasUpdate == 'true'
-#        run: |
-#          git add .
-#          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
-#          git config --global user.name "${{ github.actor }}"
-#          git commit -m "[BOT] Version ${{ steps.download.outputs.api_version }} of the Telegram Bot API has been added"
-#          git push
+  download-new-version:
+    runs-on: ubuntu-22.04
+    outputs:
+      api_version: ${{ steps.download.outputs.api_version }}
+    steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: |
+          git pull
+          rm --rf ${{ env.directory_repo }}
+          composer install --no-dev
+
+      - name: Download version Telegram API
+        id: download
+        run: |
+          echo "api_version=$(php console telegram:parse)" >> $GITHUB_OUTPUT
+
+      - name: Has new version
+        id: requires_update
+        run: |
+          if git ls-files --other --exclude-standard --directory | grep -i "**"; then
+            echo "hasUpdate=true" >> $GITHUB_OUTPUT
+          else
+            echo "hasUpdate=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update repository
+        if: steps.requires_update.outputs.hasUpdate == 'true'
+        run: |
+          git add .
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git commit -m "[BOT] Version ${{ steps.download.outputs.api_version }} of the Telegram Bot API has been added"
+          git push
 
   update-repo:
     runs-on: ubuntu-22.04
-    env:
-      directory_repo: clone-repository
-#    needs: download-new-version
+    needs: download-new-version
     steps:
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
@@ -92,15 +93,6 @@ jobs:
             echo "hasUpdate=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: view current
-        run: ls -l
-
-#      - name: view git
-#        run: ls -l ${{ env.directory_repo }}
-#
-#      - name: view git
-#        run: ls -l ${{ env.directory_repo }}/src
-
       - name: Push commit
         if: steps.check_update.outputs.hasUpdate == 'true'
         run: |
@@ -108,7 +100,7 @@ jobs:
           git add .
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
-          git commit -m "[BOT] Version 7.10 of the Telegram Bot API has been added"
+          git commit -m "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
           git push
 
       - name: View version
