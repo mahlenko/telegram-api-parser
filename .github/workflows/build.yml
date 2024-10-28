@@ -95,13 +95,14 @@ jobs:
       - name: Push commit
         if: steps.check_update.outputs.hasUpdate == 'true'
         run: |
+          cd ${{ env.directory_repo }}
           ls -l
 #          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
 #          git config --global user.name "${{ github.actor }}"
 #          git commit -am "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
 #          git push
-#          cd ../
-#          rm --rf ${{ env.directory_repo }}
+          cd ../
+          rm --rf ${{ env.directory_repo }}
 
       - name: View version
         run: echo ${{ needs.download-new-version.outputs.api_version }}
