@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: 0 0 * * *
 jobs:
-  build:
+  download-new-version:
     runs-on: ubuntu-22.04
     outputs:
       api_version: ${{ steps.download.outputs.api_version }}
@@ -50,10 +50,10 @@ jobs:
 
   update-repo:
     runs-on: ubuntu-22.04
-    needs: build
+    needs: download-new-version
     steps:
       - name: View version
-        run: echo ${{ needs.build.outputs.api_version }}
+        run: echo ${{ needs.download-new-version.outputs.api_version }}
       - name: Ls
         run: ls
 
