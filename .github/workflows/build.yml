@@ -149,12 +149,34 @@ jobs:
             echo "hasUpdate=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Push commit
+      - name: Set up Git credentials
+        if: steps.check_update.outputs.hasUpdate == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Make changes to files
         if: steps.check_update.outputs.hasUpdate == 'true'
         run: |
           cd ${{ env.directory_repo }}
           git add .
-          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
-          git config --global user.name "${{ github.actor }}"
           git commit -m "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
-          git push
+
+      - name: Push changes
+        if: steps.check_update.outputs.hasUpdate == 'true'
+        run: |
+          git push origin main
+
+      - name: Create Release
+        if: steps.check_update.outputs.hasUpdate == 'true'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}
+        with:
+          tag_name: v${{ needs.download-new-version.outputs.api_version }}
+          release_name: "Beta v${{ needs.download-new-version.outputs.api_version }}"
+          draft: false
+          prerelease: false
