@@ -88,10 +88,6 @@ class PHPGenerator implements GeneratorInterface
             ->setComment(wordwrap($class->description, self::WRAP_LENGTH))
             ->setFinal();
 
-        if (!empty($version)) {
-            $document->addComment(PHP_EOL.'@version Telegram Bot API '.$version);
-        }
-
         /* adds the class to the namespace */
         $namespace = $this->getNamespace($type->toString());
         $namespace->add($document);
