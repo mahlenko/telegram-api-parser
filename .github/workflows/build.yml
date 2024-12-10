@@ -172,5 +172,5 @@ jobs:
       - name: Create Release
         if: steps.check_update.outputs.hasUpdate == 'true'
         run: |
-          git tag -a v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
-          push origin v1.0.0
+          git tag v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
+          push origin v${{ needs.download-new-version.outputs.api_version }}
