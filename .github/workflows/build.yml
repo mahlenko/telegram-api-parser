@@ -7,7 +7,10 @@ on:
   schedule:
     - cron: 0 0 * * *
 env:
-  directory_repo: clone-repository
+  laravel-repo: 'appto-dev/telegram-bot-cast-laravel'
+  laravel-directory: 'telegram-bot-cast-laravel'
+  repo: ''
+  repo-directory: ''
 jobs:
   download-new-version:
     runs-on: ubuntu-22.04
@@ -25,7 +28,7 @@ jobs:
       - name: Install deps
         run: |
           git pull
-          rm -rf ${{ env.directory_repo }}
+          rm -rf ${{ env.laravel-repo }}
           composer install --no-dev
 
       - name: Download version Telegram API
@@ -103,71 +106,8 @@ jobs:
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
           git commit -m "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
-          git push
-
-  update-repo-laravel:
-    runs-on: ubuntu-22.04
-    needs: download-new-version
-    steps:
-      - name: Setup PHP with PECL extension
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install deps
-        run: |
-          git pull
-          composer install --no-dev
-
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
-          repository: 'appto-dev/telegram-bot-cast-laravel'
-          path: ${{ env.directory_repo }}
-
-      - name: Generate files
-        run: |
-          rm -rf build
-          php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
-
-      - name: Copy files to repository
-        run: |
-          rm -rf ${{ env.directory_repo }}/src
-          mv build/Appto/TelegramBot ${{ env.directory_repo }}/src
-
-      - name: Check update
-        id: check_update
-        run: |
-          cd ${{ env.directory_repo }}
-          if git ls-files --other --exclude-standard --directory | grep -i "**"; then
-            echo "hasUpdate=true" >> $GITHUB_OUTPUT
-          else
-            echo "hasUpdate=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Set up Git credentials
-        if: steps.check_update.outputs.hasUpdate == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
-
-      - name: Make changes to files
-        if: steps.check_update.outputs.hasUpdate == 'true'
-        run: |
-          cd ${{ env.directory_repo }}
-          git add .
-          git commit -m "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
-
-      - name: Push changes
-        if: steps.check_update.outputs.hasUpdate == 'true'
-        run: |
-          git push origin main
+          git tag v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
+          git push origin main --tags
 
       - name: Create Release
         if: steps.check_update.outputs.hasUpdate == 'true'
