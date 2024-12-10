@@ -7,10 +7,10 @@ on:
   schedule:
     - cron: 0 0 * * *
 env:
+  repo: 'appto-dev/telegram-bot-cast'
+  repo-directory: 'telegram-bot-cast'
   laravel-repo: 'appto-dev/telegram-bot-cast-laravel'
   laravel-directory: 'telegram-bot-cast-laravel'
-  repo: ''
-  repo-directory: ''
 jobs:
   download-new-version:
     runs-on: ubuntu-22.04
@@ -28,7 +28,8 @@ jobs:
       - name: Install deps
         run: |
           git pull
-          rm -rf ${{ env.laravel-repo }}
+          rm -rf ${{ env.repo-directory }}
+          rm -rf ${{ env.laravel-directory }}
           composer install --no-dev
 
       - name: Download version Telegram API
@@ -75,8 +76,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
-          repository: 'appto-dev/telegram-bot-cast'
-          path: ${{ env.directory_repo }}
+          repository: ${{env.repo}}
+          path: ${{ env.repo-directory }}
 
       - name: Generate files
         run: |
@@ -85,13 +86,13 @@ jobs:
 
       - name: Copy files to repository
         run: |
-          rm -rf ${{ env.directory_repo }}/src
-          mv build/Appto/TelegramBot ${{ env.directory_repo }}/src
+          rm -rf ${{ env.repo-directory }}/src
+          mv build/Appto/TelegramBot ${{ env.repo-directory }}/src
 
       - name: Check update
         id: check_update
         run: |
-          cd ${{ env.directory_repo }}
+          cd ${{ env.repo-directory }}
           if git ls-files --other --exclude-standard --directory | grep -i "**"; then
             echo "hasUpdate=true" >> $GITHUB_OUTPUT
           else
@@ -101,7 +102,7 @@ jobs:
       - name: Push commit
         if: steps.check_update.outputs.hasUpdate == 'true'
         run: |
-          cd ${{ env.directory_repo }}
+          cd ${{ env.repo-directory }}
           git add .
           git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
           git config --global user.name "${{ github.actor }}"
