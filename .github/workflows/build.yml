@@ -173,4 +173,4 @@ jobs:
         if: steps.check_update.outputs.hasUpdate == 'true'
         run: |
           git tag v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
-          push origin v${{ needs.download-new-version.outputs.api_version }}
+          git push origin v${{ needs.download-new-version.outputs.api_version }}
