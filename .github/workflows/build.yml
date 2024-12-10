@@ -142,7 +142,7 @@ jobs:
       - name: Generate files
         run: |
           rm -rf build
-          php console telegram:generate
+          php console telegram:generate --extends=\\Spatie\\LaravelData\\Data
 
       - name: Copy files to repository
         run: |
