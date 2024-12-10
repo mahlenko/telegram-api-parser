@@ -115,3 +115,63 @@ jobs:
         run: |
           git tag v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
           git push origin v${{ needs.download-new-version.outputs.api_version }}
+  update-laravel-version-repo:
+    runs-on: ubuntu-22.04
+    needs: download-new-version
+    steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: |
+          git pull
+          composer install --no-dev
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: '${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}'
+          repository: ${{env.laravel-repo}}
+          path: ${{ env.laravel-directory }}
+
+      - name: Generate files
+        run: |
+          rm -rf build
+          php console telegram:generate
+
+      - name: Copy files to repository
+        run: |
+          rm -rf ${{ env.laravel-directory }}/src
+          mv build/Appto/TelegramBot ${{ env.laravel-directory }}/src
+
+      - name: Check update
+        id: check_update
+        run: |
+          cd ${{ env.laravel-directory }}
+          if git ls-files --other --exclude-standard --directory | grep -i "**"; then
+            echo "hasUpdate=true" >> $GITHUB_OUTPUT
+          else
+            echo "hasUpdate=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push commit
+        if: steps.check_update.outputs.hasUpdate == 'true'
+        run: |
+          cd ${{ env.laravel-directory }}
+          git add .
+          git config --global user.email "${{ secrets.REPOSITORY_EMAIL }}"
+          git config --global user.name "${{ github.actor }}"
+          git commit -m "[BOT] Version ${{ needs.download-new-version.outputs.api_version }} of the Telegram Bot API has been added"
+          git tag v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
+          git push origin main --tags
+
+      - name: Create Release
+        if: steps.check_update.outputs.hasUpdate == 'true'
+        run: |
+          git tag v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
+          git push origin v${{ needs.download-new-version.outputs.api_version }}
