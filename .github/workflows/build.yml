@@ -171,12 +171,6 @@ jobs:
 
       - name: Create Release
         if: steps.check_update.outputs.hasUpdate == 'true'
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTION_TELEGRAM_REPOSITORIES }}
-        with:
-          tag_name: v${{ needs.download-new-version.outputs.api_version }}
-          release_name: "Beta v${{ needs.download-new-version.outputs.api_version }}"
-          draft: false
-          prerelease: false
+        run: |
+          git tag -a v${{ needs.download-new-version.outputs.api_version }} -m "Beta v${{ needs.download-new-version.outputs.api_version }}"
+          push origin v1.0.0
